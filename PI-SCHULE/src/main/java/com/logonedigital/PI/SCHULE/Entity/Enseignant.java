@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_enseignants")
 @Entity
 public  class Enseignant implements Serializable {
