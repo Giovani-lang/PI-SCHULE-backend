@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Entity
 public class Releve implements Serializable {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
     @Id
     private String module;
     @Column(unique = true)

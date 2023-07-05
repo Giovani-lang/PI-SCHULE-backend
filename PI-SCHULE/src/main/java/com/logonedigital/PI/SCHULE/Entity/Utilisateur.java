@@ -3,7 +3,6 @@ package com.logonedigital.PI.SCHULE.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,12 +16,14 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_utilisateurs")
 @Entity
 public class Utilisateur implements Serializable {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
     @Id
+    private Long id;
     @Email(message = "invalid email")
     @Column(unique = true)
     protected String email;
@@ -38,6 +39,4 @@ public class Utilisateur implements Serializable {
     @NotNull(message = "required field")
     @Column(unique = true)
     protected String motDePasse;
-    @OneToOne(targetEntity = Role.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Role role;
 }
