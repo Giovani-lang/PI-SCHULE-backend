@@ -17,13 +17,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "tb_utilisateurs")
+@Table(name = "tb_enseignants")
 @Entity
 public  class Enseignant implements Serializable {
     @Serial
     private static final Long serialVersionUID = 1L;
     @Id
-    private Long id;
     @Email(message = "invalid email")
     @Column(unique = true)
     protected String email;
