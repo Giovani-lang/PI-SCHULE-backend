@@ -1,8 +1,7 @@
 package com.logonedigital.PI.SCHULE.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,21 +23,22 @@ public  class Enseignant implements Serializable {
     @Id
     @Email(message = "invalid email")
     @Column(unique = true)
-    protected String email;
-    @NotNull(message = "required field")
+    private String email;
+    @NotBlank(message = "required field")
     @Column(unique = true)
-    protected String nom;
-    @NotNull(message = "required field")
+    private String nom;
+    @NotBlank(message = "required field")
     @Column(unique = true)
-    protected String prenom;
+    private String prenom;
     @NotNull(message = "required field")
     @Column(unique = true, name = "numero_de_telephone")
-    protected Integer numeroTel;
-    @NotNull(message = "required field")
+    private Integer numeroTel;
+    @NotBlank(message = "required field")
     @Column(unique = true)
-    protected String motDePasse;
-    @NotNull
-    private Role role;
-    @NotNull
+    @Pattern(regexp = "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-])(?=\\S+$).{8,}",
+             message = "your password must contain at least 8 characters including a caps,a lowercase ,a number and {#,?,!,@,$,%,^,&,*,-}" +
+                       " and must not contain spaces")
+    private String motDePasse;
+    @NotBlank(message = "required field")
     private String discipline;
 }

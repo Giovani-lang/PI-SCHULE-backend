@@ -7,7 +7,7 @@ import java.util.List;
 public interface IEnseignantService {
     Enseignant addEnseignant(Enseignant enseignant);
     Enseignant getEnseignant(String email);
-    List<Enseignant> getAllEnseignant();
-    Enseignant updateEnseignant(Enseignant enseignant, String email);
-    void deleteEnseignant(String email);
+    List<Enseignant> getEnseigants();
+    Enseignant updateEnseignant(String email,Enseignant enseignant);
+    void deleteEnseignant (String email);
 }

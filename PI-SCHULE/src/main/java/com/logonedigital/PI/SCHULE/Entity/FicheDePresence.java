@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Getter
@@ -21,6 +22,10 @@ public class FicheDePresence implements Serializable {
     private static final Long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Date date;
+    @Column(name = "nom_&_prenom")
+    private String nomComplet;
+    @Column(name = "nombre_d'heure_d'absence")
     private Integer nombreHeure;
 
 }
