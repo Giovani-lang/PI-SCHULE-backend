@@ -2,7 +2,6 @@ package com.logonedigital.PI.SCHULE.Controller;
 
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
-import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
