@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -41,4 +43,11 @@ public  class Enseignant implements Serializable {
     private String motDePasse;
     @NotBlank(message = "required field")
     private String discipline;
+
+    @OneToMany(targetEntity = FicheDePresence.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<FicheDePresence> ficheDePresenceList = new ArrayList<>();
+    @OneToMany(targetEntity = Note.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Note> noteList = new ArrayList<>();
+    @OneToMany(targetEntity = Releve.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Releve> releveList = new ArrayList<>();
 }

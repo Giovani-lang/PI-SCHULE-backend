@@ -17,7 +17,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
     }
 
     @Override
-    public Enseignant addEnseignant(Enseignant enseignant) {
+    public Enseignant addEnseignant(Enseignant enseignant){
         return this.enseignantRepo.save(enseignant);
     }
 

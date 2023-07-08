@@ -1,8 +1,11 @@
 package com.logonedigital.PI.SCHULE.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +23,25 @@ import java.io.Serializable;
 public class Note  implements Serializable {
     @Serial
     private static final Long serialVersionUID = 1L;
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String codeMatiere;
+    @Column(unique = true)
+    @NotBlank(message = "required field")
     private String nomMatiere;
-    private double noteControle;
-    private double noteSession;
+    @Min(value = 2,message = "you can't enter a value above 2")
+    @NotNull(message = "required field")
+    private int coeffient;
+    @Min(value = 0,message = "you can't enter a value above 0")
+    @Max(value = 20,message = "you can't exceed 20")
+    private float noteControle;
+    @Min(value = 0,message = "you can't enter a value above 0")
+    @Max(value = 20,message = "you can't exceed 20")
+    private float noteSession;
+    @Min(value = 0,message = "you can't enter a value above 0")
+    @Max(value = 20,message = "you can't exceed 20")
+    private float moyenne;
+
+    @ManyToOne(targetEntity = Releve.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Releve releve;
+
 }
