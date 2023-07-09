@@ -1,6 +1,5 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
-import com.logonedigital.PI.SCHULE.Entity.Enseignant;
 import com.logonedigital.PI.SCHULE.Entity.FicheDePresence;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.IFicheDePresenceService;
