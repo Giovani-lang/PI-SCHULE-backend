@@ -1,0 +1,42 @@
+package com.logonedigital.PI.SCHULE.Controller;
+
+import com.logonedigital.PI.SCHULE.Entity.Administration;
+import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
+import com.logonedigital.PI.SCHULE.Service.Interface.AdminService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/administrations")
+public class AdminController {
+    private final AdminService adminService;
+    public AdminController(AdminService adminService){
+        this.adminService= adminService;
+    }
+@PostMapping
+public ResponseEntity<Administration> addAdministration(@RequestBody@Valid Administration administration) throws RessourceNotFoundException {
+        return new ResponseEntity<>( this.adminService.addAdministration(administration), HttpStatus.CREATED);
+}
+    @GetMapping
+    public ResponseEntity<List<Administration>> getAdministrations(){
+        return new ResponseEntity<>(this.adminService.getAdministrations(), HttpStatus.OK);
+    }
+    @GetMapping("{id}")
+    public ResponseEntity<Administration> getAdministration(@PathVariable(name = "id") Integer id) throws RessourceNotFoundException {
+     return new ResponseEntity<>(this.adminService.getAdministration(id), HttpStatus.OK);
+    }
+@DeleteMapping("{id}")
+    public ResponseEntity <String> deleteAdministration(@PathVariable(name = "id")Integer id)throws RessourceNotFoundException{
+        this.adminService.deleteAdministration(id);
+        return new ResponseEntity<>("Administration deleted successfully", HttpStatus.ACCEPTED);
+}
+@PutMapping("{id}")
+    public ResponseEntity<Administration> updateAdministration(@PathVariable(name = "id") Integer id, @RequestBody Administration administration) throws RessourceNotFoundException{
+        return new ResponseEntity<>(this.adminService.updateAdministration(administration, id), HttpStatus.ACCEPTED);
+}
+
+}
