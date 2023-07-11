@@ -7,8 +7,8 @@ import java.util.List;
 public interface AdminService {
     Administration addAdministration(Administration administration);
     List<Administration> getAdministrations();
-    Administration getAdministration(Integer id);
-Administration updateAdministration(Administration administration, Integer id);
-void deleteAdministration(Integer id);
+    Administration getAdministration(String email);
+Administration updateAdministration(Administration administration, String email);
+void deleteAdministration(String email);
 
 }

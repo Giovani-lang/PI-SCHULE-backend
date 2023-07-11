@@ -1,6 +1,7 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Administration;
+import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.AdminRepo;
 import com.logonedigital.PI.SCHULE.Service.Interface.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,14 +28,20 @@ public AdminServiceImpl(AdminRepo adminRepo){
     }
 
     @Override
-    public Administration getAdministration(Integer id) {
-        return this.adminRepo.findById(id).get();
+    public Administration getAdministration(String email) throws RessourceNotFoundException{
+
+    try { return this.adminRepo.findById(email).get();
+
+    }catch (Exception exception){
+        throw new RessourceNotFoundException("utlisateur n'existe pas");
+    }
+
     }
 
     @Override
-    public Administration updateAdministration(Administration newadministration, Integer id) {
+    public Administration updateAdministration(Administration newadministration, String email) {
 
-        Administration oldAdministration = this.adminRepo.findById(id).get();
+        Administration oldAdministration = this.adminRepo.findById(email).get();
 
 
         oldAdministration.setNom(newadministration.getNom());
@@ -47,7 +54,8 @@ public AdminServiceImpl(AdminRepo adminRepo){
     }
 
     @Override
-    public void deleteAdministration(Integer id) {
+    public void deleteAdministration(String email) {
+    this.adminRepo.deleteById(email);
 
     }
 }

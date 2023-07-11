@@ -1,5 +1,6 @@
 package com.logonedigital.PI.SCHULE.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -23,24 +24,25 @@ public class Administration implements Serializable {
     @Serial
     private static final Long serialVersionUID =1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idAdmin;
+    @Id
+    @Column(unique = true)
+    @Email
+    @NotBlank(message = "inscrivez votre email correctement")
+    private String email;
     @Column(unique = true)
     @NotBlank(message = "inscrivez votre nom correctement")
     private String nom;
     @Column(unique = true)
     @NotBlank(message = "inscrivez votre prenom correctement" )
     private String prenom;
-    @Column(unique = true)
-    @Email
-    @NotBlank(message = "inscrivez votre email correctement")
-    private String email;
+
     @Column(unique = true)
     @NotBlank(message = "inscrivez votre Password correctement")
     private String password;
     @NotBlank(message = "inscrivez votre numéro de téléphone correctement")
     @Column(unique = true)
     private String téléphone;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<EmploiDuTemps> emploisDuTemps;
 

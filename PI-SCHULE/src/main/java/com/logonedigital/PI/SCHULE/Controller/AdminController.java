@@ -25,18 +25,18 @@ public ResponseEntity<Administration> addAdministration(@RequestBody@Valid Admin
     public ResponseEntity<List<Administration>> getAdministrations(){
         return new ResponseEntity<>(this.adminService.getAdministrations(), HttpStatus.OK);
     }
-    @GetMapping("{id}")
-    public ResponseEntity<Administration> getAdministration(@PathVariable(name = "id") Integer id) throws RessourceNotFoundException {
-     return new ResponseEntity<>(this.adminService.getAdministration(id), HttpStatus.OK);
+    @GetMapping("{email}")
+    public ResponseEntity<Administration> getAdministration(@PathVariable(name = "email")String email) throws RessourceNotFoundException {
+     return new ResponseEntity<>(this.adminService.getAdministration(email), HttpStatus.OK);
     }
-@DeleteMapping("{id}")
-    public ResponseEntity <String> deleteAdministration(@PathVariable(name = "id")Integer id)throws RessourceNotFoundException{
-        this.adminService.deleteAdministration(id);
+@DeleteMapping("{email}")
+    public ResponseEntity <String> deleteAdministration(@PathVariable(name = "email")String email)throws RessourceNotFoundException{
+        this.adminService.deleteAdministration(email);
         return new ResponseEntity<>("Administration deleted successfully", HttpStatus.ACCEPTED);
 }
-@PutMapping("{id}")
-    public ResponseEntity<Administration> updateAdministration(@PathVariable(name = "id") Integer id, @RequestBody Administration administration) throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.adminService.updateAdministration(administration, id), HttpStatus.ACCEPTED);
+@PutMapping("{email}")
+    public ResponseEntity<Administration> updateAdministration(@PathVariable(name = "email") String email, @RequestBody Administration administration) throws RessourceNotFoundException{
+        return new ResponseEntity<>(this.adminService.updateAdministration(administration, email), HttpStatus.ACCEPTED);
 }
 
 }
