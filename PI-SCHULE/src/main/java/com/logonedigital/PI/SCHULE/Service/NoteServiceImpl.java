@@ -46,7 +46,7 @@ public class NoteServiceImpl implements INoteService {
            newNote.setNomMatiere(note.getNomMatiere());
            newNote.setNoteControle(note.getNoteControle());
            newNote.setNoteSession(note.getNoteSession());
-           newNote.setCoeffient(note.getCoeffient());
+           newNote.setCoefficient(note.getCoefficient());
            newNote.setMoyenne(note.getMoyenne());
            return this.noteRepo.save(newNote);
        }catch (Exception ex){

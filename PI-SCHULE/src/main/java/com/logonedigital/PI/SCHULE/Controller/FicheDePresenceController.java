@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/api/v1/ficheDePresence")
@@ -21,6 +22,12 @@ public class FicheDePresenceController {
 
     @PostMapping
     public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence){
+        FicheDePresence addAbsence = FicheDePresence.build(
+                absence.getMatricule(),
+                new Date(),
+                absence.getNomComplet(),
+                absence.getNombreHeure()
+        );
         return new ResponseEntity<>(this.ficheDePresenceService.addAbsence(absence), HttpStatus.CREATED);
     }
 

@@ -3,6 +3,7 @@ package com.logonedigital.PI.SCHULE.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,8 +29,7 @@ public class Releve implements Serializable {
     @Id
     @Column(unique = true)
     private String module;
-
-    @OneToMany(targetEntity = Note.class, mappedBy = "releve",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Note.class, mappedBy = "releve",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Note> noteList = new ArrayList<>();
 
     private String statut;

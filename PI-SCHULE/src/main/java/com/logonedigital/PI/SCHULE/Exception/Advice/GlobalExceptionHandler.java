@@ -1,5 +1,6 @@
 package com.logonedigital.PI.SCHULE.Exception.Advice;
 
+import com.logonedigital.PI.SCHULE.Exception.RessourceFoundException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.dto.ErrorMessage;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,17 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
         return new ResponseEntity<>(errorMessage,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RessourceFoundException.class)
+    public ResponseEntity<ErrorMessage> handleRessourceFoundException(RessourceFoundException ex){
+        ErrorMessage errorMessage = ErrorMessage.build(
+                new Date(),
+                HttpStatus.FOUND.value(),
+                HttpStatus.FOUND.getReasonPhrase(),
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(errorMessage,HttpStatus.FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

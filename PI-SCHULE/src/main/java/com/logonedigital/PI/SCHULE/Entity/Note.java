@@ -30,7 +30,7 @@ public class Note  implements Serializable {
     private String nomMatiere;
     @Min(value = 2,message = "you can't enter a value above 2")
     @NotNull(message = "required field")
-    private int coeffient;
+    private int coefficient;
     @Min(value = 0,message = "you can't enter a value above 0")
     @Max(value = 20,message = "you can't exceed 20")
     private float noteControle;
@@ -39,6 +39,7 @@ public class Note  implements Serializable {
     private float noteSession;
     @Min(value = 0,message = "you can't enter a value above 0")
     @Max(value = 20,message = "you can't exceed 20")
+
     private float moyenne;
 
     @ManyToOne(targetEntity = Releve.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)

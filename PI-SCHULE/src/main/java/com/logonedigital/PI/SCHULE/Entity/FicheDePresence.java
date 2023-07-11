@@ -18,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "build")
 @Table(name = "tb_fiches_de_presence")
 @Entity
 public class FicheDePresence implements Serializable {
@@ -26,8 +26,6 @@ public class FicheDePresence implements Serializable {
     private static final Long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String matricule;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    @NotNull(message = "required field format (dd-MM-yyyy)")
     private Date date;
     @Column(name = "nom_&_prenom")
     @NotBlank(message = "required field")

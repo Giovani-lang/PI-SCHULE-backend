@@ -1,6 +1,7 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
+import com.logonedigital.PI.SCHULE.Exception.RessourceFoundException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
@@ -17,8 +18,12 @@ public class EnseignantServiceImpl implements IEnseignantService {
     }
 
     @Override
-    public Enseignant addEnseignant(Enseignant enseignant){
-        return this.enseignantRepo.save(enseignant);
+    public Enseignant addEnseignant(Enseignant enseignant) throws RessourceFoundException {
+        try {
+            return this.enseignantRepo.save(enseignant);
+        }catch (Exception ex){
+            throw new RessourceFoundException("this enseignant already exists in our data base");
+        }
     }
 
     @Override
