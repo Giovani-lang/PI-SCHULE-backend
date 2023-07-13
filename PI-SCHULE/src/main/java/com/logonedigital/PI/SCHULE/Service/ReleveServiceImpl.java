@@ -4,11 +4,13 @@ import com.logonedigital.PI.SCHULE.Entity.Releve;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.ReleveRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IReleveService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ReleveServiceImpl implements IReleveService {
 
     private final ReleveRepository releveRepo;
@@ -18,7 +20,7 @@ public class ReleveServiceImpl implements IReleveService {
     }
 
     @Override
-    public Releve addModule(Releve releve) {
+    public Releve addModule(Releve releve){
         return this.releveRepo.save(releve);
     }
 

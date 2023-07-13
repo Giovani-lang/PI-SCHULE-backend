@@ -4,6 +4,7 @@ import com.logonedigital.PI.SCHULE.Entity.Note;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.NoteRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.INoteService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class NoteServiceImpl implements INoteService {
 
     private final NoteRepository noteRepo;
@@ -20,7 +22,15 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
-    public Note addNote(Note note)  {
+    public Note addNote(Note note){
+        Note trustNote = Note.build(
+                note.getCodeMatiere(),
+                note.getNomMatiere(),
+                note.getCoefficient(),
+                note.getNoteControle(),
+                note.getNoteSession(),
+                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient())
+        );
         return this.noteRepo.save(note);
     }
 
@@ -47,7 +57,7 @@ public class NoteServiceImpl implements INoteService {
            newNote.setNoteControle(note.getNoteControle());
            newNote.setNoteSession(note.getNoteSession());
            newNote.setCoefficient(note.getCoefficient());
-           newNote.setMoyenne(note.getMoyenne());
+
            return this.noteRepo.save(newNote);
        }catch (Exception ex){
            throw new RessourceNotFoundException("this  codeMatiere :"+codeMatiere+

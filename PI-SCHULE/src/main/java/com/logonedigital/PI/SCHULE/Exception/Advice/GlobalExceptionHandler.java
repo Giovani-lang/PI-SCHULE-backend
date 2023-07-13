@@ -16,7 +16,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(RessourceNotFoundException.class)
+   @ExceptionHandler(RessourceNotFoundException.class)
     public ResponseEntity<ErrorMessage> handleRessourceNotFoundException(RessourceNotFoundException ex){
         ErrorMessage errorMessage = ErrorMessage.build(
                 new Date(),
@@ -37,6 +37,7 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(errorMessage,HttpStatus.FOUND);
     }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String,String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){

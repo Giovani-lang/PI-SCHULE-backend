@@ -2,6 +2,7 @@ package com.logonedigital.PI.SCHULE.Service.Interface;
 
 import com.logonedigital.PI.SCHULE.Entity.Note;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 public interface INoteService {

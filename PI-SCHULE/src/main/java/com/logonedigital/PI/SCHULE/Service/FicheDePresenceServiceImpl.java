@@ -4,11 +4,14 @@ import com.logonedigital.PI.SCHULE.Entity.FicheDePresence;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.FicheDePresenceRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IFicheDePresenceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     private final FicheDePresenceRepository ficheDePresenceRepo;
 
@@ -18,7 +21,13 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
 
     @Override
     public FicheDePresence addAbsence(FicheDePresence absence) {
-        return this.ficheDePresenceRepo.save(absence);
+        FicheDePresence ficheDePresence = FicheDePresence.build(
+                absence.getMatricule(),
+                new Date(),
+                absence.getNomComplet(),
+                absence.getNombreHeure()
+        );
+        return this.ficheDePresenceRepo.save(ficheDePresence);
     }
 
     @Override

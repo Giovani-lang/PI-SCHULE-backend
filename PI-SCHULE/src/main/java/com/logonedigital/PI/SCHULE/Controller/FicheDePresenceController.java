@@ -22,12 +22,6 @@ public class FicheDePresenceController {
 
     @PostMapping
     public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence){
-        FicheDePresence addAbsence = FicheDePresence.build(
-                absence.getMatricule(),
-                new Date(),
-                absence.getNomComplet(),
-                absence.getNombreHeure()
-        );
         return new ResponseEntity<>(this.ficheDePresenceService.addAbsence(absence), HttpStatus.CREATED);
     }
 

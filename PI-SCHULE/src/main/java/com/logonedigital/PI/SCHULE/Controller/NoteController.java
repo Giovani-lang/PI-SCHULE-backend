@@ -12,16 +12,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/notes")
-public class NoteContoller {
+public class NoteController {
 
     private final INoteService noteService;
 
-    public NoteContoller(INoteService noteService) {
+    public NoteController(INoteService noteService) {
         this.noteService = noteService;
     }
 
     @PostMapping
-    public ResponseEntity<Note> addNote(@RequestBody @Valid Note note) {
+    public ResponseEntity<Note> addNote(@RequestBody @Valid Note note){
         return new ResponseEntity<>(this.noteService.addNote(note), HttpStatus.CREATED);
     }
 

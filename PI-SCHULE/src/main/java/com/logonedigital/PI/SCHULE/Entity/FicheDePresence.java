@@ -24,15 +24,18 @@ import java.util.Date;
 public class FicheDePresence implements Serializable {
     @Serial
     private static final Long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String matricule;
     private Date date;
     @Column(name = "nom_&_prenom")
     @NotBlank(message = "required field")
     private String nomComplet;
-    @NotNull (message = "required field")
-    @Min(value = 1,message = "must be greater than or equal to 1")
+    @NotNull(message = "required field")
+    @Min(value = 1, message = "must be greater than or equal to 1")
     @Column(name = "nombre_d'heure_d'absence")
     private Integer nombreHeure;
+
+
 
 }
