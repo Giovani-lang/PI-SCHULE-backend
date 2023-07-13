@@ -22,7 +22,7 @@ public ResponseEntity<Administration> addAdministration(@RequestBody@Valid Admin
         return new ResponseEntity<>( this.adminService.addAdministration(administration), HttpStatus.CREATED);
 }
     @GetMapping
-    public ResponseEntity<List<Administration>> getAdministrations(){
+    public ResponseEntity<List<Administration>> getAdministrations() throws RessourceNotFoundException{
         return new ResponseEntity<>(this.adminService.getAdministrations(), HttpStatus.OK);
     }
     @GetMapping("{email}")
@@ -35,7 +35,8 @@ public ResponseEntity<Administration> addAdministration(@RequestBody@Valid Admin
         return new ResponseEntity<>("Administration deleted successfully", HttpStatus.ACCEPTED);
 }
 @PutMapping("{email}")
-    public ResponseEntity<Administration> updateAdministration(@PathVariable(name = "email") String email, @RequestBody Administration administration) throws RessourceNotFoundException{
+    public ResponseEntity<Administration> updateAdministration(@PathVariable(name = "email") String email,
+                                                               @RequestBody Administration administration) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.adminService.updateAdministration(administration, email), HttpStatus.ACCEPTED);
 }
 

@@ -45,5 +45,8 @@ public class Administration implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<EmploiDuTemps> emploisDuTemps;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<PensionScolaire> pensionScolaires;
 
 }

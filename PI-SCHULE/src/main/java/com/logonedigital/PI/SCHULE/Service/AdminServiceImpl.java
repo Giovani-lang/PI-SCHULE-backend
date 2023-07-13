@@ -54,8 +54,13 @@ public AdminServiceImpl(AdminRepo adminRepo){
     }
 
     @Override
-    public void deleteAdministration(String email) {
-    this.adminRepo.deleteById(email);
+    public void deleteAdministration(String email){
+
+        this.adminRepo.deleteById(email);
+    }
+
+
+
 
     }
-}
+

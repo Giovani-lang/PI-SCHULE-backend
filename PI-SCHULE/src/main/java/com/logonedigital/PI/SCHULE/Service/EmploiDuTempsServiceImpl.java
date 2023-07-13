@@ -52,6 +52,7 @@ log.error("OLd EmploiDuTemps{}",oldEmploiDuTemps);
 
     @Override
     public void deleteEmploiDuTemps(Integer idClass) {
+        this.emploiDuTempsRepository.deleteById(idClass);
 
     }
 }
