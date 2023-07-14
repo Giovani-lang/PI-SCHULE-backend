@@ -10,5 +10,5 @@ public interface IEnseignantService {
     Enseignant getEnseignant(String email);
     List<Enseignant> getEnseignants();
     Enseignant updateEnseignant(String email,Enseignant enseignant);
-    void deleteAbsence(String email);
+    void deleteEnseignant(String email);
 }

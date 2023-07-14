@@ -31,7 +31,7 @@ public class EnseignantController {
 
     @GetMapping
     public ResponseEntity<List<Enseignant>> getEnseigants(){
-        return new ResponseEntity<>(this.enseignantService.getEnseigants(),HttpStatus.OK);
+        return new ResponseEntity<>(this.enseignantService.getEnseignants(),HttpStatus.OK);
     }
 
     @PutMapping("{email}")
