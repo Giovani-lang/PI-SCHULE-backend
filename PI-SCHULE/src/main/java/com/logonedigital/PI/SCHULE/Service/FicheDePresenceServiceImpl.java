@@ -21,43 +21,44 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     }
 
     @Override
-    public FicheDePresence addAbsence(FicheDePresence absence) throws RessourceExistException {
-        Optional<FicheDePresence> fich = this.ficheDePresenceRepo.findByMatricule(absence.getMatricule());
-        Optional<FicheDePresence> fich1 = this.ficheDePresenceRepo.findByNomComplet(absence.getNomComplet());
-        if (fich.isPresent()){
+    public FicheDePresence addFicheDePresence(FicheDePresence ficheDePresence) throws RessourceExistException {
+        Optional<FicheDePresence> fich = this.ficheDePresenceRepo.findByMatricule(ficheDePresence.getMatricule());
+        Optional<FicheDePresence> fich1 = this.ficheDePresenceRepo.findByNomComplet(ficheDePresence.getNomComplet());
+        if (fich.isPresent()) {
             throw new RessourceExistException("A student with this matricule already exists");
         } else if (fich1.isPresent()) {
             throw new RessourceExistException("A student with this name already exists");
         }
-        return this.ficheDePresenceRepo.save(absence);
+        return this.ficheDePresenceRepo.save(ficheDePresence);
     }
 
+
+
     @Override
-    public FicheDePresence getAbsence(String matricule) throws RessourceNotFoundException {
+    public FicheDePresence getFicheDePresence(String matricule) throws RessourceNotFoundException {
         try {
             return this.ficheDePresenceRepo.findById(matricule).get();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new RessourceNotFoundException("this matricule doesn't exist in our data base");
+
         }
     }
-
     @Override
-    public List<FicheDePresence> getAbsences() {
+    public List<FicheDePresence> getFichesDePresence() {
         return this.ficheDePresenceRepo.findAll();
     }
 
     @Override
-    public FicheDePresence updateAbscence(String matricule, FicheDePresence absence) throws RessourceNotFoundException{
+    public FicheDePresence updateFicheDePresence(String matricule, FicheDePresence ficheDePresence) {
         try {
             FicheDePresence newAbsence = this.ficheDePresenceRepo.findById(matricule).get();
-            newAbsence.setDate(absence.getDate());
-            newAbsence.setNombreHeure(absence.getNombreHeure());
+            newAbsence.setDate(ficheDePresence.getDate());
+            newAbsence.setNombreHeure(ficheDePresence.getNombreHeure());
             return this.ficheDePresenceRepo.save(newAbsence);
         }catch (Exception ex){
             throw new RessourceNotFoundException("this matricule doesn't exist in our data base");
         }
     }
-
     @Override
     public void deleteAbsence(String matricule) throws RessourceNotFoundException{
         try {
@@ -66,4 +67,5 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
             throw new RessourceNotFoundException("this matricule doesn't exist in our data base");
         }
     }
+
 }
