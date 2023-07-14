@@ -42,7 +42,7 @@ public class Administration implements Serializable {
     @NotBlank(message = "inscrivez votre numéro de téléphone correctement")
     @Column(unique = true)
     private String téléphone;
-    @JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<EmploiDuTemps> emploisDuTemps;
     @JsonIgnore

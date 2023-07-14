@@ -1,6 +1,7 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Administration;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.AdminRepo;
 import com.logonedigital.PI.SCHULE.Service.Interface.AdminService;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -18,7 +20,17 @@ public AdminServiceImpl(AdminRepo adminRepo){
 }
 
     @Override
-    public Administration addAdministration(Administration administration) {
+    public Administration addAdministration(Administration administration) throws RessourceExistException {
+        Optional < Administration> administration1= adminRepo.findByEmail(administration.getEmail());
+        Optional < Administration> administration2= adminRepo.findByPassword(administration.getPassword());
+        Optional < Administration> administration3= adminRepo.findByTéléphone(administration.getTéléphone());
+        if (administration1.isPresent()){
+            throw new RessourceExistException("email existe déjà");
+        }else if (administration2.isPresent()){
+            throw new RessourceExistException("Password existe déjà");
+        }else if (administration3.isPresent()){
+            throw new RessourceExistException("télépone existe déjà");
+        }
         return this.adminRepo.save(administration);
     }
 

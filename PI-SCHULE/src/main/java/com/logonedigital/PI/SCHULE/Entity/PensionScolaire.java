@@ -18,18 +18,15 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "nomElève")
+@Table(name = "pension_scolaire")
 public class PensionScolaire implements Serializable {
     @Serial
     private static final Long serialVersionUID =1L;
         @Id
         @Column (name = "nomElève")
         private String nomElève;
-        @Column(unique = true)
         private Date dateInscription;
-        @Column(unique = true)
         private Double montantPayé;
-        @Column(unique = true)
         private Double solde;
 
 }
