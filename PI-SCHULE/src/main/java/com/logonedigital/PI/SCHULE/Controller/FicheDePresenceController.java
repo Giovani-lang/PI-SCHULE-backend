@@ -21,28 +21,28 @@ public class FicheDePresenceController {
     }
 
     @PostMapping
-    public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence) throws RessourceExistException {
-        return new ResponseEntity<>(this.ficheDePresenceService.addAbsence(absence), HttpStatus.CREATED);
+    public ResponseEntity<FicheDePresence> addFicheDePresence(@RequestBody @Valid FicheDePresence absence) throws RessourceExistException {
+        return new ResponseEntity<>(this.ficheDePresenceService.addFicheDePresence(absence), HttpStatus.CREATED);
     }
 
     @GetMapping("{matricule}")
-    public ResponseEntity<FicheDePresence> getEnseignant(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
-        return new ResponseEntity<>(this.ficheDePresenceService.getAbsence(matricule),HttpStatus.OK);
+    public ResponseEntity<FicheDePresence> getFicheDePresence(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
+        return new ResponseEntity<>(this.ficheDePresenceService.getFicheDePresence(matricule),HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<FicheDePresence>> getEnseigants(){
-        return new ResponseEntity<>(this.ficheDePresenceService.getAbsences(),HttpStatus.OK);
+    public ResponseEntity<List<FicheDePresence>> getFichesDePresence(){
+        return new ResponseEntity<>(this.ficheDePresenceService.getFichesDePresence(),HttpStatus.OK);
     }
 
     @PutMapping("{matricule}")
-    public ResponseEntity<FicheDePresence> updateEnseignant(@PathVariable(name = "matricule") String matricule,
+    public ResponseEntity<FicheDePresence> updateFicheDePresence(@PathVariable(name = "matricule") String matricule,
                                                        @RequestBody FicheDePresence absence) throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.ficheDePresenceService.updateAbscence(matricule, absence),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(this.ficheDePresenceService.updateFicheDePresence(matricule, absence),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{matricule}")
-    public ResponseEntity<String> deleteEnseignant(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
+    public ResponseEntity<String> deleteFicheDePresence(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
         this.ficheDePresenceService.deleteAbsence(matricule);
         return new ResponseEntity<>("delete successfully",HttpStatus.ACCEPTED);
     }

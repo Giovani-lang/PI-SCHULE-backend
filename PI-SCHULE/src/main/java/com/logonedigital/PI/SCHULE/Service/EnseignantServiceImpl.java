@@ -67,7 +67,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
     }
 
     @Override
-    public void deleteAbsence(String email) throws RessourceNotFoundException {
+    public void deleteEnseignant(String email) throws RessourceNotFoundException {
             try {
                 this.enseignantRepo.deleteById(email);
             }catch (Exception ex){
