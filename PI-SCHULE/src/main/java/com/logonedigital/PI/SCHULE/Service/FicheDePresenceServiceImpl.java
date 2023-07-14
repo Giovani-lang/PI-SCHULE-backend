@@ -21,7 +21,7 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     }
 
     @Override
-    public FicheDePresence addAbsence(FicheDePresence absence) throws RessourceExistException {
+    public FicheDePresence addFicheDePresence(FicheDePresence absence) throws RessourceExistException {
         Optional<FicheDePresence> fich = this.ficheDePresenceRepo.findByMatricule(absence.getMatricule());
         Optional<FicheDePresence> fich1 = this.ficheDePresenceRepo.findByNomComplet(absence.getNomComplet());
         if (fich.isPresent()){
@@ -33,7 +33,7 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     }
 
     @Override
-    public FicheDePresence getAbsence(String matricule) throws RessourceNotFoundException {
+    public FicheDePresence getFicheDePresence(String matricule) throws RessourceNotFoundException {
         try {
             return this.ficheDePresenceRepo.findById(matricule).get();
         }catch (Exception ex){
@@ -42,12 +42,12 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     }
 
     @Override
-    public List<FicheDePresence> getAbsences() {
+    public List<FicheDePresence> getFichesDePresence() {
         return this.ficheDePresenceRepo.findAll();
     }
 
     @Override
-    public FicheDePresence updateAbscence(String matricule, FicheDePresence absence) throws RessourceNotFoundException{
+    public FicheDePresence updateFicheDePresence(String matricule, FicheDePresence absence) throws RessourceNotFoundException{
         try {
             FicheDePresence newAbsence = this.ficheDePresenceRepo.findById(matricule).get();
             newAbsence.setDate(absence.getDate());

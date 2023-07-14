@@ -21,24 +21,24 @@ public class FicheDePresenceController {
     }
 
     @PostMapping
-    public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence) throws RessourceExistException {
-        return new ResponseEntity<>(this.ficheDePresenceService.addAbsence(absence), HttpStatus.CREATED);
+    public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence ficheDePresence) throws RessourceExistException {
+        return new ResponseEntity<>(this.ficheDePresenceService.addFicheDePresence(ficheDePresence), HttpStatus.CREATED);
     }
 
     @GetMapping("{matricule}")
     public ResponseEntity<FicheDePresence> getEnseignant(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
-        return new ResponseEntity<>(this.ficheDePresenceService.getAbsence(matricule),HttpStatus.OK);
+        return new ResponseEntity<>(this.ficheDePresenceService.getFicheDePresence(matricule),HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<FicheDePresence>> getEnseigants(){
-        return new ResponseEntity<>(this.ficheDePresenceService.getAbsences(),HttpStatus.OK);
+        return new ResponseEntity<>(this.ficheDePresenceService.getFichesDePresence(),HttpStatus.OK);
     }
 
     @PutMapping("{matricule}")
     public ResponseEntity<FicheDePresence> updateEnseignant(@PathVariable(name = "matricule") String matricule,
-                                                       @RequestBody FicheDePresence absence) throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.ficheDePresenceService.updateAbscence(matricule, absence),HttpStatus.ACCEPTED);
+                                                       @RequestBody FicheDePresence ficheDePresence) throws RessourceNotFoundException{
+        return new ResponseEntity<>(this.ficheDePresenceService.updateFicheDePresence(matricule, ficheDePresence),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{matricule}")
