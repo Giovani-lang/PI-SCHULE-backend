@@ -21,8 +21,8 @@ public class EmploiDuTempsController {
         return new ResponseEntity<>(this.emploiDuTempsService.addEmploiDuTemps(emploiDuTemps), HttpStatus.CREATED) ;
     }
     @GetMapping
-    public ResponseEntity<List<EmploiDuTemps>> getEmploisDuTemps(){
-        return new ResponseEntity<>(this.emploiDuTempsService.getEmploisDuTemps(),HttpStatus.OK);
+    public List<EmploiDuTemps> getEmploisDuTemps(){
+        return this.emploiDuTempsService.getEmploisDuTemps();
     }
     @GetMapping("{id}")
     public ResponseEntity<EmploiDuTemps> getEmploiDuTemps(@PathVariable(name = "id") Integer id)

@@ -39,7 +39,9 @@ public AdminServiceImpl(AdminRepo adminRepo){
     }
 
     @Override
-    public Administration updateAdministration(Administration newadministration, String email) {
+    public Administration updateAdministration(Administration newadministration, String email) throws RessourceNotFoundException {
+    try {
+
 
         Administration oldAdministration = this.adminRepo.findById(email).get();
 
@@ -51,6 +53,9 @@ public AdminServiceImpl(AdminRepo adminRepo){
         Administration administrationUpdated = this.adminRepo.save(oldAdministration);
 
         return administrationUpdated;
+    }catch (Exception exception) {
+        throw new RessourceNotFoundException("la mise à jour n'a pas été faite");
+    }
     }
 
     @Override

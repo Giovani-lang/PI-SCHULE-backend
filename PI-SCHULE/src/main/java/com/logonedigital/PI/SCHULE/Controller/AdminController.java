@@ -22,8 +22,8 @@ public ResponseEntity<Administration> addAdministration(@RequestBody@Valid Admin
         return new ResponseEntity<>( this.adminService.addAdministration(administration), HttpStatus.CREATED);
 }
     @GetMapping
-    public ResponseEntity<List<Administration>> getAdministrations() throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.adminService.getAdministrations(), HttpStatus.OK);
+    public List<Administration> getAdministrations() {
+        return this.adminService.getAdministrations();
     }
     @GetMapping("{email}")
     public ResponseEntity<Administration> getAdministration(@PathVariable(name = "email")String email) throws RessourceNotFoundException {
