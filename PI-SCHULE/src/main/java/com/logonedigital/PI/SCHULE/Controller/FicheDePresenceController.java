@@ -1,6 +1,7 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
 import com.logonedigital.PI.SCHULE.Entity.FicheDePresence;
+import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.IFicheDePresenceService;
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ public class FicheDePresenceController {
     }
 
     @PostMapping
-    public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence){
+    public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence) throws ResourceExistException {
         return new ResponseEntity<>(this.ficheDePresenceService.addAbsence(absence), HttpStatus.CREATED);
     }
 

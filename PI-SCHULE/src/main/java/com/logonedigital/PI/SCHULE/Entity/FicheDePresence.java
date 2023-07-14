@@ -1,6 +1,6 @@
 package com.logonedigital.PI.SCHULE.Entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +28,7 @@ public class FicheDePresence implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String matricule;
     private Date date;
-    @Column(name = "nom_&_prenom")
+    @Column(name = "nom_&_prenom_de_l'etudiant", unique = true)
     @NotBlank(message = "required field")
     private String nomComplet;
     @NotNull(message = "required field")
@@ -36,6 +36,8 @@ public class FicheDePresence implements Serializable {
     @Column(name = "nombre_d'heure_d'absence")
     private Integer nombreHeure;
 
-
+    @JsonIgnore
+    @ManyToOne(targetEntity = Enseignant.class,fetch = FetchType.EAGER)
+    private Enseignant enseignant;
 
 }

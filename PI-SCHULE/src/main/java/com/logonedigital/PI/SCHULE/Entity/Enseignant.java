@@ -6,11 +6,13 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "build")
 @Table(name = "tb_enseignants")
 @ToString
 @Entity
@@ -23,11 +25,9 @@ public  class Enseignant implements Serializable {
     private String email;
     @NotBlank(message = "required field")
     @NotNull(message = "invalid, try again")
-    @Column(unique = true)
     private String nom;
     @NotBlank(message = "required field")
     @NotNull(message = "invalid, try again")
-    @Column(unique = true)
     private String prenom;
     @NotNull(message = "invalid, try again")
     @Column(unique = true, name = "numero_de_telephone")
@@ -41,6 +41,13 @@ public  class Enseignant implements Serializable {
     @NotBlank(message = "required field")
     @NotNull(message = "invalid, try again")
     private String discipline;
+
+    @OneToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Note> noteList = new ArrayList<>();
+    @OneToMany(targetEntity = Releve.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Releve> releveList = new ArrayList<>();
+    @OneToMany(targetEntity = FicheDePresence.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<FicheDePresence> ficheDePresences = new ArrayList<>();
 
 
 }

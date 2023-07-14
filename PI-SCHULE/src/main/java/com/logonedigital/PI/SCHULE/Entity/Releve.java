@@ -33,8 +33,12 @@ public class Releve implements Serializable {
     @NotNull(message = "invalid, try again")
     @NotBlank(message = "required field")
     private String module;
+    @OneToMany(mappedBy = "moduleReleve",targetEntity = Note.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Note> noteList = new ArrayList<>();
+
     @Enumerated
     private StatutName statut;
+
 
 
 }

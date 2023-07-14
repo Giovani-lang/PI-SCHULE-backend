@@ -1,6 +1,8 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Note;
+import com.logonedigital.PI.SCHULE.Entity.Releve;
+import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.NoteRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.INoteService;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -22,15 +25,20 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
-    public Note addNote(Note note){
+    public Note addNote(Note note) throws ResourceExistException {
         Note trustNote = Note.build(
                 note.getCodeMatiere(),
                 note.getNomMatiere(),
                 note.getCoefficient(),
                 note.getNoteControle(),
                 note.getNoteSession(),
-                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient())
+                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient()),
+                new Releve()
         );
+        Optional<Note> nt = this.noteRepo.findByNomMatiere(note.getNomMatiere());
+        if (nt.isPresent()){
+            throw new ResourceExistException("A matiere with this name already exists");
+        }
         return this.noteRepo.save(note);
     }
 

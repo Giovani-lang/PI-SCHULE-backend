@@ -1,6 +1,8 @@
 package com.logonedigital.PI.SCHULE.Service;
 
+import com.logonedigital.PI.SCHULE.Entity.Note;
 import com.logonedigital.PI.SCHULE.Entity.Releve;
+import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.ReleveRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IReleveService;
@@ -8,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -20,8 +23,11 @@ public class ReleveServiceImpl implements IReleveService {
     }
 
     @Override
-    public Releve addModule(Releve releve){
-        return this.releveRepo.save(releve);
+    public Releve addModule(Releve releve) throws ResourceExistException {
+        Optional<Releve> rel = this.releveRepo.findByModule(releve.getModule());
+        if (rel.isPresent()){
+            throw new ResourceExistException("A module with this name already exists");
+        }return this.releveRepo.save(releve);
     }
 
     @Override
