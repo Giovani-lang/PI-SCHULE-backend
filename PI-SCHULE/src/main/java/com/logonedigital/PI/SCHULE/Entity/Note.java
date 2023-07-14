@@ -50,12 +50,11 @@ public class Note  implements Serializable {
 
 
     public float getMoyenne(float noteControle,float noteSession, int coefficient) {
-        if (this.noteSession>=0 && this.noteSession>=0){
         float moyenneCC = this.noteControle* this.coefficient;
         float moyenneSN = this.noteSession*this.coefficient;
         int coefFinal = this.coefficient*2;
         moyenne = (moyenneCC+moyenneSN)/coefFinal;
+
             return moyenne;
-        } return this.noteControle;
     }
 }

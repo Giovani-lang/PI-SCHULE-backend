@@ -1,5 +1,6 @@
 package com.logonedigital.PI.SCHULE.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -41,12 +42,11 @@ public  class Enseignant implements Serializable {
     @NotBlank(message = "required field")
     @NotNull(message = "invalid, try again")
     private String discipline;
-
     @OneToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Note> noteList = new ArrayList<>();
     @OneToMany(targetEntity = Releve.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Releve> releveList = new ArrayList<>();
-    @OneToMany(targetEntity = FicheDePresence.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "enseignant",targetEntity = FicheDePresence.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<FicheDePresence> ficheDePresences = new ArrayList<>();
 
 

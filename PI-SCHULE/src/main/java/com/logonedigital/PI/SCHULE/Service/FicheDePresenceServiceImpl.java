@@ -24,13 +24,6 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
 
     @Override
     public FicheDePresence addAbsence(FicheDePresence absence) throws ResourceExistException {
-        FicheDePresence ficheDePresence = FicheDePresence.build(
-                absence.getMatricule(),
-                new Date(),
-                absence.getNomComplet(),
-                absence.getNombreHeure(),
-                new Enseignant()
-        );
         Optional<FicheDePresence> fich = this.ficheDePresenceRepo.findByMatricule(absence.getMatricule());
         Optional<FicheDePresence> fich1 = this.ficheDePresenceRepo.findByNomComplet(absence.getNomComplet());
         if (fich.isPresent()){
@@ -38,7 +31,7 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
         } else if (fich1.isPresent()) {
             throw new ResourceExistException("A student with this name already exists");
         }
-        return this.ficheDePresenceRepo.save(ficheDePresence);
+        return this.ficheDePresenceRepo.save(absence);
     }
 
     @Override

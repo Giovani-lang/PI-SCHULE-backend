@@ -18,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor(staticName = "build")
+@AllArgsConstructor
 @Table(name = "tb_fiches_de_presence")
 @Entity
 public class FicheDePresence implements Serializable {
@@ -27,7 +27,7 @@ public class FicheDePresence implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String matricule;
-    private Date date;
+    private Date date = new Date();
     @Column(name = "nom_&_prenom_de_l'etudiant", unique = true)
     @NotBlank(message = "required field")
     private String nomComplet;
@@ -37,7 +37,7 @@ public class FicheDePresence implements Serializable {
     private Integer nombreHeure;
 
     @JsonIgnore
-    @ManyToOne(targetEntity = Enseignant.class,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Enseignant.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Enseignant enseignant;
 
 }

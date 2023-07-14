@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceExistException.class)
     public Map<String,String> handleResourceExistException(ResourceExistException ex){
         Map<String,String> errorMap = new HashMap<>();
-        errorMap.put("message", ex.getMessage());
+        errorMap.put("errorMessage", ex.getMessage());
         return errorMap;
     }
 
