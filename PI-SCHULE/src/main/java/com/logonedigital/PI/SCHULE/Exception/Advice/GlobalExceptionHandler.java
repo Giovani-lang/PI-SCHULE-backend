@@ -1,6 +1,6 @@
 package com.logonedigital.PI.SCHULE.Exception.Advice;
 
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.dto.ErrorMessage;
 import org.springframework.http.HttpStatus;
@@ -31,8 +31,8 @@ public class GlobalExceptionHandler {
 
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(ResourceExistException.class)
-    public Map<String,String> handleResourceExistException(ResourceExistException ex){
+    @ExceptionHandler(RessourceExistException.class)
+    public Map<String,String> handleResourceExistException(RessourceExistException ex){
         Map<String,String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", ex.getMessage());
         return errorMap;

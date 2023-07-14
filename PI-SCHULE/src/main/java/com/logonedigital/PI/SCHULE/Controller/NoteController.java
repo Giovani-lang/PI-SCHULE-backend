@@ -1,7 +1,7 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
 import com.logonedigital.PI.SCHULE.Entity.Note;
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.INoteService;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Note> addNote(@RequestBody @Valid Note note)throws ResourceExistException {
+    public ResponseEntity<Note> addNote(@RequestBody @Valid Note note)throws RessourceExistException {
         return new ResponseEntity<>(this.noteService.addNote(note), HttpStatus.CREATED);
     }
 

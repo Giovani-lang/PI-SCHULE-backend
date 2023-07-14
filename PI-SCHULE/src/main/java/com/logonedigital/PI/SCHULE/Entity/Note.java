@@ -39,7 +39,8 @@ public class Note  implements Serializable {
     @Min(value = 0,message = "you can't enter a value above 0")
     @Max(value = 20,message = "you can't exceed 20")
     private float moyenne;
-    @JsonIgnore
+
+
     @ManyToOne(targetEntity = Releve.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Releve moduleReleve;
 

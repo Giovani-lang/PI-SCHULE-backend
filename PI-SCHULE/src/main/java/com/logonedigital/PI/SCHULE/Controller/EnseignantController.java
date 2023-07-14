@@ -2,7 +2,7 @@ package com.logonedigital.PI.SCHULE.Controller;
 
 
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class EnseignantController {
     }
 
     @PostMapping
-    public ResponseEntity<Enseignant> addEnseignant(@RequestBody @Valid Enseignant enseignant)throws ResourceExistException {
+    public ResponseEntity<Enseignant> addEnseignant(@RequestBody @Valid Enseignant enseignant)throws RessourceExistException {
         return new ResponseEntity<>(this.enseignantService.addEnseignant(enseignant), HttpStatus.CREATED);
     }
 

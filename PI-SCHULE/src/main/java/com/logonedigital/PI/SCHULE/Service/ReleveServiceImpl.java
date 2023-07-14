@@ -1,8 +1,7 @@
 package com.logonedigital.PI.SCHULE.Service;
 
-import com.logonedigital.PI.SCHULE.Entity.Note;
 import com.logonedigital.PI.SCHULE.Entity.Releve;
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.ReleveRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IReleveService;
@@ -23,10 +22,10 @@ public class ReleveServiceImpl implements IReleveService {
     }
 
     @Override
-    public Releve addModule(Releve releve) throws ResourceExistException {
+    public Releve addModule(Releve releve) throws RessourceExistException {
         Optional<Releve> rel = this.releveRepo.findByModule(releve.getModule());
         if (rel.isPresent()){
-            throw new ResourceExistException("A module with this name already exists");
+            throw new RessourceExistException("A module with this name already exists");
         }return this.releveRepo.save(releve);
     }
 

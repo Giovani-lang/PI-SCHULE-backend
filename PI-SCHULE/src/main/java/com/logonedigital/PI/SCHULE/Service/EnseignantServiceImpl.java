@@ -1,7 +1,7 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
@@ -22,16 +22,16 @@ public class EnseignantServiceImpl implements IEnseignantService {
     }
 
     @Override
-    public Enseignant addEnseignant(Enseignant enseignant) throws ResourceExistException {
+    public Enseignant addEnseignant(Enseignant enseignant) throws RessourceExistException {
         Optional<Enseignant> ens = this.enseignantRepo.findByEmail(enseignant.getEmail());
         Optional<Enseignant> ens1 = this.enseignantRepo.findByMotDePasse(enseignant.getMotDePasse());
         Optional<Enseignant> ens2 = this.enseignantRepo.findByNumeroTel(enseignant.getNumeroTel());
         if (ens.isPresent()){
-            throw new ResourceExistException("A enseignant with this email already exists");
+            throw new RessourceExistException("A enseignant with this email already exists");
         } else if (ens1.isPresent()) {
-            throw new ResourceExistException("A enseignant with this password already exists");
+            throw new RessourceExistException("A enseignant with this password already exists");
         } else if (ens2.isPresent()) {
-            throw new ResourceExistException("A enseignant with this number phone already exists");
+            throw new RessourceExistException("A enseignant with this number phone already exists");
         }
         return this.enseignantRepo.save(enseignant);
     }

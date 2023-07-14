@@ -1,7 +1,7 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
 import com.logonedigital.PI.SCHULE.Entity.FicheDePresence;
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.IFicheDePresenceService;
 import jakarta.validation.Valid;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/api/v1/ficheDePresence")
@@ -22,7 +21,7 @@ public class FicheDePresenceController {
     }
 
     @PostMapping
-    public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence) throws ResourceExistException {
+    public ResponseEntity<FicheDePresence> addAbsence(@RequestBody @Valid FicheDePresence absence) throws RessourceExistException {
         return new ResponseEntity<>(this.ficheDePresenceService.addAbsence(absence), HttpStatus.CREATED);
     }
 

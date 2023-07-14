@@ -1,15 +1,13 @@
 package com.logonedigital.PI.SCHULE.Service;
 
-import com.logonedigital.PI.SCHULE.Entity.Enseignant;
 import com.logonedigital.PI.SCHULE.Entity.FicheDePresence;
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.FicheDePresenceRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IFicheDePresenceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,13 +21,13 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     }
 
     @Override
-    public FicheDePresence addAbsence(FicheDePresence absence) throws ResourceExistException {
+    public FicheDePresence addAbsence(FicheDePresence absence) throws RessourceExistException {
         Optional<FicheDePresence> fich = this.ficheDePresenceRepo.findByMatricule(absence.getMatricule());
         Optional<FicheDePresence> fich1 = this.ficheDePresenceRepo.findByNomComplet(absence.getNomComplet());
         if (fich.isPresent()){
-            throw new ResourceExistException("A student with this matricule already exists");
+            throw new RessourceExistException("A student with this matricule already exists");
         } else if (fich1.isPresent()) {
-            throw new ResourceExistException("A student with this name already exists");
+            throw new RessourceExistException("A student with this name already exists");
         }
         return this.ficheDePresenceRepo.save(absence);
     }

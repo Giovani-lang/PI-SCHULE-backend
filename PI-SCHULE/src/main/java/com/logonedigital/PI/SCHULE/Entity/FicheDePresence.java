@@ -36,7 +36,6 @@ public class FicheDePresence implements Serializable {
     @Column(name = "nombre_d'heure_d'absence")
     private Integer nombreHeure;
 
-    @JsonIgnore
     @ManyToOne(targetEntity = Enseignant.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Enseignant enseignant;
 

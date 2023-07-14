@@ -1,7 +1,7 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
 import com.logonedigital.PI.SCHULE.Entity.Releve;
-import com.logonedigital.PI.SCHULE.Exception.ResourceExistException;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.IReleveService;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ public class ReleveController {
     }
 
     @PostMapping
-    public ResponseEntity<Releve> addReleve(@RequestBody @Valid Releve releve)throws ResourceExistException {
+    public ResponseEntity<Releve> addReleve(@RequestBody @Valid Releve releve)throws RessourceExistException {
         return new ResponseEntity<>(this.releveService.addModule(releve), HttpStatus.CREATED);
     }
 
