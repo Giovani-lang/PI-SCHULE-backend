@@ -26,13 +26,13 @@ public class NoteServiceImpl implements INoteService {
 
     @Override
     public Note addNote(Note note) throws RessourceExistException {
-        Note trustNote = Note.build(
+        /*Note trustNote = Note.build(
                 note.getCodeMatiere(),
                 note.getNomMatiere(),
                 note.getCoefficient(),
                 note.getNoteControle(),
                 note.getNoteSession(),
-                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient()));
+                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient()));*/
         Optional<Note> nt = this.noteRepo.findByNomMatiere(note.getNomMatiere());
         Optional<Note> note1= this.noteRepo.findByCodeMatiere(note.getCodeMatiere());
         if (nt.isPresent()){
