@@ -41,14 +41,6 @@ public class Note  implements Serializable {
     private float moyenne;
 
 
-    @ManyToOne(targetEntity = Releve.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Releve moduleReleve;
-
-
-
-
-
-
 
     public float getMoyenne(float noteControle,float noteSession, int coefficient) {
         float moyenneCC = this.noteControle* this.coefficient;

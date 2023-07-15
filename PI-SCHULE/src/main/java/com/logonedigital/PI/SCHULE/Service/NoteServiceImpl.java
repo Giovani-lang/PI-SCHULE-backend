@@ -32,9 +32,7 @@ public class NoteServiceImpl implements INoteService {
                 note.getCoefficient(),
                 note.getNoteControle(),
                 note.getNoteSession(),
-                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient()),
-                new Releve()
-        );
+                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient()));
         Optional<Note> nt = this.noteRepo.findByNomMatiere(note.getNomMatiere());
         Optional<Note> note1= this.noteRepo.findByCodeMatiere(note.getCodeMatiere());
         if (nt.isPresent()){
