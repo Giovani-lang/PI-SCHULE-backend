@@ -36,8 +36,11 @@ public class NoteServiceImpl implements INoteService {
                 new Releve()
         );
         Optional<Note> nt = this.noteRepo.findByNomMatiere(note.getNomMatiere());
+        Optional<Note> note1= this.noteRepo.findByCodeMatiere(note.getCodeMatiere());
         if (nt.isPresent()){
             throw new RessourceExistException("A matiere with this name already exists");
+        }else if (note1.isPresent()){
+            throw new RessourceExistException("code matiere already exist" );
         }
         return this.noteRepo.save(note);
     }
@@ -58,15 +61,15 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
-    public Note updateNote(String codeMatiere, Note note) throws RessourceNotFoundException {
+    public Note updateNote(String codeMatiere, Note newnote) throws RessourceNotFoundException {
        try {
-           Note newNote = this.noteRepo.findById(codeMatiere).get();
-           newNote.setNomMatiere(note.getNomMatiere());
-           newNote.setNoteControle(note.getNoteControle());
-           newNote.setNoteSession(note.getNoteSession());
-           newNote.setCoefficient(note.getCoefficient());
-
-           return this.noteRepo.save(newNote);
+           Note oldNote = this.noteRepo.findByCodeMatiere(codeMatiere).get();
+          oldNote.setNomMatiere(newnote.getNomMatiere());
+           oldNote.setNoteControle(newnote.getNoteControle());
+           oldNote.setNoteSession(newnote.getNoteSession());
+           oldNote.setCoefficient(newnote.getCoefficient());
+               Note noteUpdated= this.noteRepo.save(oldNote);
+           return noteUpdated;
        }catch (Exception ex){
            throw new RessourceNotFoundException("this  codeMatiere :"+codeMatiere+
                    " doesn't exist in our data base");

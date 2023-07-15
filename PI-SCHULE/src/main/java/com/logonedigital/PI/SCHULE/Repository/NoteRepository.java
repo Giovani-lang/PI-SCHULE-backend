@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface NoteRepository extends JpaRepository<Note, String> {
     Optional <Note>findByNomMatiere(String nomMatiere );
+    Optional<Note>findByCodeMatiere(String codematiere);
 }
