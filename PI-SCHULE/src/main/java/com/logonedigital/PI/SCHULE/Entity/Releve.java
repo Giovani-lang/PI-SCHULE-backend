@@ -1,10 +1,7 @@
 package com.logonedigital.PI.SCHULE.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
-import com.logonedigital.PI.SCHULE.Enumeration.StatutName;
+import com.logonedigital.PI.SCHULE.Enumeration.DecisionName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +13,6 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,10 +29,11 @@ public class Releve implements Serializable {
     @NotNull(message = "invalid, try again")
     @NotBlank(message = "required field")
     private String module;
-@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-private  List<Note> notes;
-    @Enumerated
-    private StatutName statut;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private  List<Note> notes;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private DecisionName decision;
 
 
 

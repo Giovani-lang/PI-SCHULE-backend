@@ -49,7 +49,9 @@ public class ReleveServiceImpl implements IReleveService {
     public Releve updateModule(String module, Releve releve) throws RessourceNotFoundException{
         try {
             Releve newReleve = this.releveRepo.findById(module).get();
-            newReleve.setStatut(releve.getStatut());
+            newReleve.setDecision(releve.getDecision());
+            newReleve.setModule(releve.getModule());
+            newReleve.setNotes(releve.getNotes());
             return this.releveRepo.save(newReleve);
         }catch (Exception ex){
             throw new RessourceNotFoundException("this module : "+module+" doesn't exist in our data base");

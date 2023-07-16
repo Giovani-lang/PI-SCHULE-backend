@@ -20,7 +20,7 @@ public class EmploiDuTemps implements Serializable {
     @Serial
     private static final Long serialVersion=1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id_classe")
+    @Column(name = "id_classe")
     private Integer idClass;
     private String jours;
     private String heure;

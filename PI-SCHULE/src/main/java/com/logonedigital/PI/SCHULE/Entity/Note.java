@@ -39,15 +39,20 @@ public class Note  implements Serializable {
     @Min(value = 0,message = "you can't enter a value above 0")
     @Max(value = 20,message = "you can't exceed 20")
     private float moyenne;
+    private String statut;
 
 
-
-   /* public float getMoyenne(float noteControle,float noteSession, int coefficient) {
+   public float getMoyenne() {
         float moyenneCC = this.noteControle* this.coefficient;
         float moyenneSN = this.noteSession*this.coefficient;
         int coefFinal = this.coefficient*2;
         moyenne = (moyenneCC+moyenneSN)/coefFinal;
+        return moyenne;
+    }
 
-            return moyenne;
-    }*/
+    public String getStatut(){
+        if (moyenne>=10){
+            return statut = "Validée";
+        }return statut = "Non_Validée";
+    }
 }

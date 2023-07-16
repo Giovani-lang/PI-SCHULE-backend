@@ -1,7 +1,6 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Note;
-import com.logonedigital.PI.SCHULE.Entity.Releve;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.NoteRepository;
@@ -26,13 +25,15 @@ public class NoteServiceImpl implements INoteService {
 
     @Override
     public Note addNote(Note note) throws RessourceExistException {
-        /*Note trustNote = Note.build(
+        Note trustNote = Note.build(
                 note.getCodeMatiere(),
                 note.getNomMatiere(),
                 note.getCoefficient(),
                 note.getNoteControle(),
                 note.getNoteSession(),
-                note.getMoyenne(note.getNoteControle(), note.getNoteSession(), note.getCoefficient()));*/
+                note.getMoyenne(),
+                note.getStatut()
+        );
         Optional<Note> nt = this.noteRepo.findByNomMatiere(note.getNomMatiere());
         Optional<Note> note1= this.noteRepo.findByCodeMatiere(note.getCodeMatiere());
         if (nt.isPresent()){

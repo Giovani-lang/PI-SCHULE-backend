@@ -29,10 +29,8 @@ public class Administration implements Serializable {
     @Email
     @NotBlank(message = "inscrivez votre email correctement")
     private String email;
-    @Column(unique = true)
     @NotBlank(message = "inscrivez votre nom correctement")
     private String nom;
-    @Column(unique = true)
     @NotBlank(message = "inscrivez votre prenom correctement" )
     private String prenom;
 

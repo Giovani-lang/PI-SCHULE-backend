@@ -27,10 +27,8 @@ public  class Enseignant implements Serializable {
     @Column(unique = true)
     private String email;
     @NotBlank(message = "required field")
-    @Column(unique = true)
     private String nom;
     @NotBlank(message = "required field")
-    @Column(unique = true)
     private String prenom;
     @NotNull(message = "required field")
     @Column(unique = true, name = "numero_de_telephone")

@@ -25,6 +25,7 @@ public class PensionScolaire implements Serializable {
         @Id
         @Column (name = "nomElève")
         private String nomElève;
+        @Temporal(TemporalType.DATE)
         private Date dateInscription;
         private Double montantPayé;
         private Double solde;

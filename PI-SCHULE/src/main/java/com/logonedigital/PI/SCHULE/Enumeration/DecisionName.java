@@ -1,5 +1,5 @@
 package com.logonedigital.PI.SCHULE.Enumeration;
 
-public enum StatutName {
+public enum DecisionName {
     Validée,Non_Validée
 }
