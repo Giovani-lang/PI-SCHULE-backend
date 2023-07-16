@@ -8,6 +8,7 @@ import com.logonedigital.PI.SCHULE.Service.Interface.IReleveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +48,9 @@ public class ReleveServiceImpl implements IReleveService {
     public Releve updateModule(String module, Releve releve) throws RessourceNotFoundException{
         try {
             Releve newReleve = this.releveRepo.findById(module).get();
-            newReleve.setStatut(releve.getStatut());
+            newReleve.setDecison(releve.getDecison());
+            newReleve.setModule(releve.getModule());
+            newReleve.setNoteList(releve.getNoteList());
             return this.releveRepo.save(newReleve);
         }catch (Exception ex){
             throw new RessourceNotFoundException("this module : "+module+" doesn't exist in our data base");

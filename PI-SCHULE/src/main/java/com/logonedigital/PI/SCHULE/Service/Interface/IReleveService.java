@@ -1,5 +1,6 @@
 package com.logonedigital.PI.SCHULE.Service.Interface;
 
+import com.logonedigital.PI.SCHULE.Entity.Note;
 import com.logonedigital.PI.SCHULE.Entity.Releve;
 
 import java.util.List;

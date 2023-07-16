@@ -1,10 +1,7 @@
 package com.logonedigital.PI.SCHULE.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
-import com.logonedigital.PI.SCHULE.Enumeration.StatutName;
+import com.logonedigital.PI.SCHULE.Enumeration.DecisionName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "build")
 @Table(name = "tb_releves")
 @Entity
 public class Releve implements Serializable {
@@ -34,11 +31,12 @@ public class Releve implements Serializable {
     @NotBlank(message = "required field")
     private String module;
 
-    @OneToMany(mappedBy = "moduleReleve",targetEntity = Note.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Note> noteList = new ArrayList<>();
 
-    @Enumerated
-    private StatutName statut;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private DecisionName Decison;
 
 
 

@@ -27,6 +27,7 @@ public class FicheDePresence implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String matricule;
+    @Temporal(TemporalType.DATE)
     private Date date = new Date();
     @Column(name = "nom_&_prenom_de_l'etudiant", unique = true)
     @NotBlank(message = "required field")
