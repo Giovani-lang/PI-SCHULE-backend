@@ -48,7 +48,7 @@ public class ReleveServiceImpl implements IReleveService {
     public Releve updateModule(String module, Releve releve) throws RessourceNotFoundException{
         try {
             Releve newReleve = this.releveRepo.findById(module).get();
-            newReleve.setDecison(releve.getDecison());
+            newReleve.setDecision(releve.getDecision());
             newReleve.setModule(releve.getModule());
             newReleve.setNoteList(releve.getNoteList());
             return this.releveRepo.save(newReleve);

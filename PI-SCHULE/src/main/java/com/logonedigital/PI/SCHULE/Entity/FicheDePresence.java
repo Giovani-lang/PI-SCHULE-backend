@@ -18,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "build")
 @Table(name = "tb_fiches_de_presence")
 @Entity
 public class FicheDePresence implements Serializable {
@@ -29,7 +29,7 @@ public class FicheDePresence implements Serializable {
     private String matricule;
     @Temporal(TemporalType.DATE)
     private Date date = new Date();
-    @Column(name = "nom_&_prenom_de_l'etudiant", unique = true)
+    @Column(name = "nom_&_prenom_de_l'etudiant")
     @NotBlank(message = "required field")
     private String nomComplet;
     @NotNull(message = "required field")
@@ -39,5 +39,6 @@ public class FicheDePresence implements Serializable {
 
     @ManyToOne(targetEntity = Enseignant.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Enseignant enseignant;
+
 
 }

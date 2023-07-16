@@ -36,7 +36,7 @@ public class Releve implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    private DecisionName Decison;
+    private DecisionName decision;
 
 
 
