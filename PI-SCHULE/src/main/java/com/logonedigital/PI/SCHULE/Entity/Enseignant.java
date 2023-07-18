@@ -32,7 +32,7 @@ public  class Enseignant implements Serializable {
     private String prenom;
     @NotNull(message = "required field")
     @Column(unique = true, name = "numero_de_telephone")
-    private Integer numeroTel;
+    private String numeroTel;
     @NotBlank(message = "required field")
     @Column(unique = true)
     @Pattern(regexp = "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-])(?=\\S+$).{8,}",
