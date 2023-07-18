@@ -42,11 +42,11 @@ public class Note  implements Serializable {
 
 
     public float getMoyenne() {
-        float moyenneCC = this.noteControle* this.coefficient;
-        float moyenneSN = this.noteSession*this.coefficient;
-        int coefFinal = this.coefficient*2;
-        moyenne = (moyenneCC+moyenneSN)/coefFinal;
-        return moyenne;
+               float moyenneCC = this.noteControle* this.coefficient;
+               float moyenneSN = this.noteSession*this.coefficient;
+               int coefFinal = this.coefficient*2;
+               moyenne = (moyenneCC+moyenneSN)/coefFinal;
+               return moyenne;
     }
 
     public String getStatut(){

@@ -29,6 +29,7 @@ public class Releve implements Serializable {
     @Id
     @NotNull(message = "invalid, try again")
     @NotBlank(message = "required field")
+    @Column(unique = true)
     private String module;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -37,7 +38,5 @@ public class Releve implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private DecisionName decision;
-
-
 
 }
