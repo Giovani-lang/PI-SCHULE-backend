@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface EnseignantRepository extends JpaRepository<Enseignant,String> {
     Optional<Enseignant> findByEmail(String email);
     Optional<Enseignant> findByMotDePasse(String motDePasse);
-    Optional<Enseignant> findByNumeroTel(Integer numeroTel);
+    Optional<Enseignant> findByNumeroTel(String numeroTel);
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,24 +24,19 @@ public  class Enseignant implements Serializable {
     @Serial
     private static final Long serialVersionUID = 1L;
     @Id
-    @Email(message = "invalid email")
-    @Column(unique = true)
     private String email;
-    @NotBlank(message = "required field")
     private String nom;
-    @NotBlank(message = "required field")
     private String prenom;
-    @NotNull(message = "required field")
     @Column(unique = true, name = "numero_de_telephone")
     private String numeroTel;
-    @NotBlank(message = "required field")
-    @Column(unique = true)
-    @Pattern(regexp = "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-])(?=\\S+$).{8,}",
-             message = "your password must contain at least 8 characters including a caps,a lowercase ,a number and {#,?,!,@,$,%,^,&,*,-}" +
-                       " and must not contain spaces")
     private String motDePasse;
-    @NotBlank(message = "required field")
     private String discipline;
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
+    @Temporal(TemporalType.DATE)
+    private Date updateddAt;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Role> roles;
 
     @OneToMany(targetEntity = FicheDePresence.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<FicheDePresence> ficheDePresenceList = new ArrayList<>();

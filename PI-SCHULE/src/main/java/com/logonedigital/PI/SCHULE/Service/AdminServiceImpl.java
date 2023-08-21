@@ -3,81 +3,83 @@ package com.logonedigital.PI.SCHULE.Service;
 import com.logonedigital.PI.SCHULE.Entity.Administration;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
+import com.logonedigital.PI.SCHULE.Mapper.AdminMapper;
 import com.logonedigital.PI.SCHULE.Repository.AdminRepo;
 import com.logonedigital.PI.SCHULE.Service.Interface.AdminService;
+import com.logonedigital.PI.SCHULE.dto.admin_dto.AdminRequestDTO;
+import com.logonedigital.PI.SCHULE.dto.admin_dto.AdminResponseDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
-private final AdminRepo adminRepo;
-public AdminServiceImpl(AdminRepo adminRepo){
-    this.adminRepo=adminRepo;
-}
+    private final AdminRepo adminRepo;
+    private final AdminMapper adminMapper;
 
     @Override
-    public Administration addAdministration(Administration administration) throws RessourceExistException {
-        Optional < Administration> administration1= adminRepo.findByEmail(administration.getEmail());
-        Optional < Administration> administration2= adminRepo.findByPassword(administration.getPassword());
-        Optional < Administration> administration3= adminRepo.findByTéléphone(administration.getTéléphone());
-        if (administration1.isPresent()){
-            throw new RessourceExistException("email existe déjà");
-        }else if (administration2.isPresent()){
-            throw new RessourceExistException("Password existe déjà");
-        }else if (administration3.isPresent()){
-            throw new RessourceExistException("télépone existe déjà");
+    public AdminResponseDTO addAdministration(AdminRequestDTO adminRequestDTO) throws RessourceExistException {
+        Administration admin = this.adminMapper.fromAdminRequestDTO(adminRequestDTO);
+        Optional<Administration> userDB = this.adminRepo.findByEmail(adminRequestDTO.getEmail());
+        Optional<Administration> user = this.adminRepo.findByTéléphone(adminRequestDTO.getTéléphone());
+        if (userDB.isPresent()){
+            throw new RessourceExistException("User with this email already exist");
+        } else if (user.isPresent()) {
+            throw new RessourceExistException("User with this phone already exist");
         }
-        return this.adminRepo.save(administration);
+        admin.setCreatedAt(new Date());
+        return this.adminMapper.fromAdministration(this.adminRepo.save(admin));
     }
 
     @Override
-    public List<Administration> getAdministrations() {
-        return this.adminRepo.findAll();
+    public List<AdminResponseDTO> getAdministrations() {
+        List<Administration> admins= this.adminRepo.findAll();
+        List<AdminResponseDTO> adminResponses = new ArrayList<>();
+        admins.forEach(admin ->adminResponses.add(this.adminMapper.fromAdministration(admin)));
+        return adminResponses;
     }
 
     @Override
-    public Administration getAdministration(String email) throws RessourceNotFoundException{
-
-    try { return this.adminRepo.findById(email).get();
-
-    }catch (Exception exception){
-        throw new RessourceNotFoundException("utlisateur n'existe pas");
-    }
-
-    }
-
-    @Override
-    public Administration updateAdministration(Administration newadministration, String email) throws RessourceNotFoundException {
-    try {
-
-
-        Administration oldAdministration = this.adminRepo.findById(email).get();
-
-
-        oldAdministration.setNom(newadministration.getNom());
-        oldAdministration.setPrenom(newadministration.getPrenom());
-        oldAdministration.setPassword(newadministration.getPassword());
-        log.error("Old user {}", oldAdministration);
-        Administration administrationUpdated = this.adminRepo.save(oldAdministration);
-
-        return administrationUpdated;
-    }catch (Exception exception) {
-        throw new RessourceNotFoundException("la mise à jour n'a pas été faite");
-    }
+    public AdminResponseDTO getAdministration(String email) throws RessourceNotFoundException{
+        try {
+            return this.adminMapper.fromAdministration(this.adminRepo.findByEmail(email).get());
+        }catch (Exception ex){
+            throw new RessourceNotFoundException("User with this email doesn't exist");
+        }
     }
 
     @Override
-    public void deleteAdministration(String email){
+    public AdminResponseDTO updateAdministration(AdminRequestDTO adminRequestDTO, String email) throws RessourceNotFoundException {
+        try {
+            Administration admin1 = this.adminRepo.findByEmail(email).get();
+            Administration admin = this.adminMapper.fromAdminRequestDTO(adminRequestDTO);
+            admin1.setNom(admin.getNom());
+            admin1.setPrenom(admin.getPrenom());
+            admin1.setPassword(admin.getPassword());
+            admin1.setTéléphone(admin.getTéléphone());
 
-        this.adminRepo.deleteById(email);
+            return this.adminMapper.fromAdministration(this.adminRepo.save(admin1));
+        }catch (Exception exception) {
+            throw new RessourceNotFoundException("User with this email doesn't exist");
+        }
     }
 
-
-
-
+    @Override
+    public void deleteAdministration(String email) throws RessourceNotFoundException{
+        try{
+            Administration admin = this.adminRepo.findByEmail(email).get();
+            this.adminRepo.delete(admin);
+        }catch (Exception ex){
+            throw new RessourceNotFoundException("this user doesn't exist !");
+        }
     }
+
+}
 

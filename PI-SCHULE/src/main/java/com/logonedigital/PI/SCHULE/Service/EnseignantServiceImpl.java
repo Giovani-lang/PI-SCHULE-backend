@@ -3,64 +3,71 @@ package com.logonedigital.PI.SCHULE.Service;
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
+import com.logonedigital.PI.SCHULE.Mapper.EnseignantMapper;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
+import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantRequestDTO;
+import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantResponseDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class EnseignantServiceImpl implements IEnseignantService {
 
     private final EnseignantRepository enseignantRepo;
+    private final EnseignantMapper enseignantMapper;
 
-    public EnseignantServiceImpl(EnseignantRepository enseignantRepo) {
-        this.enseignantRepo = enseignantRepo;
-    }
 
     @Override
-    public Enseignant addEnseignant(Enseignant enseignant) throws RessourceExistException {
-        Optional<Enseignant> ens = this.enseignantRepo.findByEmail(enseignant.getEmail());
-        Optional<Enseignant> ens1 = this.enseignantRepo.findByMotDePasse(enseignant.getMotDePasse());
-        Optional<Enseignant> ens2 = this.enseignantRepo.findByNumeroTel(enseignant.getNumeroTel());
-        if (ens.isPresent()){
-            throw new RessourceExistException("A enseignant with this email already exists");
-        } else if (ens1.isPresent()) {
-            throw new RessourceExistException("A enseignant with this password already exists");
+    public EnseignantResponseDTO addEnseignant(EnseignantRequestDTO enseignantRequestDTO) throws RessourceExistException {
+        Enseignant ens = this.enseignantMapper.fromEnseignantRequestDTO(enseignantRequestDTO);
+        Optional<Enseignant> ens1 = this.enseignantRepo.findByEmail(enseignantRequestDTO.getEmail());
+        Optional<Enseignant> ens2 = this.enseignantRepo.findByNumeroTel(enseignantRequestDTO.getNumeroTel());
+        if (ens1.isPresent()){
+            throw new RessourceExistException("User with this email already exist !");
         } else if (ens2.isPresent()) {
-            throw new RessourceExistException("A enseignant with this number phone already exists");
+            throw new RessourceExistException("User with this phone already exist !");
         }
-        return this.enseignantRepo.save(enseignant);
+        ens.setCreatedAt(new Date());
+        return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(ens));
     }
 
     @Override
-    public Enseignant getEnseignant(String email) throws RessourceNotFoundException {
+    public EnseignantResponseDTO getEnseignant(String email) throws RessourceNotFoundException {
         try {
-            return this.enseignantRepo.findById(email).get();
+            return this.enseignantMapper.fromEnseignant(this.enseignantRepo.findById(email).get());
         }catch (Exception ex){
             throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base");
         }
     }
 
     @Override
-    public List<Enseignant> getEnseignants() {
-        return this.enseignantRepo.findAll();
+    public List<EnseignantResponseDTO> getEnseignants() {
+        List<Enseignant> enseignant = this.enseignantRepo.findAll();
+        List<EnseignantResponseDTO> enseignantResponses = new ArrayList<>();
+        enseignant.forEach(ens ->enseignantResponses.add(this.enseignantMapper.fromEnseignant(ens)));
+        return enseignantResponses;
     }
 
     @Override
-    public Enseignant updateEnseignant(String email, Enseignant enseignant) throws RessourceNotFoundException {
+    public EnseignantResponseDTO updateEnseignant(String email, EnseignantRequestDTO enseignantRequestDTO) throws RessourceNotFoundException {
         try {
             Enseignant newEnseignant = this.enseignantRepo.findById(email).get();
-            newEnseignant.setEmail(enseignant.getEmail());
-            newEnseignant.setNom(enseignant.getNom());
-            newEnseignant.setPrenom(enseignant.getPrenom());
-            newEnseignant.setNumeroTel(enseignant.getNumeroTel());
-            newEnseignant.setMotDePasse(enseignant.getMotDePasse());
-            newEnseignant.setDiscipline(enseignant.getDiscipline());
-            return this.enseignantRepo.save(newEnseignant);
+            newEnseignant.setEmail(enseignantRequestDTO.getEmail());
+            newEnseignant.setNom(enseignantRequestDTO.getNom());
+            newEnseignant.setPrenom(enseignantRequestDTO.getPrenom());
+            newEnseignant.setNumeroTel(enseignantRequestDTO.getNumeroTel());
+            newEnseignant.setMotDePasse(enseignantRequestDTO.getMotDePasse());
+            newEnseignant.setDiscipline(enseignantRequestDTO.getDiscipline());
+            return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));
         }catch (Exception ex){
             throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base");
         }
@@ -69,7 +76,8 @@ public class EnseignantServiceImpl implements IEnseignantService {
     @Override
     public void deleteEnseignant(String email) throws RessourceNotFoundException {
             try {
-                this.enseignantRepo.deleteById(email);
+                Enseignant enseignant = this.enseignantRepo.findByEmail(email).get();
+                this.enseignantRepo.delete(enseignant);
             }catch (Exception ex){
                 throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base");
             }

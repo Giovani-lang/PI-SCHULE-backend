@@ -1,8 +1,9 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
-import com.logonedigital.PI.SCHULE.Entity.Enseignant;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
+import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantRequestDTO;
+import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,24 +21,24 @@ public class EnseignantController {
     }
 
     @PostMapping
-    public ResponseEntity<Enseignant> addEnseignant(@RequestBody @Valid Enseignant enseignant){
-        return new ResponseEntity<>(this.enseignantService.addEnseignant(enseignant), HttpStatus.CREATED);
+    public ResponseEntity<EnseignantResponseDTO> addEnseignant(@RequestBody @Valid EnseignantRequestDTO enseignantRequestDTO){
+        return new ResponseEntity<>(this.enseignantService.addEnseignant(enseignantRequestDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("{email}")
-    public ResponseEntity<Enseignant> getEnseignant(@PathVariable(name = "email") String email) throws RessourceNotFoundException{
+    public ResponseEntity<EnseignantResponseDTO> getEnseignant(@PathVariable(name = "email") String email) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.enseignantService.getEnseignant(email),HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Enseignant>> getEnseigants(){
+    public ResponseEntity<List<EnseignantResponseDTO>> getEnseigants(){
         return new ResponseEntity<>(this.enseignantService.getEnseignants(),HttpStatus.OK);
     }
 
     @PutMapping("{email}")
-    public ResponseEntity<Enseignant> updateEnseignant(@PathVariable(name = "email") String email,
-                                                       @RequestBody Enseignant enseignant) throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.enseignantService.updateEnseignant(email, enseignant),HttpStatus.ACCEPTED);
+    public ResponseEntity<EnseignantResponseDTO> updateEnseignant(@PathVariable(name = "email") String email,
+                                                       @RequestBody EnseignantRequestDTO enseignantRequestDTO) throws RessourceNotFoundException{
+        return new ResponseEntity<>(this.enseignantService.updateEnseignant(email, enseignantRequestDTO),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{email}")
