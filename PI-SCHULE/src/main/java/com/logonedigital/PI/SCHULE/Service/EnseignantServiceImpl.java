@@ -32,9 +32,9 @@ public class EnseignantServiceImpl implements IEnseignantService {
         Optional<Enseignant> ens1 = this.enseignantRepo.findByEmail(enseignantRequestDTO.getEmail());
         Optional<Enseignant> ens2 = this.enseignantRepo.findByNumeroTel(enseignantRequestDTO.getNumeroTel());
         if (ens1.isPresent()){
-            throw new RessourceExistException("User with this email already exist !");
+            throw new RessourceExistException("Teacher with this email already exist !!!");
         } else if (ens2.isPresent()) {
-            throw new RessourceExistException("User with this phone already exist !");
+            throw new RessourceExistException("Teacher with this phone already exist !!!");
         }
         ens.setCreatedAt(new Date());
         return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(ens));
@@ -45,7 +45,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
         try {
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.findById(email).get());
         }catch (Exception ex){
-            throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base");
+            throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base !");
         }
     }
 
@@ -69,7 +69,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
             newEnseignant.setDiscipline(enseignantRequestDTO.getDiscipline());
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));
         }catch (Exception ex){
-            throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base");
+            throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base !");
         }
     }
 
@@ -79,7 +79,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
                 Enseignant enseignant = this.enseignantRepo.findByEmail(email).get();
                 this.enseignantRepo.delete(enseignant);
             }catch (Exception ex){
-                throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base");
+                throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base !");
             }
     }
 }

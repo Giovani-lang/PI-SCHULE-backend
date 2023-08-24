@@ -30,9 +30,9 @@ public class AdminServiceImpl implements AdminService {
         Optional<Administration> userDB = this.adminRepo.findByEmail(adminRequestDTO.getEmail());
         Optional<Administration> user = this.adminRepo.findByTéléphone(adminRequestDTO.getTéléphone());
         if (userDB.isPresent()){
-            throw new RessourceExistException("User with this email already exist");
+            throw new RessourceExistException("Admin with this email already exist !!!");
         } else if (user.isPresent()) {
-            throw new RessourceExistException("User with this phone already exist");
+            throw new RessourceExistException("Admin with this phone already exist !!!");
         }
         admin.setCreatedAt(new Date());
         return this.adminMapper.fromAdministration(this.adminRepo.save(admin));
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
         try {
             return this.adminMapper.fromAdministration(this.adminRepo.findByEmail(email).get());
         }catch (Exception ex){
-            throw new RessourceNotFoundException("User with this email doesn't exist");
+            throw new RessourceNotFoundException("This email " +email+ " doesn't exist in our data base !");
         }
     }
 
@@ -67,7 +67,7 @@ public class AdminServiceImpl implements AdminService {
 
             return this.adminMapper.fromAdministration(this.adminRepo.save(admin1));
         }catch (Exception exception) {
-            throw new RessourceNotFoundException("User with this email doesn't exist");
+            throw new RessourceNotFoundException("This email " +email+ " doesn't exist in our data base !");
         }
     }
 
@@ -77,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
             Administration admin = this.adminRepo.findByEmail(email).get();
             this.adminRepo.delete(admin);
         }catch (Exception ex){
-            throw new RessourceNotFoundException("this user doesn't exist !");
+            throw new RessourceNotFoundException("This email " +email+ " doesn't exist in our data base !");
         }
     }
 
