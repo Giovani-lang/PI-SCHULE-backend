@@ -1,13 +1,20 @@
 package com.logonedigital.PI.SCHULE.Service;
 
+import com.logonedigital.PI.SCHULE.Entity.Enseignant;
 import com.logonedigital.PI.SCHULE.Entity.FicheDePresence;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
+import com.logonedigital.PI.SCHULE.Mapper.FicheDePresenceMapper;
+import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
 import com.logonedigital.PI.SCHULE.Repository.FicheDePresenceRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IFicheDePresenceService;
+import com.logonedigital.PI.SCHULE.dto.ficheDePresence_dto.FicheDePresenceRequest;
+import com.logonedigital.PI.SCHULE.dto.ficheDePresence_dto.FicheDePresenceResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,46 +22,55 @@ import java.util.Optional;
 @Slf4j
 public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     private final FicheDePresenceRepository ficheDePresenceRepo;
+    private final FicheDePresenceMapper ficheDePresenceMapper;
+    private final EnseignantRepository enseignantRepo;
 
-    public FicheDePresenceServiceImpl(FicheDePresenceRepository ficheDePresenceRepo) {
+    public FicheDePresenceServiceImpl(FicheDePresenceRepository ficheDePresenceRepo, FicheDePresenceMapper ficheDePresenceMapper, EnseignantRepository enseignantRepo) {
         this.ficheDePresenceRepo = ficheDePresenceRepo;
+        this.ficheDePresenceMapper = ficheDePresenceMapper;
+        this.enseignantRepo = enseignantRepo;
     }
 
     @Override
-    public FicheDePresence addFicheDePresence(FicheDePresence ficheDePresence) throws RessourceExistException {
-        Optional<FicheDePresence> fich = this.ficheDePresenceRepo.findByMatricule(ficheDePresence.getMatricule());
-        Optional<FicheDePresence> fich1 = this.ficheDePresenceRepo.findByNomComplet(ficheDePresence.getNomComplet());
-        if (fich.isPresent()) {
-            throw new RessourceExistException("A student with this matricule already exists");
-        } else if (fich1.isPresent()) {
-            throw new RessourceExistException("A student with this name already exists");
-        }
-        return this.ficheDePresenceRepo.save(ficheDePresence);
+    public FicheDePresenceResponse addFicheDePresence(FicheDePresenceRequest ficheDePresence) throws RessourceExistException {
+        FicheDePresence fiche = this.ficheDePresenceMapper.fromFicheDePresenceResquest(ficheDePresence);
+        Enseignant ens = this.enseignantRepo.findByEmail(ficheDePresence.getNomEnseignant())
+                .orElseThrow(()-> new RessourceNotFoundException("Enseignant with email doesn't exist"));
+        fiche.setEnseignant(ens);
+        fiche.setDate(new Date());
+        return this.ficheDePresenceMapper.fromFicheDePresence(this.ficheDePresenceRepo.save(fiche));
     }
 
 
 
     @Override
-    public FicheDePresence getFicheDePresence(String matricule) throws RessourceNotFoundException {
+    public FicheDePresenceResponse getFicheDePresence(String matricule) throws RessourceNotFoundException {
         try {
-            return this.ficheDePresenceRepo.findById(matricule).get();
+            return this.ficheDePresenceMapper.fromFicheDePresence(this.ficheDePresenceRepo.findById(matricule).get());
         } catch (Exception ex) {
             throw new RessourceNotFoundException("this matricule doesn't exist in our data base");
 
         }
     }
     @Override
-    public List<FicheDePresence> getFichesDePresence() {
-        return this.ficheDePresenceRepo.findAll();
+    public List<FicheDePresenceResponse> getFichesDePresence() {
+        List<FicheDePresence> fiches = this.ficheDePresenceRepo.findAll();
+        List<FicheDePresenceResponse> ficheResponses = new ArrayList<>();
+        fiches.forEach(ficheDePresence -> ficheResponses.add(this.ficheDePresenceMapper
+                .fromFicheDePresence(ficheDePresence)));
+
+        return ficheResponses;
     }
 
     @Override
-    public FicheDePresence updateFicheDePresence(String matricule, FicheDePresence ficheDePresence) {
+    public FicheDePresenceResponse updateFicheDePresence(String matricule, FicheDePresenceRequest ficheDePresence) {
         try {
             FicheDePresence newAbsence = this.ficheDePresenceRepo.findById(matricule).get();
-            newAbsence.setDate(ficheDePresence.getDate());
+
+            newAbsence.setNomComplet(ficheDePresence.getNomComplet());
             newAbsence.setNombreHeure(ficheDePresence.getNombreHeure());
-            return this.ficheDePresenceRepo.save(newAbsence);
+            return this.ficheDePresenceMapper.fromFicheDePresence(this.ficheDePresenceRepo
+                    .saveAndFlush(newAbsence));
         }catch (Exception ex){
             throw new RessourceNotFoundException("this matricule doesn't exist in our data base");
         }
@@ -62,7 +78,8 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     @Override
     public void deleteAbsence(String matricule) throws RessourceNotFoundException{
         try {
-            this.ficheDePresenceRepo.deleteById(matricule);
+            FicheDePresence fiche = this.ficheDePresenceRepo.findById(matricule).get();
+            this.ficheDePresenceRepo.delete(fiche);
         }catch (Exception ex){
             throw new RessourceNotFoundException("this matricule doesn't exist in our data base");
         }

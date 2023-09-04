@@ -11,6 +11,6 @@ public interface AdminService {
     List<AdminResponseDTO> getAdministrations();
     AdminResponseDTO getAdministration(String email);
     AdminResponseDTO updateAdministration(AdminRequestDTO adminRequestDTO, String email);
-void deleteAdministration(String email);
+    void deleteAdministration(String email);
 
 }

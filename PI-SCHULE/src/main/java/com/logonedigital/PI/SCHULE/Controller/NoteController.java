@@ -4,6 +4,7 @@ import com.logonedigital.PI.SCHULE.Entity.Note;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.INoteService;
+import com.logonedigital.PI.SCHULE.dto.note_dto.NoteRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Note> addNote(@RequestBody @Valid Note note)throws RessourceExistException {
+    public ResponseEntity<Note> addNote(@RequestBody @Valid NoteRequest note)throws RessourceExistException {
         return new ResponseEntity<>(this.noteService.addNote(note), HttpStatus.CREATED);
     }
 
@@ -38,7 +39,7 @@ public class NoteController {
 
     @PutMapping("{codeMatiere}")
     public ResponseEntity<Note> updateNote(@PathVariable(name = "codeMatiere") String codeMatiere,
-                                                       @RequestBody Note note) throws RessourceNotFoundException{
+                                                       @RequestBody NoteRequest note) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.noteService.updateNote(codeMatiere, note),HttpStatus.ACCEPTED);
     }
 

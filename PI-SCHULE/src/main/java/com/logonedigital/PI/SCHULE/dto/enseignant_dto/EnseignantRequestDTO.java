@@ -1,5 +1,7 @@
 package com.logonedigital.PI.SCHULE.dto.enseignant_dto;
 
+import com.logonedigital.PI.SCHULE.dto.ficheDePresence_dto.FicheDePresenceRequest;
+import com.logonedigital.PI.SCHULE.dto.note_dto.NoteRequest;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,6 +9,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Data
@@ -21,12 +25,17 @@ public class EnseignantRequestDTO {
     @NotBlank(message = "required field")
     private String prenom;
     @NotNull(message = "required field")
-    private String numeroTel;
+    private String telephone;
     @NotBlank(message = "required field")
     /*@Pattern(regexp = "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-])(?=\\S+$).{8,}",
             message = "your password must contain at least 8 characters including a caps,a lowercase ,a number and {#,?,!,@,$,%,^,&,*,-}" +
                     " and must not contain spaces")*/
-    private String motDePasse;
+    private String password;
     @NotBlank(message = "required field")
     private String discipline;
+    @NotBlank(message = "required field")
+    private String genre;
+
+    private List<NoteRequest> noteRequestList;
+    private List<FicheDePresenceRequest> fiches;
 }

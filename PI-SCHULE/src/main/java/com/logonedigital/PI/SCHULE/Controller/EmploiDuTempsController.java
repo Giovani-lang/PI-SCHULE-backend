@@ -3,6 +3,7 @@ package com.logonedigital.PI.SCHULE.Controller;
 import com.logonedigital.PI.SCHULE.Entity.EmploiDuTemps;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.EmploiDuTempsService;
+import com.logonedigital.PI.SCHULE.dto.emploiDuTemps_dto.EmploiDuTempsRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class EmploiDuTempsController {
         this.emploiDuTempsService= emploiDuTempsService;
     }
     @PostMapping
-    public ResponseEntity<EmploiDuTemps> addEmploiDuTemps(@RequestBody EmploiDuTemps emploiDuTemps){
+    public ResponseEntity<EmploiDuTemps> addEmploiDuTemps(@RequestBody EmploiDuTempsRequest emploiDuTemps){
         return new ResponseEntity<>(this.emploiDuTempsService.addEmploiDuTemps(emploiDuTemps), HttpStatus.CREATED) ;
     }
     @GetMapping
@@ -36,7 +37,7 @@ public class EmploiDuTempsController {
         return new ResponseEntity<>("Emploi du temps deleted successfully", HttpStatus.ACCEPTED);
     }
     @PutMapping("{id}")
-    public ResponseEntity<EmploiDuTemps> updateEmploiDuTemps(@PathVariable(name = "id") Integer id, @RequestBody EmploiDuTemps emploiDuTemps) throws RessourceNotFoundException{
+    public ResponseEntity<EmploiDuTemps> updateEmploiDuTemps(@PathVariable(name = "id") Integer id, @RequestBody EmploiDuTempsRequest emploiDuTemps) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.emploiDuTempsService.updateEmploiDuTemps(emploiDuTemps, id), HttpStatus.ACCEPTED);
     }
 }

@@ -4,6 +4,8 @@ import com.logonedigital.PI.SCHULE.Entity.Releve;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.IReleveService;
+import com.logonedigital.PI.SCHULE.dto.releve_dto.ReleveRequest;
+import com.logonedigital.PI.SCHULE.dto.releve_dto.ReleveResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,23 +24,23 @@ public class ReleveController {
     }
 
     @PostMapping
-    public ResponseEntity<Releve> addReleve(@RequestBody @Valid Releve releve)throws RessourceExistException {
+    public ResponseEntity<ReleveResponse> addReleve(@RequestBody @Valid ReleveRequest releve)throws RessourceExistException {
         return new ResponseEntity<>(this.releveService.addModule(releve), HttpStatus.CREATED);
     }
 
     @GetMapping("{module}")
-    public ResponseEntity<Releve> getReleve(@PathVariable(name = "module") String module) throws RessourceNotFoundException {
+    public ResponseEntity<ReleveResponse> getReleve(@PathVariable(name = "module") String module) throws RessourceNotFoundException {
         return new ResponseEntity<>(this.releveService.getModule(module),HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Releve>> getReleves(){
+    public ResponseEntity<List<ReleveResponse>> getReleves(){
         return new ResponseEntity<>(this.releveService.getModule(),HttpStatus.OK);
     }
 
     @PutMapping("{module}")
-    public ResponseEntity<Releve> updateReleve(@PathVariable(name = "module") String module,
-                                           @RequestBody Releve releve) throws RessourceNotFoundException{
+    public ResponseEntity<ReleveResponse> updateReleve(@PathVariable(name = "module") String module,
+                                           @RequestBody ReleveRequest releve) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.releveService.updateModule(module, releve),HttpStatus.ACCEPTED);
     }
 

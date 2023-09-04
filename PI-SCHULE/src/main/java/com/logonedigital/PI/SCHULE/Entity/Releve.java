@@ -26,7 +26,6 @@ public class Releve implements Serializable {
     @Serial
     private static final Long serialVersionUID = 1L;
     @Id
-    @NotNull(message = "invalid, try again")
     @NotBlank(message = "required field")
     private String module;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

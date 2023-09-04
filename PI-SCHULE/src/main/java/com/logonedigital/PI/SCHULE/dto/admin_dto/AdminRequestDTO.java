@@ -1,18 +1,24 @@
 package com.logonedigital.PI.SCHULE.dto.admin_dto;
 
 
+
+import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
+import com.logonedigital.PI.SCHULE.dto.emploiDuTemps_dto.EmploiDuTempsRequest;
+import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class AdminRequestDTO {
-    @Email
+    @Email(message = "invalid email")
     @NotBlank(message = "invalid email")
     private String email;
     @NotBlank(message =  "required field")
@@ -22,5 +28,10 @@ public class AdminRequestDTO {
     @NotBlank(message =  "required field")
     private String password;
     @NotBlank(message =  "required field")
-    private String téléphone;
+    private String telephone;
+    @NotBlank(message =  "required field")
+    private String genre;
+
+    private List<EmploiDuTempsRequest> emploiDuTemps;
+    private List<PensionRequest> pensions;
 }

@@ -10,6 +10,7 @@ import com.logonedigital.PI.SCHULE.dto.admin_dto.AdminRequestDTO;
 import com.logonedigital.PI.SCHULE.dto.admin_dto.AdminResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,18 +24,23 @@ import java.util.Optional;
 public class AdminServiceImpl implements AdminService {
     private final AdminRepo adminRepo;
     private final AdminMapper adminMapper;
+    private final PasswordEncoder encoder;
 
     @Override
     public AdminResponseDTO addAdministration(AdminRequestDTO adminRequestDTO) throws RessourceExistException {
         Administration admin = this.adminMapper.fromAdminRequestDTO(adminRequestDTO);
         Optional<Administration> userDB = this.adminRepo.findByEmail(adminRequestDTO.getEmail());
-        Optional<Administration> user = this.adminRepo.findByTéléphone(adminRequestDTO.getTéléphone());
+        Optional<Administration> user = this.adminRepo.findByTelephone(adminRequestDTO.getTelephone());
         if (userDB.isPresent()){
             throw new RessourceExistException("Admin with this email already exist !!!");
         } else if (user.isPresent()) {
             throw new RessourceExistException("Admin with this phone already exist !!!");
         }
+        admin.setPensionScolaires(this.adminMapper.fromPensionRequest(adminRequestDTO.getPensions()));
+        admin.setEmploisDuTemps(this.adminMapper.fromEmploiDuTempsRequest(adminRequestDTO.getEmploiDuTemps()));
+        admin.setRole("ADMIN");
         admin.setCreatedAt(new Date());
+        admin.setPassword(this.encoder.encode(admin.getEmail()));
         return this.adminMapper.fromAdministration(this.adminRepo.save(admin));
     }
 
@@ -63,8 +69,9 @@ public class AdminServiceImpl implements AdminService {
             admin1.setNom(admin.getNom());
             admin1.setPrenom(admin.getPrenom());
             admin1.setPassword(admin.getPassword());
-            admin1.setTéléphone(admin.getTéléphone());
-
+            admin1.setTelephone(admin.getTelephone());
+            admin1.setGenre(admin.getGenre());
+            admin1.setUpdatedAt(new Date());
             return this.adminMapper.fromAdministration(this.adminRepo.save(admin1));
         }catch (Exception exception) {
             throw new RessourceNotFoundException("This email " +email+ " doesn't exist in our data base !");

@@ -5,6 +5,7 @@ import com.logonedigital.PI.SCHULE.Entity.Administration;
 import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.PensionScolaireService;
+import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class PensionScolaireController {
         this.pensionScolaireService=pensionScolaireService;
     }
 @PostMapping
-public PensionScolaire addPensionScolaire(@RequestBody PensionScolaire pensionScolaire) {
+public PensionScolaire addPensionScolaire(@RequestBody PensionRequest pensionScolaire) {
     return this.pensionScolaireService.addPensionScolaire(pensionScolaire);
 }
 @GetMapping
@@ -38,7 +39,7 @@ public PensionScolaire addPensionScolaire(@RequestBody PensionScolaire pensionSc
     }
     @PutMapping("{nomElève}")
     public ResponseEntity <PensionScolaire> updatePensionScolaire(@PathVariable(name = "nomElève") String nomElève,
-                                           @RequestBody PensionScolaire pensionScolaire)throws RessourceNotFoundException
+                                           @RequestBody PensionRequest pensionScolaire)throws RessourceNotFoundException
     {
         return new ResponseEntity<>(this.pensionScolaireService.updatePensionScolaire(pensionScolaire, nomElève), HttpStatus.OK);
     }

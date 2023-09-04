@@ -9,6 +9,7 @@ import com.logonedigital.PI.SCHULE.Service.Interface.IEtudiantService;
 import com.logonedigital.PI.SCHULE.dto.etudiant_dto.EtudiantRequestDTO;
 import com.logonedigital.PI.SCHULE.dto.etudiant_dto.EtudiantResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
 
     private final EtudiantRepository etudiantRepo;
     private final EtudiantMapper etudiantMapper;
+    private final PasswordEncoder encoder;
     @Override
     public EtudiantResponseDTO addEtudiant(EtudiantRequestDTO etudiantRequestDTO) throws RessourceExistException {
         Optional<Etudiant> etu1 = this.etudiantRepo.findByEmail(etudiantRequestDTO.getEmail());
@@ -33,6 +35,8 @@ public class EtudiantServiceImpl implements IEtudiantService {
             throw new RessourceExistException("Student with this phone already exist !!!");
         }
         etu.setCreatedAt(new Date());
+        etu.setRole("ETUDIANT");
+        etu.setPassword(this.encoder.encode(etu.getPassword()));
         return this.etudiantMapper.fromEtudiant(this.etudiantRepo.save(etu));
     }
 
@@ -67,6 +71,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
             etu.setGenre(etudiantRequestDTO.getGenre());
             etu.setOption(etudiantRequestDTO.getOption());
             etu.setNiveau(etudiantRequestDTO.getNiveau());
+            etu.setUpdatedAt(new Date());
             return this.etudiantMapper.fromEtudiant(this.etudiantRepo.save(etu));
         }catch (Exception ex){
             throw new RessourceNotFoundException("This email " +email+ " doesn't exist in our data base");

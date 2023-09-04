@@ -1,6 +1,7 @@
 package com.logonedigital.PI.SCHULE.dto.etudiant_dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,12 @@ public class EtudiantResponseDTO {
     private String dateNaissance;
     private String telephone;
     private String password;
+    private String role;
     private String genre;
     private String niveau;
     private String filiere;
     private String option;
     private Date createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 }

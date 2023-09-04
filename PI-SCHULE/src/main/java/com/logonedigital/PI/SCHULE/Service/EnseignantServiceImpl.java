@@ -1,15 +1,18 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
+import com.logonedigital.PI.SCHULE.Entity.Note;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.EnseignantMapper;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
+import com.logonedigital.PI.SCHULE.Repository.NoteRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantRequestDTO;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,19 +27,25 @@ public class EnseignantServiceImpl implements IEnseignantService {
 
     private final EnseignantRepository enseignantRepo;
     private final EnseignantMapper enseignantMapper;
+    private final NoteRepository noteRepo;
+    private final PasswordEncoder encoder;
 
 
     @Override
     public EnseignantResponseDTO addEnseignant(EnseignantRequestDTO enseignantRequestDTO) throws RessourceExistException {
         Enseignant ens = this.enseignantMapper.fromEnseignantRequestDTO(enseignantRequestDTO);
         Optional<Enseignant> ens1 = this.enseignantRepo.findByEmail(enseignantRequestDTO.getEmail());
-        Optional<Enseignant> ens2 = this.enseignantRepo.findByNumeroTel(enseignantRequestDTO.getNumeroTel());
+        Optional<Enseignant> ens2 = this.enseignantRepo.findByTelephone(enseignantRequestDTO.getTelephone());
         if (ens1.isPresent()){
             throw new RessourceExistException("Teacher with this email already exist !!!");
         } else if (ens2.isPresent()) {
             throw new RessourceExistException("Teacher with this phone already exist !!!");
         }
+        ens.setNoteList(this.enseignantMapper.fromNoteRequest(enseignantRequestDTO.getNoteRequestList()));
+        ens.setFicheDePresenceList(this.enseignantMapper.fromFicheDePresenceRequest(enseignantRequestDTO.getFiches()));
         ens.setCreatedAt(new Date());
+        ens.setRole("ENSEIGNANT");
+        ens.setPassword(this.encoder.encode(ens.getPassword()));
         return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(ens));
     }
 
@@ -64,9 +73,11 @@ public class EnseignantServiceImpl implements IEnseignantService {
             newEnseignant.setEmail(enseignantRequestDTO.getEmail());
             newEnseignant.setNom(enseignantRequestDTO.getNom());
             newEnseignant.setPrenom(enseignantRequestDTO.getPrenom());
-            newEnseignant.setNumeroTel(enseignantRequestDTO.getNumeroTel());
-            newEnseignant.setMotDePasse(enseignantRequestDTO.getMotDePasse());
+            newEnseignant.setTelephone(enseignantRequestDTO.getTelephone());
+            newEnseignant.setPassword(enseignantRequestDTO.getPassword());
+            newEnseignant.setGenre(enseignantRequestDTO.getGenre());
             newEnseignant.setDiscipline(enseignantRequestDTO.getDiscipline());
+            newEnseignant.setUpdatedAt(new Date());
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));
         }catch (Exception ex){
             throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base !");

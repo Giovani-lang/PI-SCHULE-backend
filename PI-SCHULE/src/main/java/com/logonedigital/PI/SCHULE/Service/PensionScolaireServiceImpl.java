@@ -1,12 +1,11 @@
 package com.logonedigital.PI.SCHULE.Service;
 
-import com.logonedigital.PI.SCHULE.Entity.Administration;
-import com.logonedigital.PI.SCHULE.Entity.EmploiDuTemps;
 import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
-import com.logonedigital.PI.SCHULE.Repository.AdminRepo;
+import com.logonedigital.PI.SCHULE.Mapper.PensionMapper;
 import com.logonedigital.PI.SCHULE.Repository.PensionScolaireRepo;
 import com.logonedigital.PI.SCHULE.Service.Interface.PensionScolaireService;
+import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,22 +16,18 @@ import java.util.List;
 @Slf4j
 public class PensionScolaireServiceImpl implements PensionScolaireService {
     private final PensionScolaireRepo pensionScolaireRepo;
+    private final PensionMapper pensionMapper;
 
-    public PensionScolaireServiceImpl(PensionScolaireRepo pensionScolaireRepo) {
+    public PensionScolaireServiceImpl(PensionScolaireRepo pensionScolaireRepo, PensionMapper pensionMapper) {
         this.pensionScolaireRepo = pensionScolaireRepo;
-
+        this.pensionMapper = pensionMapper;
     }
 
     @Override
-    public PensionScolaire addPensionScolaire(PensionScolaire pensionScolaire) {
-       PensionScolaire pensionScolaire1=PensionScolaire.bill(
-               pensionScolaire.getNomElève(),
-               new Date(),
-               pensionScolaire.getMontantPayé(),
-               pensionScolaire.getSolde()
-
-       );
-        return this.pensionScolaireRepo.save(pensionScolaire1);
+    public PensionScolaire addPensionScolaire(PensionRequest pensionScolaire) {
+       PensionScolaire pension = this.pensionMapper.fromPensionRequest(pensionScolaire);
+       pension.setDateInscription(new Date());
+        return this.pensionScolaireRepo.save(pension);
     }
 
     @Override
@@ -51,12 +46,11 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
     }
 
     @Override
-    public PensionScolaire updatePensionScolaire(PensionScolaire newPensionScolaire, String nomElève) throws RessourceNotFoundException {
+    public PensionScolaire updatePensionScolaire(PensionRequest newPensionScolaire, String nomElève) throws RessourceNotFoundException {
         try {
             PensionScolaire oldPensionScolaire = this.pensionScolaireRepo.findById(nomElève).get();
 
             oldPensionScolaire.setNomElève(newPensionScolaire.getNomElève());
-            oldPensionScolaire.setDateInscription(newPensionScolaire.getDateInscription());
             oldPensionScolaire.setMontantPayé(newPensionScolaire.getMontantPayé());
             oldPensionScolaire.setSolde(newPensionScolaire.getSolde());
 

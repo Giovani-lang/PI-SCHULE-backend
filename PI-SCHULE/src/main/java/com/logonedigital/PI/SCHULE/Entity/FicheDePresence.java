@@ -28,16 +28,13 @@ public class FicheDePresence implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String matricule;
     @Temporal(TemporalType.DATE)
-    private Date date = new Date();
+    private Date date;
     @Column(name = "nom_&_prenom_de_l'etudiant", unique = true)
-    @NotBlank(message = "required field")
     private String nomComplet;
-    @NotNull(message = "required field")
-    @Min(value = 1, message = "must be greater than or equal to 1")
     @Column(name = "nombre_d'heure_d'absence")
     private Integer nombreHeure;
 
-    @ManyToOne(targetEntity = Enseignant.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Enseignant.class,fetch = FetchType.EAGER)
     private Enseignant enseignant;
 
 }
