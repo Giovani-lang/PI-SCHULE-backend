@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,7 +30,7 @@ public class Releve implements Serializable {
     @NotBlank(message = "required field")
     private String module;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private  List<Note> notes;
+    private  List<Note> notes = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private DecisionName decision;

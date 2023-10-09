@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReleveRequest {
     private String module;
-//    private String codeMatiere;
+    private String nomMatiere;
     private DecisionName decision;
 }

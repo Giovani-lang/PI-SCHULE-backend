@@ -1,6 +1,6 @@
 package com.logonedigital.PI.SCHULE.Service;
 
-import com.logonedigital.PI.SCHULE.Entity.Etudiant;
+import com.logonedigital.PI.SCHULE.Entity.*;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.EtudiantMapper;
@@ -35,6 +35,15 @@ public class EtudiantServiceImpl implements IEtudiantService {
             throw new RessourceExistException("Student with this phone already exist !!!");
         }
         etu.setCreatedAt(new Date());
+
+        List<Note> note = this.etudiantMapper.fromNoteRequest(etudiantRequestDTO.getNoteRequestList());
+        etu.setNotes(note);
+        List<FicheDePresence> ficheDePresences = this.etudiantMapper.fromFicheDePresenceRequest(etudiantRequestDTO.getFiches());
+        etu.setFicheDePresence(ficheDePresences);
+        List<PensionScolaire> pensionScolaireList = this.etudiantMapper.fromPensionRequest(etudiantRequestDTO.getPensions());
+        etu.setPensionScolaires(pensionScolaireList);
+        EmploiDuTemps emploiDuTemps = this.etudiantMapper.fromEmploiDuTempsRequest(etudiantRequestDTO.getEmploisDuTemps());
+        etu.setEmploiDuTemps(emploiDuTemps);
         etu.setRole("ETUDIANT");
         etu.setPassword(this.encoder.encode(etu.getPassword()));
         return this.etudiantMapper.fromEtudiant(this.etudiantRepo.save(etu));
@@ -61,17 +70,22 @@ public class EtudiantServiceImpl implements IEtudiantService {
     public EtudiantResponseDTO updateEtudiant(String email, EtudiantRequestDTO etudiantRequestDTO)throws RessourceNotFoundException {
         try {
             Etudiant etu = this.etudiantRepo.findByEmail(email).get();
-            etu.setEmail(etudiantRequestDTO.getEmail());
-            etu.setNom(etudiantRequestDTO.getNom());
-            etu.setPrenom(etudiantRequestDTO.getPrenom());
-            etu.setTelephone(etudiantRequestDTO.getTelephone());
-            etu.setPassword(etudiantRequestDTO.getPassword());
-            etu.setDateNaissance(etudiantRequestDTO.getDateNaissance());
-            etu.setFiliere(etudiantRequestDTO.getFiliere());
-            etu.setGenre(etudiantRequestDTO.getGenre());
-            etu.setOption(etudiantRequestDTO.getOption());
-            etu.setNiveau(etudiantRequestDTO.getNiveau());
+            Etudiant etudiant = this.etudiantMapper.fromEtudiantRequestDTO(etudiantRequestDTO);
+            etu.setEmail(etudiant.getEmail());
+            etu.setNom(etudiant.getNom());
+            etu.setPrenom(etudiant.getPrenom());
+            etu.setTelephone(etudiant.getTelephone());
+            etu.setPassword(etudiant.getPassword());
+            etu.setDateNaissance(etudiant.getDateNaissance());
+            etu.setFiliere(etudiant.getFiliere());
+            etu.setGenre(etudiant.getGenre());
+            etu.setOption(etudiant.getOption());
+            etu.setNiveau(etudiant.getNiveau());
             etu.setUpdatedAt(new Date());
+            etu.setNotes(etudiant.getNotes());
+            etu.setPensionScolaires(etudiant.getPensionScolaires());
+            etu.setFicheDePresence(etudiant.getFicheDePresence());
+            etu.setEmploiDuTemps(etudiant.getEmploiDuTemps());
             return this.etudiantMapper.fromEtudiant(this.etudiantRepo.save(etu));
         }catch (Exception ex){
             throw new RessourceNotFoundException("This email " +email+ " doesn't exist in our data base");

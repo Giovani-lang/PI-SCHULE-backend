@@ -1,11 +1,12 @@
 package com.logonedigital.PI.SCHULE.dto.user_dto;
 
-import jakarta.persistence.Column;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
@@ -24,6 +25,5 @@ public class UserRequest {
     private String telephone;
     @NotBlank(message = "required field")
     private String genre;
-    @NotBlank(message = "required field")
-    private String role;
+
 }

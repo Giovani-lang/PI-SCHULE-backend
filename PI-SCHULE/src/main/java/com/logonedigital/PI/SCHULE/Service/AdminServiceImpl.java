@@ -40,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
         admin.setEmploisDuTemps(this.adminMapper.fromEmploiDuTempsRequest(adminRequestDTO.getEmploiDuTemps()));
         admin.setRole("ADMIN");
         admin.setCreatedAt(new Date());
-        admin.setPassword(this.encoder.encode(admin.getEmail()));
+        admin.setPassword(this.encoder.encode(admin.getPassword()));
         return this.adminMapper.fromAdministration(this.adminRepo.save(admin));
     }
 

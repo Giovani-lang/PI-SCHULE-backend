@@ -1,11 +1,13 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
+import com.logonedigital.PI.SCHULE.Entity.Etudiant;
 import com.logonedigital.PI.SCHULE.Entity.FicheDePresence;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.FicheDePresenceMapper;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
+import com.logonedigital.PI.SCHULE.Repository.EtudiantRepository;
 import com.logonedigital.PI.SCHULE.Repository.FicheDePresenceRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IFicheDePresenceService;
 import com.logonedigital.PI.SCHULE.dto.ficheDePresence_dto.FicheDePresenceRequest;
@@ -16,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -24,11 +25,13 @@ public class FicheDePresenceServiceImpl implements IFicheDePresenceService {
     private final FicheDePresenceRepository ficheDePresenceRepo;
     private final FicheDePresenceMapper ficheDePresenceMapper;
     private final EnseignantRepository enseignantRepo;
+    private final EtudiantRepository etudiantRepo;
 
-    public FicheDePresenceServiceImpl(FicheDePresenceRepository ficheDePresenceRepo, FicheDePresenceMapper ficheDePresenceMapper, EnseignantRepository enseignantRepo) {
+    public FicheDePresenceServiceImpl(FicheDePresenceRepository ficheDePresenceRepo, FicheDePresenceMapper ficheDePresenceMapper, EnseignantRepository enseignantRepo, EtudiantRepository etudiantRepo) {
         this.ficheDePresenceRepo = ficheDePresenceRepo;
         this.ficheDePresenceMapper = ficheDePresenceMapper;
         this.enseignantRepo = enseignantRepo;
+        this.etudiantRepo = etudiantRepo;
     }
 
     @Override

@@ -13,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class FicheDePresenceResponse {
     private String matricule;
-
     private Date date;
     private String nomComplet;
     private Integer nombreHeure;

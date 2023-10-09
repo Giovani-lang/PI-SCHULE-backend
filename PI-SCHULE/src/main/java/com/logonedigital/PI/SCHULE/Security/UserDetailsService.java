@@ -15,6 +15,6 @@ public class UserDetailsService implements org.springframework.security.core.use
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepo.findUserByEmail(username)
                 .map(com.logonedigital.PI.SCHULE.Security.UserDetails::new)
-                .orElseThrow(()-> new UsernameNotFoundException("This user doesn't exist, try again"));
+                .orElseThrow(()-> new UsernameNotFoundException("Could not find ! Try again."));
     }
 }

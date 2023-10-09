@@ -13,7 +13,6 @@ import java.util.List;
 @Table(name = "tb_etudiants")
 @Entity
 public class Etudiant extends User {
-
     @Column(name = "date_de_naissance")
     private String dateNaissance;
     private String niveau;
@@ -24,15 +23,15 @@ public class Etudiant extends User {
     @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
-//    @OneToOne(targetEntity = FicheDePresence.class,fetch = FetchType.EAGER)
-//    private List<FicheDePresence> ficheDePresenceList = new ArrayList<>();
-//    @OneToMany(targetEntity = Note.class,fetch = FetchType.EAGER)
-//    private List<Note> noteList = new ArrayList<>();
-//    @OneToOne(targetEntity = Releve.class,fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = FicheDePresence.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<FicheDePresence> ficheDePresence = new ArrayList<>();
+    @OneToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Note> notes = new ArrayList<>();
+//    @OneToOne(targetEntity = Releve.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 //    private List<Releve> releveList = new ArrayList<>();
-//    @OneToOne(fetch = FetchType.EAGER)
-//    private List<EmploiDuTemps> emploisDuTemps;
-//    @OneToOne(fetch = FetchType.EAGER)
-//    private List<PensionScolaire> pensionScolaires;
+    @OneToOne(targetEntity = EmploiDuTemps.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private EmploiDuTemps emploiDuTemps;
+    @OneToMany(targetEntity = PensionScolaire.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<PensionScolaire> pensionScolaires = new ArrayList<>();
 
 }

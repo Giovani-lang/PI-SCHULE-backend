@@ -25,7 +25,6 @@ public class EnseignantResponseDTO {
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
-
     private List<NoteModel> notes;
     private List<FicheDePresenceModel> fichesDePresence;
 

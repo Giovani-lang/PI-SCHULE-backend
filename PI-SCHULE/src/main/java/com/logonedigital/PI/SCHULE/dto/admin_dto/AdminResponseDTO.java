@@ -25,7 +25,6 @@ public class AdminResponseDTO {
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
-
     private List<EmploiDuTempsModel> emploiDuTemps;
     private List<PensionModel> pensions;
 

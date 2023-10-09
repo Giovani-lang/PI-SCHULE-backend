@@ -1,4 +1,4 @@
-package com.logonedigital.PI.SCHULE.Exception.Advice;
+package com.logonedigital.PI.SCHULE.Exception.advice;
 
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;

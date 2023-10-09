@@ -2,7 +2,6 @@ package com.logonedigital.PI.SCHULE.dto.admin_dto;
 
 
 
-import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
 import com.logonedigital.PI.SCHULE.dto.emploiDuTemps_dto.EmploiDuTempsRequest;
 import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;
 import jakarta.validation.constraints.Email;
@@ -31,7 +30,6 @@ public class AdminRequestDTO {
     private String telephone;
     @NotBlank(message =  "required field")
     private String genre;
-
     private List<EmploiDuTempsRequest> emploiDuTemps;
     private List<PensionRequest> pensions;
 }

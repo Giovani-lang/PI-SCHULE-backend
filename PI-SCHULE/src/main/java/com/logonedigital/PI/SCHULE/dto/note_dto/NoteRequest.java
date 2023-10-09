@@ -25,9 +25,5 @@ public class NoteRequest {
     @Min(value = 0,message = "you can't enter a value above 0")
     @Max(value = 20,message = "you can't exceed 20")
     private float noteSession;
-    @NotBlank(message = "Required field")
-    private String moduleName;
-
-    private String module;
 
 }

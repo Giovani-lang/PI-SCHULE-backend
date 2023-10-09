@@ -38,9 +38,9 @@ public class ReleveServiceImpl implements IReleveService {
         if (rel.isPresent()){
             throw new RessourceExistException("A module with this name already exists");
         }
-//        Note note = this.noteRepo.findByCodeMatiere(releve.getCodeMatiere())
-//                .orElseThrow(()-> new RessourceNotFoundException("This matiere doesn't exist, add it if you want to use it"));
-//        re.setNotes((List<Note>) note);
+        Note note = this.noteRepo.findByNomMatiere(releve.getNomMatiere())
+                .orElseThrow(()-> new RessourceNotFoundException("This matiere doesn't exist, add it if you want to use it"));
+        re.setNotes(List.of(note));
         return this.releveMapper.fromReleve(this.releveRepo.save(re));
     }
     @Override

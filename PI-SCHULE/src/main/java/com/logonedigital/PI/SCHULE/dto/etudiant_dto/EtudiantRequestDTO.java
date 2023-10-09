@@ -1,6 +1,10 @@
 package com.logonedigital.PI.SCHULE.dto.etudiant_dto;
 
 
+import com.logonedigital.PI.SCHULE.dto.emploiDuTemps_dto.EmploiDuTempsRequest;
+import com.logonedigital.PI.SCHULE.dto.ficheDePresence_dto.FicheDePresenceRequest;
+import com.logonedigital.PI.SCHULE.dto.note_dto.NoteRequest;
+import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -8,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,6 +39,10 @@ public class EtudiantRequestDTO {
     private String filiere;
     @NotBlank(message = "required field")
     private String option;
+    private EmploiDuTempsRequest emploisDuTemps;
+    private List<PensionRequest> pensions;
+    private List<NoteRequest> noteRequestList;
+    private List<FicheDePresenceRequest> fiches;
 
 
 }

@@ -52,14 +52,14 @@ public class UserServiceImpl implements IUserService {
     public UserResponse editUser(String email, UserRequest user)throws RessourceNotFoundException {
         try {
             User newUser = this.userRepo.findUserByEmail(email).get();
-
-            newUser.setEmail(user.getEmail());
-            newUser.setNom(user.getNom());
-            newUser.setPrenom(user.getPrenom());
-            newUser.setPassword(user.getPassword());
-            newUser.setTelephone(user.getTelephone());
-            newUser.setRole(user.getRole());
-            newUser.setGenre(user.getGenre());
+            User user1 = this.userMapper.fromUserRequest(user);
+            newUser.setEmail(user1.getEmail());
+            newUser.setNom(user1.getNom());
+            newUser.setPrenom(user1.getPrenom());
+            newUser.setPassword(user1.getPassword());
+            newUser.setTelephone(user1.getTelephone());
+            newUser.setRole(user1.getRole());
+            newUser.setGenre(user1.getGenre());
 
             return this.userMapper.fromUser(this.userRepo.saveAndFlush(newUser));
         }catch (Exception ex){

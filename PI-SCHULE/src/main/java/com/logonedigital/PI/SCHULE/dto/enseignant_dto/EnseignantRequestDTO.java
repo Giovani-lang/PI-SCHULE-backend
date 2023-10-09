@@ -5,7 +5,6 @@ import com.logonedigital.PI.SCHULE.dto.note_dto.NoteRequest;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,6 @@ public class EnseignantRequestDTO {
     private String discipline;
     @NotBlank(message = "required field")
     private String genre;
-
     private List<NoteRequest> noteRequestList;
     private List<FicheDePresenceRequest> fiches;
 }

@@ -5,20 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-public class User {
+public class User implements Serializable {
+    @Serial
+    private static final Long serialVersionUID =1L;
     @Id
     @Column(unique = true)
-    private String email;
-    private String nom;
-    private String prenom;
-    private String password;
+    protected String email;
+    protected String nom;
+    protected String prenom;
+    protected String password;
     @Column(unique = true)
-    private String telephone;
-    private String genre;
-    private String role;
+    protected String telephone;
+    protected String genre;
+    protected String role;
 }

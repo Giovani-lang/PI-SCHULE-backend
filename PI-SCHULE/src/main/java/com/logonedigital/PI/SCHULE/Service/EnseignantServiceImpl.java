@@ -1,12 +1,10 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
-import com.logonedigital.PI.SCHULE.Entity.Note;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.EnseignantMapper;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
-import com.logonedigital.PI.SCHULE.Repository.NoteRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantRequestDTO;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantResponseDTO;
@@ -27,7 +25,6 @@ public class EnseignantServiceImpl implements IEnseignantService {
 
     private final EnseignantRepository enseignantRepo;
     private final EnseignantMapper enseignantMapper;
-    private final NoteRepository noteRepo;
     private final PasswordEncoder encoder;
 
 
@@ -70,13 +67,14 @@ public class EnseignantServiceImpl implements IEnseignantService {
     public EnseignantResponseDTO updateEnseignant(String email, EnseignantRequestDTO enseignantRequestDTO) throws RessourceNotFoundException {
         try {
             Enseignant newEnseignant = this.enseignantRepo.findById(email).get();
-            newEnseignant.setEmail(enseignantRequestDTO.getEmail());
-            newEnseignant.setNom(enseignantRequestDTO.getNom());
-            newEnseignant.setPrenom(enseignantRequestDTO.getPrenom());
-            newEnseignant.setTelephone(enseignantRequestDTO.getTelephone());
-            newEnseignant.setPassword(enseignantRequestDTO.getPassword());
-            newEnseignant.setGenre(enseignantRequestDTO.getGenre());
-            newEnseignant.setDiscipline(enseignantRequestDTO.getDiscipline());
+            Enseignant enseignant = this.enseignantMapper.fromEnseignantRequestDTO(enseignantRequestDTO);
+            newEnseignant.setEmail(enseignant.getEmail());
+            newEnseignant.setNom(enseignant.getNom());
+            newEnseignant.setPrenom(enseignant.getPrenom());
+            newEnseignant.setTelephone(enseignant.getTelephone());
+            newEnseignant.setPassword(enseignant.getPassword());
+            newEnseignant.setGenre(enseignant.getGenre());
+            newEnseignant.setDiscipline(enseignant.getDiscipline());
             newEnseignant.setUpdatedAt(new Date());
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));
         }catch (Exception ex){

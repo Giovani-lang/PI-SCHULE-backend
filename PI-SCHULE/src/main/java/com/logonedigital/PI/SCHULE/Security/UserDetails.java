@@ -3,8 +3,10 @@ package com.logonedigital.PI.SCHULE.Security;
 
 import com.logonedigital.PI.SCHULE.Entity.User;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,18 +14,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+@Slf4j
+public class UserDetails extends User implements org.springframework.security.core.userdetails.UserDetails {
+    
     private String username;
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public UserDetails(User user) {
+
+        public UserDetails(User user) {
         this.username = user.getEmail();
         this.password = user.getPassword();
         this.authorities = Arrays.stream(user.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
