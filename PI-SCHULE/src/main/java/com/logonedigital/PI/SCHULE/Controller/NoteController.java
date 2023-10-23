@@ -22,28 +22,28 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Note> addNote(@RequestBody @Valid NoteRequest note)throws RessourceExistException {
         return new ResponseEntity<>(this.noteService.addNote(note), HttpStatus.CREATED);
     }
 
-    @GetMapping("{codeMatiere}")
+    @GetMapping("/detail/{codeMatiere}")
     public ResponseEntity<Note> getNote(@PathVariable(name = "codeMatiere") String codeMatiere) throws RessourceNotFoundException {
         return new ResponseEntity<>(this.noteService.getNote(codeMatiere),HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<Note>> getNotes(){
         return new ResponseEntity<>(this.noteService.getNotes(),HttpStatus.OK);
     }
 
-    @PutMapping("{codeMatiere}")
+    @PutMapping("/edit/{codeMatiere}")
     public ResponseEntity<Note> updateNote(@PathVariable(name = "codeMatiere") String codeMatiere,
                                                        @RequestBody NoteRequest note) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.noteService.updateNote(codeMatiere, note),HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("{codeMatiere}")
+    @DeleteMapping("/delete/{codeMatiere}")
     public ResponseEntity<String> deleteNote(@PathVariable(name = "codeMatiere") String codeMatiere) throws RessourceNotFoundException {
         this.noteService.deleteNote(codeMatiere);
         return new ResponseEntity<>("delete successfully",HttpStatus.ACCEPTED);

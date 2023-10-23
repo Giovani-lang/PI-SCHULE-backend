@@ -19,30 +19,30 @@ public class EtudiantController {
 
     private final IEtudiantService etudiantService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<EtudiantResponseDTO> addEtudiant(@Valid @RequestBody EtudiantRequestDTO etudiantRequestDTO)  {
         return new ResponseEntity<>(this.etudiantService.addEtudiant(etudiantRequestDTO),HttpStatus.CREATED );
     }
 
-    @GetMapping("{email}")
+    @GetMapping("/detail/{email}")
     public ResponseEntity<EtudiantResponseDTO> getEtudiant(@PathVariable(name = "email") String email)
             throws RessourceNotFoundException{
         return new ResponseEntity<>(this.etudiantService.getEtudiant(email),HttpStatus.ACCEPTED );
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<EtudiantResponseDTO>> getEtudiants() {
         return new ResponseEntity<>(this.etudiantService.getEtudiants(), HttpStatus.OK);
     }
 
-    @PutMapping("{email}")
+    @PutMapping("/edit?{email}")
     public ResponseEntity<EtudiantResponseDTO> updateEtudiant(@PathVariable(name = "email") String email,
                                                               @RequestBody EtudiantRequestDTO etudiantRequestDTO)
                                                               throws RessourceNotFoundException {
         return new ResponseEntity<>(this.etudiantService.updateEtudiant(email, etudiantRequestDTO),HttpStatus.ACCEPTED );
     }
 
-    @DeleteMapping("{email}")
+    @DeleteMapping("/delete/{email}")
     public ResponseEntity<String> deleteEtudiant(@PathVariable(name = "email") String email) throws RessourceNotFoundException {
         this.etudiantService.deleteEtudiant(email);
         return new ResponseEntity<>("delete successfully", HttpStatus.OK);

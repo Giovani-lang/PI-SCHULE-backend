@@ -22,28 +22,28 @@ public class FicheDePresenceController {
         this.ficheDePresenceService = ficheDePresenceService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<FicheDePresenceResponse> addFicheDePresence(@RequestBody @Valid FicheDePresenceRequest absence) throws RessourceExistException {
         return new ResponseEntity<>(this.ficheDePresenceService.addFicheDePresence(absence), HttpStatus.CREATED);
     }
 
-    @GetMapping("{matricule}")
+    @GetMapping("/detail/{matricule}")
     public ResponseEntity<FicheDePresenceResponse> getFicheDePresence(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
         return new ResponseEntity<>(this.ficheDePresenceService.getFicheDePresence(matricule),HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<FicheDePresenceResponse>> getFichesDePresence(){
         return new ResponseEntity<>(this.ficheDePresenceService.getFichesDePresence(),HttpStatus.OK);
     }
 
-    @PutMapping("{matricule}")
+    @PutMapping("/edit/{matricule}")
     public ResponseEntity<FicheDePresenceResponse> updateFicheDePresence(@PathVariable(name = "matricule") String matricule,
                                                        @RequestBody FicheDePresenceRequest absence) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.ficheDePresenceService.updateFicheDePresence(matricule, absence),HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("{matricule}")
+    @DeleteMapping("/delete/{matricule}")
     public ResponseEntity<String> deleteFicheDePresence(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
         this.ficheDePresenceService.deleteAbsence(matricule);
         return new ResponseEntity<>("delete successfully",HttpStatus.ACCEPTED);

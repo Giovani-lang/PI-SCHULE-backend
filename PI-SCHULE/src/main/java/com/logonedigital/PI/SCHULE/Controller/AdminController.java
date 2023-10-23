@@ -18,24 +18,24 @@ public class AdminController {
     public AdminController(AdminService adminService){
         this.adminService= adminService;
     }
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<AdminResponseDTO> addAdministration(@RequestBody@Valid AdminRequestDTO administration) throws RessourceNotFoundException {
         return new ResponseEntity<>( this.adminService.addAdministration(administration), HttpStatus.CREATED);
 }
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<AdminResponseDTO>> getAdministrations() {
         return new ResponseEntity<>(this.adminService.getAdministrations(),HttpStatus.OK);
     }
-    @GetMapping("{email}")
+    @GetMapping("/detail/{email}")
     public ResponseEntity<AdminResponseDTO> getAdministration(@PathVariable(name = "email")String email) throws RessourceNotFoundException {
      return new ResponseEntity<>(this.adminService.getAdministration(email), HttpStatus.OK);
     }
-    @DeleteMapping("{email}")
+    @DeleteMapping("/delete/{email}")
     public ResponseEntity <String> deleteAdministration(@PathVariable(name = "email")String email)throws RessourceNotFoundException{
         this.adminService.deleteAdministration(email);
         return new ResponseEntity<>("Administration deleted successfully", HttpStatus.ACCEPTED);
 }
-    @PutMapping("{email}")
+    @PutMapping("/edit/{email}")
     public ResponseEntity<AdminResponseDTO> updateAdministration(@PathVariable(name = "email") String email,
                                                                @RequestBody AdminRequestDTO administration) throws RessourceNotFoundException{
         return new ResponseEntity<>(this.adminService.updateAdministration(administration, email), HttpStatus.ACCEPTED);

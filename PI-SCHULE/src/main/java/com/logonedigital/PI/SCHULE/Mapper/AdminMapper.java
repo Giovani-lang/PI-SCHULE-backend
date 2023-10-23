@@ -20,10 +20,6 @@ public interface AdminMapper {
 
     AdminMapper INSTANCE = Mappers.getMapper(AdminMapper.class);
     Administration fromAdminRequestDTO(AdminRequestDTO adminRequestDTO);
-    List<EmploiDuTemps> fromEmploiDuTempsRequest (List<EmploiDuTempsRequest> emploiDuTempsRequest);
-    List<PensionScolaire> fromPensionRequest (List<PensionRequest> pensionRequests);
 
-    @Mapping(target = "emploiDuTemps", source = "emploisDuTemps")
-    @Mapping(target = "pensions", source = "pensionScolaires")
     AdminResponseDTO fromAdministration(Administration administration);
 }

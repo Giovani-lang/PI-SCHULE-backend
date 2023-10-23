@@ -19,6 +19,7 @@ public class EnseignantRequestDTO {
     @Email(message = "invalid email")
     @NotBlank(message = "required field")
     private String email;
+    private String image_url;
     @NotBlank(message = "required field")
     private String nom;
     @NotBlank(message = "required field")
@@ -34,6 +35,5 @@ public class EnseignantRequestDTO {
     private String discipline;
     @NotBlank(message = "required field")
     private String genre;
-    private List<NoteRequest> noteRequestList;
-    private List<FicheDePresenceRequest> fiches;
+
 }

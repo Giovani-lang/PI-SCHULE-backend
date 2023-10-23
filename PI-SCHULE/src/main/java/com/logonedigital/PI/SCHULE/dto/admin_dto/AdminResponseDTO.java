@@ -17,6 +17,7 @@ import java.util.List;
 public class AdminResponseDTO {
     private String email;
     private String nom;
+    private String image_url;
     private String prenom;
     private String password;
     private String telephone;
@@ -25,7 +26,5 @@ public class AdminResponseDTO {
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
-    private List<EmploiDuTempsModel> emploiDuTemps;
-    private List<PensionModel> pensions;
 
 }

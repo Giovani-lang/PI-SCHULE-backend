@@ -38,8 +38,6 @@ public class EnseignantServiceImpl implements IEnseignantService {
         } else if (ens2.isPresent()) {
             throw new RessourceExistException("Teacher with this phone already exist !!!");
         }
-        ens.setNoteList(this.enseignantMapper.fromNoteRequest(enseignantRequestDTO.getNoteRequestList()));
-        ens.setFicheDePresenceList(this.enseignantMapper.fromFicheDePresenceRequest(enseignantRequestDTO.getFiches()));
         ens.setCreatedAt(new Date());
         ens.setRole("ENSEIGNANT");
         ens.setPassword(this.encoder.encode(ens.getPassword()));
@@ -69,6 +67,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
             Enseignant newEnseignant = this.enseignantRepo.findById(email).get();
             Enseignant enseignant = this.enseignantMapper.fromEnseignantRequestDTO(enseignantRequestDTO);
             newEnseignant.setEmail(enseignant.getEmail());
+            newEnseignant.setImage_url(enseignant.getImage_url());
             newEnseignant.setNom(enseignant.getNom());
             newEnseignant.setPrenom(enseignant.getPrenom());
             newEnseignant.setTelephone(enseignant.getTelephone());

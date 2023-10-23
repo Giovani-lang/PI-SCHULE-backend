@@ -25,7 +25,7 @@ public class EmploiDuTemps implements Serializable {
     private String jours;
     private String heure;
     private String matières;
-    @Column(name = "NomProf_Complet")
-    private String nomProf;
+    @ManyToOne(targetEntity = Enseignant.class,fetch = FetchType.EAGER)
+    private Enseignant enseignant;
 
 }

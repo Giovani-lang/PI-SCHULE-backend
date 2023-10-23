@@ -16,5 +16,6 @@ public class FicheDePresenceRequest {
     @NotNull(message = "required field")
     @Min(value = 1, message = "must be greater than or equal to 1")
     private Integer nombreHeure;
+    @NotBlank(message = "Required field")
     private String nomEnseignant;
 }

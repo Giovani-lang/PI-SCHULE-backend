@@ -15,5 +15,6 @@ public class EmploiDuTempsRequest {
     private String heure;
     @NotBlank(message = "Required field")
     private String matières;
+    @NotBlank(message = "Required field")
     private String nomProf;
 }

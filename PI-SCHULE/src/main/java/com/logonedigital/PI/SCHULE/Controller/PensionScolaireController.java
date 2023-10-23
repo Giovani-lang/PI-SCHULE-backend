@@ -19,25 +19,25 @@ public class PensionScolaireController {
     public PensionScolaireController(PensionScolaireService pensionScolaireService){
         this.pensionScolaireService=pensionScolaireService;
     }
-@PostMapping
+@PostMapping("/add")
 public PensionScolaire addPensionScolaire(@RequestBody PensionRequest pensionScolaire) {
     return this.pensionScolaireService.addPensionScolaire(pensionScolaire);
 }
-@GetMapping
+@GetMapping("/getAll")
     public List<PensionScolaire> getPensionsScolaire(){
     return this.pensionScolaireService.getPensionsScolaire();
     }
-    @GetMapping("{nomElève}")
+    @GetMapping("/detail/{nomElève}")
     public PensionScolaire getPensionScolaire(@PathVariable(name = "nomElève")String nomElève) {
         return this.pensionScolaireService.getPensionScolaire(nomElève);
     }
 
-    @DeleteMapping("{nomElève}")
+    @DeleteMapping("/delete/{nomElève}")
     public String deletePensionScolaire(@PathVariable(name = "nomElève") String nomElève){
         this.pensionScolaireService.deletePensionScolaire(nomElève);
         return "Deleted successfully";
     }
-    @PutMapping("{nomElève}")
+    @PutMapping("/edit/{nomElève}")
     public ResponseEntity <PensionScolaire> updatePensionScolaire(@PathVariable(name = "nomElève") String nomElève,
                                            @RequestBody PensionRequest pensionScolaire)throws RessourceNotFoundException
     {

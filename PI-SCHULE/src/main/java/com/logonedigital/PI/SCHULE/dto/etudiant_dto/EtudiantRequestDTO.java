@@ -21,6 +21,7 @@ public class EtudiantRequestDTO {
     @Email(message = "invalid email")
     @NotBlank(message = "required field")
     private String email;
+    private String image_url;
     @NotBlank(message = "required field")
     private String nom;
     @NotBlank(message = "required field")
@@ -40,9 +41,7 @@ public class EtudiantRequestDTO {
     @NotBlank(message = "required field")
     private String option;
     private EmploiDuTempsRequest emploisDuTemps;
-    private List<PensionRequest> pensions;
-    private List<NoteRequest> noteRequestList;
-    private List<FicheDePresenceRequest> fiches;
+
 
 
 }

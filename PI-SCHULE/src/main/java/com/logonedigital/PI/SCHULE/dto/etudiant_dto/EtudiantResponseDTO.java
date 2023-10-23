@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EtudiantResponseDTO {
     private String email;
+    private String image_url;
     private String nom;
     private String prenom;
     private String dateNaissance;
@@ -28,8 +29,5 @@ public class EtudiantResponseDTO {
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
-    private EmploiDuTempsModel emploisDuTemps;
-    private List<PensionModel> pensions;
-    private List<NoteModel> notes;
-    private List<FicheDePresenceModel> fichesDePresence;
+
 }

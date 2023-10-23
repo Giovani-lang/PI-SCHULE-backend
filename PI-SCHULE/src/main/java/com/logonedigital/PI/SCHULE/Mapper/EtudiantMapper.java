@@ -17,16 +17,6 @@ import java.util.List;
 @Configuration
 public interface EtudiantMapper {
     Etudiant fromEtudiantRequestDTO (EtudiantRequestDTO etudiantRequestDTO);
-    List<Note> fromNoteRequest (List<NoteRequest> note);
-    List<FicheDePresence> fromFicheDePresenceRequest (List<FicheDePresenceRequest> fiches);
-    EmploiDuTemps fromEmploiDuTempsRequest (EmploiDuTempsRequest emploiDuTempsRequest);
-    List<PensionScolaire> fromPensionRequest (List<PensionRequest> pensionRequests);
 
-
-
-    @Mapping(target = "notes", source = "notes")
-    @Mapping(target = "emploisDuTemps", source = "emploiDuTemps")
-    @Mapping(target = "fichesDePresence",source = "ficheDePresence")
-    @Mapping(target = "pensions", source = "pensionScolaires")
     EtudiantResponseDTO fromEtudiant (Etudiant etudiant);
 }

@@ -36,8 +36,6 @@ public class AdminServiceImpl implements AdminService {
         } else if (user.isPresent()) {
             throw new RessourceExistException("Admin with this phone already exist !!!");
         }
-        admin.setPensionScolaires(this.adminMapper.fromPensionRequest(adminRequestDTO.getPensions()));
-        admin.setEmploisDuTemps(this.adminMapper.fromEmploiDuTempsRequest(adminRequestDTO.getEmploiDuTemps()));
         admin.setRole("ADMIN");
         admin.setCreatedAt(new Date());
         admin.setPassword(this.encoder.encode(admin.getPassword()));
@@ -66,6 +64,7 @@ public class AdminServiceImpl implements AdminService {
         try {
             Administration admin1 = this.adminRepo.findByEmail(email).get();
             Administration admin = this.adminMapper.fromAdminRequestDTO(adminRequestDTO);
+            admin1.setImage_url(admin1.getImage_url());
             admin1.setNom(admin.getNom());
             admin1.setPrenom(admin.getPrenom());
             admin1.setPassword(admin.getPassword());

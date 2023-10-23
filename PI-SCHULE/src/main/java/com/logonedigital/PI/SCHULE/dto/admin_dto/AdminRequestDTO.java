@@ -20,6 +20,7 @@ public class AdminRequestDTO {
     @Email(message = "invalid email")
     @NotBlank(message = "invalid email")
     private String email;
+    private String image_url;
     @NotBlank(message =  "required field")
     private String nom;
     @NotBlank(message =  "required field")
@@ -30,6 +31,5 @@ public class AdminRequestDTO {
     private String telephone;
     @NotBlank(message =  "required field")
     private String genre;
-    private List<EmploiDuTempsRequest> emploiDuTemps;
-    private List<PensionRequest> pensions;
+
 }

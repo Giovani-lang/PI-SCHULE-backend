@@ -17,10 +17,6 @@ import java.util.List;
 @Configuration
 public interface EnseignantMapper {
     Enseignant fromEnseignantRequestDTO (EnseignantRequestDTO enseignantRequestDTO);
-    List<Note> fromNoteRequest (List<NoteRequest> note);
-    List<FicheDePresence> fromFicheDePresenceRequest (List<FicheDePresenceRequest> fiches);
 
-    @Mapping(target = "notes", source = "noteList")
-    @Mapping(target = "fichesDePresence", source = "ficheDePresenceList")
     EnseignantResponseDTO fromEnseignant (Enseignant enseignant);
 }

@@ -30,6 +30,4 @@ public  class Enseignant extends User {
     private List<FicheDePresence> ficheDePresenceList = new ArrayList<>();
     @OneToMany(targetEntity = Note.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Note> noteList = new ArrayList<>();
-    @OneToMany(targetEntity = Releve.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Releve> releveList = new ArrayList<>();
 }

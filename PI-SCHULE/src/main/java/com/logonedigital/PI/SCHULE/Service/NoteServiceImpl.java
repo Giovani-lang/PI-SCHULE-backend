@@ -1,12 +1,10 @@
 package com.logonedigital.PI.SCHULE.Service;
 
 import com.logonedigital.PI.SCHULE.Entity.Note;
-import com.logonedigital.PI.SCHULE.Entity.Releve;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.NoteMapper;
 import com.logonedigital.PI.SCHULE.Repository.NoteRepository;
-import com.logonedigital.PI.SCHULE.Repository.ReleveRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.INoteService;
 import com.logonedigital.PI.SCHULE.dto.note_dto.NoteRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +21,7 @@ public class NoteServiceImpl implements INoteService {
 
     private final NoteRepository noteRepo;
     private final NoteMapper noteMapper;
-    public NoteServiceImpl(NoteRepository noteRepo, NoteMapper noteMapper, ReleveRepository releveRepo) {
+    public NoteServiceImpl(NoteRepository noteRepo, NoteMapper noteMapper) {
         this.noteRepo = noteRepo;
         this.noteMapper = noteMapper;
     }

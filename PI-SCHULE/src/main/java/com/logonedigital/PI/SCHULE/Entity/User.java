@@ -19,6 +19,7 @@ public class User implements Serializable {
     @Id
     @Column(unique = true)
     protected String email;
+    protected String image_url;
     protected String nom;
     protected String prenom;
     protected String password;

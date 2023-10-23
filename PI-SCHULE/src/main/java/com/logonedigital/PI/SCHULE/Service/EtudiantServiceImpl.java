@@ -35,15 +35,6 @@ public class EtudiantServiceImpl implements IEtudiantService {
             throw new RessourceExistException("Student with this phone already exist !!!");
         }
         etu.setCreatedAt(new Date());
-
-        List<Note> note = this.etudiantMapper.fromNoteRequest(etudiantRequestDTO.getNoteRequestList());
-        etu.setNotes(note);
-        List<FicheDePresence> ficheDePresences = this.etudiantMapper.fromFicheDePresenceRequest(etudiantRequestDTO.getFiches());
-        etu.setFicheDePresence(ficheDePresences);
-        List<PensionScolaire> pensionScolaireList = this.etudiantMapper.fromPensionRequest(etudiantRequestDTO.getPensions());
-        etu.setPensionScolaires(pensionScolaireList);
-        EmploiDuTemps emploiDuTemps = this.etudiantMapper.fromEmploiDuTempsRequest(etudiantRequestDTO.getEmploisDuTemps());
-        etu.setEmploiDuTemps(emploiDuTemps);
         etu.setRole("ETUDIANT");
         etu.setPassword(this.encoder.encode(etu.getPassword()));
         return this.etudiantMapper.fromEtudiant(this.etudiantRepo.save(etu));
@@ -72,6 +63,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
             Etudiant etu = this.etudiantRepo.findByEmail(email).get();
             Etudiant etudiant = this.etudiantMapper.fromEtudiantRequestDTO(etudiantRequestDTO);
             etu.setEmail(etudiant.getEmail());
+            etu.setImage_url(etudiant.getImage_url());
             etu.setNom(etudiant.getNom());
             etu.setPrenom(etudiant.getPrenom());
             etu.setTelephone(etudiant.getTelephone());
