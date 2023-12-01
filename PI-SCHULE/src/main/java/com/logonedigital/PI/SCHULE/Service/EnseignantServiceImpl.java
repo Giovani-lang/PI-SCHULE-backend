@@ -47,7 +47,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
     @Override
     public EnseignantResponseDTO getEnseignant(String email) throws RessourceNotFoundException {
         try {
-            return this.enseignantMapper.fromEnseignant(this.enseignantRepo.findById(email).get());
+            return this.enseignantMapper.fromEnseignant(this.enseignantRepo.findByEmail(email).get());
         }catch (Exception ex){
             throw new RessourceNotFoundException("this email : " +email+" doesn't exist in our data base !");
         }
@@ -64,7 +64,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
     @Override
     public EnseignantResponseDTO updateEnseignant(String email, EnseignantRequestDTO enseignantRequestDTO) throws RessourceNotFoundException {
         try {
-            Enseignant newEnseignant = this.enseignantRepo.findById(email).get();
+            Enseignant newEnseignant = this.enseignantRepo.findByEmail(email).get();
             Enseignant enseignant = this.enseignantMapper.fromEnseignantRequestDTO(enseignantRequestDTO);
             newEnseignant.setEmail(enseignant.getEmail());
             newEnseignant.setImage_url(enseignant.getImage_url());
@@ -74,6 +74,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
             newEnseignant.setPassword(enseignant.getPassword());
             newEnseignant.setGenre(enseignant.getGenre());
             newEnseignant.setDiscipline(enseignant.getDiscipline());
+            newEnseignant.setAnnee(enseignant.getAnnee());
             newEnseignant.setUpdatedAt(new Date());
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));
         }catch (Exception ex){

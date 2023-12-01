@@ -24,10 +24,10 @@ public class EtudiantController {
         return new ResponseEntity<>(this.etudiantService.addEtudiant(etudiantRequestDTO),HttpStatus.CREATED );
     }
 
-    @GetMapping("/detail/{email}")
-    public ResponseEntity<EtudiantResponseDTO> getEtudiant(@PathVariable(name = "email") String email)
+    @GetMapping("/detail/{matricule}")
+    public ResponseEntity<EtudiantResponseDTO> getEtudiant(@PathVariable(name = "matricule") String matricule)
             throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.etudiantService.getEtudiant(email),HttpStatus.ACCEPTED );
+        return new ResponseEntity<>(this.etudiantService.getEtudiant(matricule),HttpStatus.ACCEPTED );
     }
 
     @GetMapping("/getAll")
@@ -35,16 +35,16 @@ public class EtudiantController {
         return new ResponseEntity<>(this.etudiantService.getEtudiants(), HttpStatus.OK);
     }
 
-    @PutMapping("/edit?{email}")
-    public ResponseEntity<EtudiantResponseDTO> updateEtudiant(@PathVariable(name = "email") String email,
+    @PutMapping("/edit/{matricule}")
+    public ResponseEntity<EtudiantResponseDTO> updateEtudiant(@PathVariable(name = "matricule") String matricule,
                                                               @RequestBody EtudiantRequestDTO etudiantRequestDTO)
                                                               throws RessourceNotFoundException {
-        return new ResponseEntity<>(this.etudiantService.updateEtudiant(email, etudiantRequestDTO),HttpStatus.ACCEPTED );
+        return new ResponseEntity<>(this.etudiantService.updateEtudiant(matricule, etudiantRequestDTO),HttpStatus.ACCEPTED );
     }
 
-    @DeleteMapping("/delete/{email}")
-    public ResponseEntity<String> deleteEtudiant(@PathVariable(name = "email") String email) throws RessourceNotFoundException {
-        this.etudiantService.deleteEtudiant(email);
+    @DeleteMapping("/delete/{matricule}")
+    public ResponseEntity<String> deleteEtudiant(@PathVariable(name = "matricule") String matricule) throws RessourceNotFoundException {
+        this.etudiantService.deleteEtudiant(matricule);
         return new ResponseEntity<>("delete successfully", HttpStatus.OK);
     }
 }

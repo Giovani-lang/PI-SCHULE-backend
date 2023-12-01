@@ -1,14 +1,9 @@
 package com.logonedigital.PI.SCHULE.Mapper;
 
 import com.logonedigital.PI.SCHULE.Entity.Administration;
-import com.logonedigital.PI.SCHULE.Entity.EmploiDuTemps;
-import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
 import com.logonedigital.PI.SCHULE.dto.admin_dto.AdminRequestDTO;
 import com.logonedigital.PI.SCHULE.dto.admin_dto.AdminResponseDTO;
-import com.logonedigital.PI.SCHULE.dto.emploiDuTemps_dto.EmploiDuTempsRequest;
-import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Configuration;
 

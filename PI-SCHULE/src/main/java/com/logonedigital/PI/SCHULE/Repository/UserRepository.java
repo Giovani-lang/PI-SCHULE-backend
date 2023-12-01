@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.stream.DoubleStream;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findUserByEmail(String email);
 }

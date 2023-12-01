@@ -20,9 +20,8 @@ import java.util.List;
 public  class Enseignant extends User {
 
     private String discipline;
-    @Temporal(TemporalType.DATE)
+    private String annee;
     private Date createdAt;
-    @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
 

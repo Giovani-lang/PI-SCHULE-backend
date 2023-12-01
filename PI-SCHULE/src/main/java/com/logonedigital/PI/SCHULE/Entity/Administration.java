@@ -18,9 +18,7 @@ import java.util.List;
 @Table (name = "tb_admin")
 public class Administration extends User{
 
-    @Temporal(TemporalType.DATE)
     private Date createdAt;
-    @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

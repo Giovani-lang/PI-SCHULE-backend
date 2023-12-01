@@ -23,8 +23,8 @@ public class EnseignantResponseDTO {
     private String genre;
     private String discipline;
     private String role;
+    private String annee;
     private Date createdAt;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
 }

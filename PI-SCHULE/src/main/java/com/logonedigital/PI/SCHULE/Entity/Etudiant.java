@@ -3,9 +3,7 @@ package com.logonedigital.PI.SCHULE.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -13,23 +11,29 @@ import java.util.List;
 @Table(name = "tb_etudiants")
 @Entity
 public class Etudiant extends User {
-    @Column(name = "date_de_naissance")
-    private String dateNaissance;
+
+    private String matricule;
+    private Date dateNaissance;
     private String niveau;
     private String filiere;
     private String option;
-    @Temporal(TemporalType.DATE)
+    private Date dateInscription;
     private Date createdAt;
-    @Temporal(TemporalType.DATE)
     private Date updatedAt;
+
+    @ManyToOne(targetEntity = AnneeAcademique.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "annee_academique", referencedColumnName = "annee_academique")
+    private AnneeAcademique anneeAcademique;
 
     @OneToMany(targetEntity = FicheDePresence.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<FicheDePresence> ficheDePresence = new ArrayList<>();
     @OneToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Note> notes = new ArrayList<>();
-    @OneToOne(targetEntity = EmploiDuTemps.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private EmploiDuTemps emploiDuTemps;
+    @OneToMany(targetEntity = EmploiDuTemps.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<EmploiDuTemps> emploiDuTemps = new ArrayList<>();
     @OneToMany(targetEntity = PensionScolaire.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<PensionScolaire> pensionScolaires = new ArrayList<>();
+    @OneToMany(targetEntity = Paiement.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Paiement> paiements = new ArrayList<>();
 
 }

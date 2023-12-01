@@ -17,6 +17,8 @@ public class User implements Serializable {
     @Serial
     private static final Long serialVersionUID =1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
     @Column(unique = true)
     protected String email;
     protected String image_url;

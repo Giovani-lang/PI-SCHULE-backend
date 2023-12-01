@@ -18,5 +18,6 @@ import java.util.List;
 public interface EtudiantMapper {
     Etudiant fromEtudiantRequestDTO (EtudiantRequestDTO etudiantRequestDTO);
 
+    @Mapping(source = "anneeAcademique", target = "anneeAcademique")
     EtudiantResponseDTO fromEtudiant (Etudiant etudiant);
 }

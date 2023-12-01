@@ -6,6 +6,7 @@ import com.logonedigital.PI.SCHULE.Model.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -14,11 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EtudiantResponseDTO {
+    private String matricule;
     private String email;
     private String image_url;
     private String nom;
     private String prenom;
-    private String dateNaissance;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date dateNaissance;
     private String telephone;
     private String password;
     private String role;
@@ -26,8 +29,10 @@ public class EtudiantResponseDTO {
     private String niveau;
     private String filiere;
     private String option;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date dateInscription;
+    private AnneeAcademiqueModel anneeAcademique;
     private Date createdAt;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
 }

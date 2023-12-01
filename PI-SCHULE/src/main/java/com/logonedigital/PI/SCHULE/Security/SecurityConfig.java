@@ -34,7 +34,9 @@ public class SecurityConfig {
             "/api/v1/pensionsScolaire/delete",
             "/api/v1/emploisDuTemps/add",
             "/api/v1/emploisDuTemps/edit",
-            "/api/v1/emploisDuTemps/delete"
+            "/api/v1/emploisDuTemps/delete",
+            "/api/v1/anneeAcademique/add",
+            "/api/v1/anneeAcademique/edit",
     };
     private static final String[] UN_SECURE_URLs ={
             "/api/v1/emploisDuTemps/getAll",

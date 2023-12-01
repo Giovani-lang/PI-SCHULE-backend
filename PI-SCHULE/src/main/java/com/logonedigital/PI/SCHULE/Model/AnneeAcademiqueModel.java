@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnseigantModel {
-    private String nom;
-    private String prenom;
-    private String discipline;
-
+public class AnneeAcademiqueModel {
+    private String annees;
 }

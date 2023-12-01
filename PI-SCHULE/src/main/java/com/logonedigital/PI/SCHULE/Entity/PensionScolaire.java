@@ -22,12 +22,23 @@ import java.util.List;
 public class PensionScolaire implements Serializable {
     @Serial
     private static final Long serialVersionUID =1L;
-        @Id
-        @Column (name = "nomElève")
-        private String nomElève;
-        @Temporal(TemporalType.DATE)
-        private Date dateInscription;
-        private Double montantPayé;
-        private Double solde;
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Double pensionAnnuelle;
+    private Double totalPaye = 0.0;
+    private String statut;
+
+    @ManyToOne(targetEntity = Etudiant.class,fetch = FetchType.LAZY)
+    @JoinColumn(name = "matricule_etudiant", referencedColumnName = "matricule")
+    private Etudiant etudiant;
+
+    public String getStatut(){
+        if (this.totalPaye >= this.pensionAnnuelle){
+            return this.statut = "soldée";
+        }return this.statut = "non_soldée";
+    }
+
+
 
 }
