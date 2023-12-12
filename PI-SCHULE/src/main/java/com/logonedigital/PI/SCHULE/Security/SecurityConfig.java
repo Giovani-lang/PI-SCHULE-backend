@@ -18,36 +18,36 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    private static final String[] ENS_SECURE_URLs= {
-            "/api/v1/ficheDePresence/add",
-            "/api/v1/ficheDePresence/edit",
-            "/api/v1/ficheDePresence/delete",
-            "/api/v1/notes/add",
-            "/api/v1/notes/edit",
-            "/api/v1/notes/delete"
-    };
-    private static final String[] ADMIN_SECURE_URLs = {
-            "/api/v1/enseignants/**",
-            "/api/v1/etudiants/**",
-            "/api/v1/pensionsScolaire/add",
-            "/api/v1/pensionsScolaire/edit",
-            "/api/v1/pensionsScolaire/delete",
-            "/api/v1/emploisDuTemps/add",
-            "/api/v1/emploisDuTemps/edit",
-            "/api/v1/emploisDuTemps/delete",
-            "/api/v1/anneeAcademique/add",
-            "/api/v1/anneeAcademique/edit",
-    };
-    private static final String[] UN_SECURE_URLs ={
-            "/api/v1/emploisDuTemps/getAll",
-            "/api/v1/pensionsScolaire/getAll",
-            "/api/v1/ficheDePresence/getAll",
-            "/api/v1/notes/getAll",
-            "/api/v1/emploisDuTemps/detail/**",
-            "/api/v1/pensionsScolaire/detail/**",
-            "/api/v1/ficheDePresence/detail/**",
-            "/api/v1/notes/detail/**"
-    };
+//    private static final String[] ENS_SECURE_URLs= {
+//            "/api/v1/ficheDePresence/add",
+//            "/api/v1/ficheDePresence/edit",
+//            "/api/v1/ficheDePresence/delete",
+//            "/api/v1/notes/add",
+//            "/api/v1/notes/edit",
+//            "/api/v1/notes/delete"
+//    };
+//    private static final String[] ADMIN_SECURE_URLs = {
+//            "/api/v1/enseignants/**",
+//            "/api/v1/etudiants/**",
+//            "/api/v1/pensionsScolaire/add",
+//            "/api/v1/pensionsScolaire/edit",
+//            "/api/v1/pensionsScolaire/delete",
+//            "/api/v1/emploisDuTemps/add",
+//            "/api/v1/emploisDuTemps/edit",
+//            "/api/v1/emploisDuTemps/delete",
+//            "/api/v1/anneeAcademique/add",
+//            "/api/v1/anneeAcademique/edit",
+//    };
+//    private static final String[] UN_SECURE_URLs ={
+//            "/api/v1/emploisDuTemps/getAll",
+//            "/api/v1/pensionsScolaire/getAll",
+//            "/api/v1/ficheDePresence/getAll",
+//            "/api/v1/notes/getAll",
+//            "/api/v1/emploisDuTemps/detail/**",
+//            "/api/v1/pensionsScolaire/detail/**",
+//            "/api/v1/ficheDePresence/detail/**",
+//            "/api/v1/notes/detail/**"
+//    };
 
     @Bean
     public PasswordEncoder encoder (){
@@ -78,9 +78,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
          http.authorizeHttpRequests(auth-> {
-             auth.requestMatchers(ADMIN_SECURE_URLs).hasAuthority("ADMIN");
-             auth.requestMatchers(ENS_SECURE_URLs).hasAuthority("ENSEIGNANT");
-             auth.requestMatchers(UN_SECURE_URLs).hasAnyAuthority("ADMIN","ETUDIANT","ENSEIGNANT");
+//             auth.requestMatchers(ADMIN_SECURE_URLs).hasAuthority("ADMIN");
+//             auth.requestMatchers(ENS_SECURE_URLs).hasAuthority("ENSEIGNANT");
+//             auth.requestMatchers(UN_SECURE_URLs).hasAnyAuthority("ADMIN","ETUDIANT","ENSEIGNANT");
              auth.anyRequest().permitAll();
         });
 

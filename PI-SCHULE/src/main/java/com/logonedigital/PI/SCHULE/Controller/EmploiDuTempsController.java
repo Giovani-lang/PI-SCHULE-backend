@@ -1,8 +1,7 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
-import com.logonedigital.PI.SCHULE.Entity.EmploiDuTemps;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
-import com.logonedigital.PI.SCHULE.Service.Interface.EmploiDuTempsService;
+import com.logonedigital.PI.SCHULE.Service.Interface.IEmploiDuTempsService;
 import com.logonedigital.PI.SCHULE.dto.emploiDuTemps_dto.EmploiDuTempsRequest;
 import com.logonedigital.PI.SCHULE.dto.emploiDuTemps_dto.EmploiDuTempsResponse;
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/emploisDuTemps")
 public class EmploiDuTempsController {
-    private final EmploiDuTempsService emploiDuTempsService;
-    public EmploiDuTempsController(EmploiDuTempsService emploiDuTempsService){
+    private final IEmploiDuTempsService emploiDuTempsService;
+    public EmploiDuTempsController(IEmploiDuTempsService emploiDuTempsService){
         this.emploiDuTempsService= emploiDuTempsService;
     }
     @PostMapping("/add")
@@ -26,19 +25,19 @@ public class EmploiDuTempsController {
     public List<EmploiDuTempsResponse> getEmploisDuTemps(){
         return this.emploiDuTempsService.getEmploisDuTemps();
     }
-    @GetMapping("/detail/{id}")
-    public ResponseEntity<EmploiDuTempsResponse> getEmploiDuTemps(@PathVariable(name = "id") Integer id)
+    @GetMapping("/detail/{classe}")
+    public ResponseEntity<EmploiDuTempsResponse> getEmploiDuTemps(@PathVariable(name = "classe") String classe)
         throws RessourceNotFoundException {
-            return new ResponseEntity<>(this.emploiDuTempsService.getEmploiDuTemps(id),HttpStatus.OK);
+            return new ResponseEntity<>(this.emploiDuTempsService.getEmploiDuTemps(classe),HttpStatus.OK);
 
     }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEmploiDeTemps(@PathVariable(name = "id")Integer id) throws RessourceNotFoundException{
-        this.emploiDuTempsService.deleteEmploiDuTemps(id);
+    @DeleteMapping("/delete/{classe}")
+    public ResponseEntity<String> deleteEmploiDeTemps(@PathVariable(name = "classe")String classe) throws RessourceNotFoundException{
+        this.emploiDuTempsService.deleteEmploiDuTemps(classe);
         return new ResponseEntity<>("Emploi du temps deleted successfully", HttpStatus.ACCEPTED);
     }
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<EmploiDuTempsResponse> updateEmploiDuTemps(@PathVariable(name = "id") Integer id, @RequestBody EmploiDuTempsRequest emploiDuTemps) throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.emploiDuTempsService.updateEmploiDuTemps(emploiDuTemps, id), HttpStatus.ACCEPTED);
+    @PutMapping("/edit/{classe}")
+    public ResponseEntity<EmploiDuTempsResponse> updateEmploiDuTemps(@PathVariable(name = "classe") String classe, @RequestBody EmploiDuTempsRequest emploiDuTemps) throws RessourceNotFoundException{
+        return new ResponseEntity<>(this.emploiDuTempsService.updateEmploiDuTemps(emploiDuTemps, classe), HttpStatus.ACCEPTED);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public interface EmploiDuTempsMapper {
     EmploiDuTemps fromEmploiDuTempsRequest(EmploiDuTempsRequest emploiDuTempsRequest);
 
-    @Mapping(target = "enseignant", source = "enseignant")
+    @Mapping(target = "classe", source = "classe")
+    @Mapping(source = "annee", target = "annee")
     EmploiDuTempsResponse fromEmploiDuTemps(EmploiDuTemps emploiDuTemps);
 }

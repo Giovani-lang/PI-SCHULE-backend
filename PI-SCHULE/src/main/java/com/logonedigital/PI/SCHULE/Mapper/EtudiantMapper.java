@@ -19,5 +19,6 @@ public interface EtudiantMapper {
     Etudiant fromEtudiantRequestDTO (EtudiantRequestDTO etudiantRequestDTO);
 
     @Mapping(source = "anneeAcademique", target = "anneeAcademique")
+    @Mapping(source = "classe", target = "classe")
     EtudiantResponseDTO fromEtudiant (Etudiant etudiant);
 }

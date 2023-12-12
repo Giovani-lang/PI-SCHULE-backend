@@ -19,10 +19,13 @@ import java.util.List;
 @Entity
 public  class Enseignant extends User {
 
-    private String discipline;
-    private String annee;
     private Date createdAt;
     private Date updatedAt;
+
+    @OneToOne(targetEntity = AnneeAcademique.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "annee_academique", referencedColumnName = "annee_academique")
+    private AnneeAcademique annee;
+
 
 
     @OneToMany(targetEntity = FicheDePresence.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)

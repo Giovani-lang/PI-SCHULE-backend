@@ -33,21 +33,20 @@ public class PaiementServiceImpl implements IPaiementService {
     }
 
     @Override
-    public PaiementResponse getPaiement(Long id) throws RessourceNotFoundException{
-      try {
-          return this.paiementMapper.fromPaiement(this.paiementRepo.findById(id).get());
-      }catch (Exception ex){
-          throw new RessourceNotFoundException("No payment matches this id");
-      }
-    }
-
-    @Override
-    public List<PaiementResponse> getAllPaiement() {
-        List<Paiement> paiements = this.paiementRepo.findAll();
+    public List<PaiementResponse> getPaiement(String matricule) throws RessourceNotFoundException{
+        List<Paiement> paiements = (List<Paiement>) this.paiementRepo.findPaiementByMatricule(matricule);
         List<PaiementResponse> paiementResponses = new ArrayList<>();
         paiements.forEach(paiement -> paiementResponses.add(this.paiementMapper.fromPaiement(paiement)));
         return paiementResponses;
     }
+
+//    @Override
+//    public List<PaiementResponse> getAllPaiement() {
+//        List<Paiement> paiements = this.paiementRepo.findAll();
+//        List<PaiementResponse> paiementResponses = new ArrayList<>();
+//        paiements.forEach(paiement -> paiementResponses.add(this.paiementMapper.fromPaiement(paiement)));
+//        return paiementResponses;
+//    }
 
     @Override
     public PaiementResponse editPaiement(Long id, PaiementRequest paiementRequest) throws RessourceNotFoundException {

@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmploiDuTempsRequest {
     @NotBlank(message = "Required field")
-    private String jours;
+    private String semestre;
     @NotBlank(message = "Required field")
-    private String heure;
+    private String annee_academique;
     @NotBlank(message = "Required field")
-    private String matières;
-    @NotBlank(message = "Required field")
-    private String nomProf;
+    private String nom_classe;
 }

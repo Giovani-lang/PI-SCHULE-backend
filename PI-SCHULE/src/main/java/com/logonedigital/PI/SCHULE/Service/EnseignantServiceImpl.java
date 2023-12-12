@@ -1,10 +1,14 @@
 package com.logonedigital.PI.SCHULE.Service;
 
+import com.logonedigital.PI.SCHULE.Entity.AnneeAcademique;
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
+import com.logonedigital.PI.SCHULE.Entity.Matiere;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.EnseignantMapper;
+import com.logonedigital.PI.SCHULE.Repository.AnneeAcademiqueRepository;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
+import com.logonedigital.PI.SCHULE.Repository.MatiereRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantRequestDTO;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantResponseDTO;
@@ -26,6 +30,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
     private final EnseignantRepository enseignantRepo;
     private final EnseignantMapper enseignantMapper;
     private final PasswordEncoder encoder;
+    private final AnneeAcademiqueRepository anneeAcademiqueRepo;
 
 
     @Override
@@ -38,6 +43,9 @@ public class EnseignantServiceImpl implements IEnseignantService {
         } else if (ens2.isPresent()) {
             throw new RessourceExistException("Teacher with this phone already exist !!!");
         }
+        AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(enseignantRequestDTO.getAnnee_academique())
+                        .orElseThrow(()-> new RessourceNotFoundException("This year"+enseignantRequestDTO.getAnnee_academique()+"doesn't exist, try again !"));
+        ens.setAnnee(annee);
         ens.setCreatedAt(new Date());
         ens.setRole("ENSEIGNANT");
         ens.setPassword(this.encoder.encode(ens.getPassword()));
@@ -73,7 +81,6 @@ public class EnseignantServiceImpl implements IEnseignantService {
             newEnseignant.setTelephone(enseignant.getTelephone());
             newEnseignant.setPassword(enseignant.getPassword());
             newEnseignant.setGenre(enseignant.getGenre());
-            newEnseignant.setDiscipline(enseignant.getDiscipline());
             newEnseignant.setAnnee(enseignant.getAnnee());
             newEnseignant.setUpdatedAt(new Date());
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));

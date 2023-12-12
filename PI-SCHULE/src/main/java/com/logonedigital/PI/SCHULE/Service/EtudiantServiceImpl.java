@@ -5,6 +5,7 @@ import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.EtudiantMapper;
 import com.logonedigital.PI.SCHULE.Repository.AnneeAcademiqueRepository;
+import com.logonedigital.PI.SCHULE.Repository.ClasseRepository;
 import com.logonedigital.PI.SCHULE.Repository.EtudiantRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEtudiantService;
 import com.logonedigital.PI.SCHULE.dto.etudiant_dto.EtudiantRequestDTO;
@@ -23,6 +24,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
     private final EtudiantMapper etudiantMapper;
     private final PasswordEncoder encoder;
     private final AnneeAcademiqueRepository anneeAcademiqueRepo;
+    private final ClasseRepository classeRepo;
 
 
     public String generateMatricule(){
@@ -44,6 +46,11 @@ public class EtudiantServiceImpl implements IEtudiantService {
         AnneeAcademique anneeAcademique = this.anneeAcademiqueRepo.findByAnnees(etudiantRequestDTO.getAnnee_academique())
                 .orElseThrow(()-> new RessourceNotFoundException("Impossible year "+etudiantRequestDTO.getAnnee_academique()+" doesn't exist, try again !"));
         etu.setMatricule(generateMatricule());
+        Classe classe = this.classeRepo.findByNom(etudiantRequestDTO.getNom_classe())
+                .orElseThrow(()-> new RessourceNotFoundException("Classe"+etudiantRequestDTO.getNom_classe()+"doesn't exsit" ));
+        etu.setClasse(classe);
+        etu.setFiliere(classe.getFiliere().getNom());
+        etu.setOption(classe.getOption().getNom());
         etu.setAnneeAcademique(anneeAcademique);
         etu.setCreatedAt(new Date());
         etu.setRole("ETUDIANT");

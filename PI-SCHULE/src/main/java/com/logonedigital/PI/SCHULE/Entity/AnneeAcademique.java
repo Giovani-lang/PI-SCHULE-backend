@@ -20,6 +20,4 @@ public class AnneeAcademique {
     @Column(name = "annee_academique")
     private String annees;
 
-    @OneToMany(mappedBy = "anneeAcademique",targetEntity = Etudiant.class,fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
-    private List<Etudiant> etudiants =new ArrayList<>();
 }

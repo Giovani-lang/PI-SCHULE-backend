@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,12 +22,18 @@ public class EmploiDuTemps implements Serializable {
     @Serial
     private static final Long serialVersion=1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_classe")
-    private Integer idClass;
-    private String jours;
-    private String heure;
-    private String matières;
-    @ManyToOne(targetEntity = Enseignant.class,fetch = FetchType.EAGER)
-    private Enseignant enseignant;
+    private Long id;
+    private String semestre;
+
+    @OneToOne(targetEntity = AnneeAcademique.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "annee_academique", referencedColumnName = "annee_academique")
+    private AnneeAcademique annee;
+
+    @OneToOne(targetEntity = Classe.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "classe", referencedColumnName = "nom")
+    private Classe classe;
+
+    @OneToMany(targetEntity = Lemploi.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Lemploi> lemplois = new ArrayList<>();
 
 }

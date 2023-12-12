@@ -1,8 +1,6 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
 
-import com.logonedigital.PI.SCHULE.Entity.Administration;
-import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Service.Interface.PensionScolaireService;
 import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;

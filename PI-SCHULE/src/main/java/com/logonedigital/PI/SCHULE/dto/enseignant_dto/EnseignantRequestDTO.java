@@ -33,10 +33,8 @@ public class EnseignantRequestDTO {
                     " and must not contain spaces")*/
     private String password;
     @NotEmpty(message = "required field")
-    private String discipline;
-    @NotEmpty(message = "required field")
     private String genre;
     @NotEmpty(message = "required field")
-    private String annee;
+    private String annee_academique;
 
 }

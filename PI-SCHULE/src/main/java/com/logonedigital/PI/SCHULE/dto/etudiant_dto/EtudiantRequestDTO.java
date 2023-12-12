@@ -41,10 +41,12 @@ public class EtudiantRequestDTO {
     private String genre;
     @NotEmpty(message = "required field")
     private String niveau;
+//    @NotEmpty(message = "required field")
+//    private String filiere;
     @NotEmpty(message = "required field")
-    private String filiere;
-    @NotEmpty(message = "required field")
-    private String option;
+    private String nom_classe;
+//    @NotEmpty(message = "required field")
+//    private String option;
     @NotNull(message = "required field")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateInscription;

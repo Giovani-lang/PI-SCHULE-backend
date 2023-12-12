@@ -7,10 +7,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +21,20 @@ public class PaiementController {
     @PostMapping("/add")
     public ResponseEntity<PaiementResponse> addPaiement(@RequestBody @Valid PaiementRequest paiementRequest){
         return new ResponseEntity<>(this.paiementService.addPaiement(paiementRequest), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/detail/{matricule}")
+    public ResponseEntity<List<PaiementResponse>> findPaiementByMatricule(@PathVariable(name = "matricule")String matricule){
+        return new ResponseEntity<>(this.paiementService.getPaiement(matricule), HttpStatus.OK);
+    }
+
+//    @GetMapping("/getAll")
+//    public ResponseEntity<List<PaiementResponse>> findPaiementByMatricule(){
+//        return new ResponseEntity<>(this.paiementService.getAllPaiement(), HttpStatus.OK);
+//    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<PaiementResponse> updatePaiement(@PathVariable(name = "id")Long id,@RequestBody PaiementRequest paiementRequest){
+        return new ResponseEntity<>(this.paiementService.editPaiement(id, paiementRequest), HttpStatus.CREATED);
     }
 }

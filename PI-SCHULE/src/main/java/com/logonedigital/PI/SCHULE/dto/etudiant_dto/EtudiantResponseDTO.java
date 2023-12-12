@@ -26,6 +26,7 @@ public class EtudiantResponseDTO {
     private String password;
     private String role;
     private String genre;
+    private ClasseModel classe;
     private String niveau;
     private String filiere;
     private String option;

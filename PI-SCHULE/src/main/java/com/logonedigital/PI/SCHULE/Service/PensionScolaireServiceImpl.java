@@ -58,7 +58,7 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
             /**** recherche de la pension avec le matricule de l'étudiant ******/
             PensionScolaire pensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule).get();
 
-            /**** somme des paiements au cours de l'année acadeémique correspondante ******/
+            /**** somme des paiements au cours de l'année académique correspondante ******/
             Double totalPaye = this.pensionScolaireRepo.getTotalPaymentForStudent(matricule);
             if (totalPaye == null){
                 pensionScolaire.setTotalPaye(0.0);

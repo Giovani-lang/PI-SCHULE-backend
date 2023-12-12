@@ -1,7 +1,9 @@
 package com.logonedigital.PI.SCHULE.dto.enseignant_dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.logonedigital.PI.SCHULE.Model.AnneeAcademiqueModel;
 import com.logonedigital.PI.SCHULE.Model.FicheDePresenceModel;
+import com.logonedigital.PI.SCHULE.Model.MatiereModel;
 import com.logonedigital.PI.SCHULE.Model.NoteModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +23,8 @@ public class EnseignantResponseDTO {
     private String password;
     private String telephone;
     private String genre;
-    private String discipline;
     private String role;
-    private String annee;
+    private AnneeAcademiqueModel annee;
     private Date createdAt;
     private Date updatedAt;
 

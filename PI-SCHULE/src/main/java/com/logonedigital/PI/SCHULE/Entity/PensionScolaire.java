@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "pension_scolaire")
+@Table(name = "tb_pension_scolaire")
 public class PensionScolaire implements Serializable {
     @Serial
     private static final Long serialVersionUID =1L;

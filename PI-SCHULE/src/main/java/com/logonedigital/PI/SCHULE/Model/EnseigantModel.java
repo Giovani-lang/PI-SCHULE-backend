@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class EnseigantModel {
     private String nom;
     private String prenom;
-    private String discipline;
-
 }

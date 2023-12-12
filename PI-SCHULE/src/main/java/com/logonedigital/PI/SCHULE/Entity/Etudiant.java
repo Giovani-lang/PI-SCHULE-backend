@@ -25,6 +25,10 @@ public class Etudiant extends User {
     @JoinColumn(name = "annee_academique", referencedColumnName = "annee_academique")
     private AnneeAcademique anneeAcademique;
 
+    @ManyToOne (targetEntity = Classe.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "classe", referencedColumnName = "nom")
+    private Classe classe;
+
     @OneToMany(targetEntity = FicheDePresence.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<FicheDePresence> ficheDePresence = new ArrayList<>();
     @OneToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
