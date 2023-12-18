@@ -36,6 +36,6 @@ public class OptionController {
     @DeleteMapping("/delete/{nom}")
     public ResponseEntity<String> deleteOption(@PathVariable(name = "nom")String nom){
         this.optionService.deleteOption(nom);
-        return new ResponseEntity<>("delete successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("delete successfully", HttpStatus.OK);
     }
 }

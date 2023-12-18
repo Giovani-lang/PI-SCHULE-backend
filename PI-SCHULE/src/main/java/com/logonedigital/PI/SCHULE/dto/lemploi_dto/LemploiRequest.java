@@ -19,10 +19,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class LemploiRequest {
 
-    @NotNull(message = "required field")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date Jour;
-    @NotNull(message = "required field")
+    @NotEmpty(message = "required field")
+    private String Jour;
+    @NotEmpty(message = "required field")
     private String debut;
     @NotNull(message = "required field")
     private int duree;

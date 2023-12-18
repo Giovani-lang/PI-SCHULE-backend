@@ -11,5 +11,5 @@ public interface IClasseService {
     ClasseResponse addClasse (ClasseRequest classeRequest);
     List<ClasseResponse> getClasse ();
     ClasseResponse updateClasse (String nom,ClasseRequest classeRequest);
-    void deleteClasse (String nom);
+    void deleteClasse (Long id);
 }

@@ -35,8 +35,8 @@ public class PensionScolaire implements Serializable {
 
     public String getStatut(){
         if (this.totalPaye >= this.pensionAnnuelle){
-            return this.statut = "soldée";
-        }return this.statut = "non_soldée";
+            return this.statut = "Soldée";
+        }return this.statut = "En cours";
     }
 
 

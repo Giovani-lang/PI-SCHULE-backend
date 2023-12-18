@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/anneeAcademique")
@@ -23,5 +25,10 @@ public class AnneeAcademiqueController {
     public ResponseEntity<AnneeAcademique> editAnnee(@PathVariable(name = "annees") String annees,
                                                      @RequestBody AnneeAcademique anneeAcademique){
         return new ResponseEntity<>(this.anneeAcademiqueService.editAnnee(annees,anneeAcademique),HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("getAll")
+    public  ResponseEntity<List<AnneeAcademique>> findAll(){
+        return new ResponseEntity<>(this.anneeAcademiqueService.getAllAnnee(),HttpStatus.OK);
     }
 }

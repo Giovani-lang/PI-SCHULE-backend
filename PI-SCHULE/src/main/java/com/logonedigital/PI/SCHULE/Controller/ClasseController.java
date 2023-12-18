@@ -29,9 +29,9 @@ public class ClasseController {
     public ResponseEntity<ClasseResponse> updateClasse(@PathVariable(name = "nom")String nom,@RequestBody ClasseRequest classe){
         return new ResponseEntity<>(this.classeService.updateClasse(nom, classe), HttpStatus.ACCEPTED);
     }
-    @DeleteMapping("/delete/{nom}")
-    public ResponseEntity<String> deleteClasse(@PathVariable(name = "nom")String nom){
-        this.classeService.deleteClasse(nom);
-        return new ResponseEntity<>("delete successfully", HttpStatus.CREATED);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteClasse(@PathVariable(name = "id")Long id){
+        this.classeService.deleteClasse(id);
+        return new ResponseEntity<>("delete successfully", HttpStatus.OK);
     }
 }

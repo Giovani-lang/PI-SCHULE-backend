@@ -23,7 +23,7 @@ public class Lemploi implements Serializable {
     private static final Long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date Jour;
+    private String Jour;
     private String debut;
     private String fin;
     private int duree;
@@ -33,7 +33,8 @@ public class Lemploi implements Serializable {
     @OneToOne(targetEntity = Enseignant.class,fetch = FetchType.EAGER)
     @JoinColumns ({
             @JoinColumn (name="nom_enseignant", referencedColumnName="nom"),
-            @JoinColumn (name="prenom_enseignant", referencedColumnName="prenom")
+            @JoinColumn (name="prenom_enseignant", referencedColumnName="prenom"),
+            @JoinColumn (name="email_enseignant", referencedColumnName="email")
     })
     private Enseignant enseignant;
     @OneToOne(targetEntity = Classe.class, fetch = FetchType.EAGER)

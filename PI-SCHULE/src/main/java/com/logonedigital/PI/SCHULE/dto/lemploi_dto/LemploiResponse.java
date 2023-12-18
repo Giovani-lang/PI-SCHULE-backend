@@ -17,7 +17,7 @@ import java.util.Date;
 public class LemploiResponse {
 
     private Long id;
-    private Date Jour;
+    private String Jour;
     private String debut;
     private String fin;
     private int duree;

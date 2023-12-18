@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClasseRequest {
     @NotEmpty(message = "required field")
-    private String nom_classe;
+    private String nom;
     @NotEmpty(message = "required field")
     private String nom_filiere;
     @NotEmpty(message = "required field")

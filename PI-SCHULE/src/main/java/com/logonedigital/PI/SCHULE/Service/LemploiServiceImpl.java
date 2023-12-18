@@ -71,6 +71,12 @@ public class LemploiServiceImpl implements ILemploiService {
         Lemploi lemploi = this.lemploiMapper.fromLemploiRequest(lemploiRequest);
         newlemploi.setJour(lemploi.getJour());
         newlemploi.setDebut(lemploi.getDebut());
+        //formatage de l'heure de debut en type localTime;
+        LocalTime heure = LocalTime.parse(lemploi.getDebut());
+        //Addition de l'heure de debut avec la duree pour avoir l'heure de fin;
+        LocalTime resultat = heure.plusHours(lemploi.getDuree());
+        //Enregistrement de la date de fin dans sa variable en reconversion vers le type string;
+        newlemploi.setFin(resultat.toString());
         newlemploi.setDuree(lemploi.getDuree());
         newlemploi.setMatiere(lemploi.getMatiere());
         newlemploi.setEnseignant(lemploi.getEnseignant());
