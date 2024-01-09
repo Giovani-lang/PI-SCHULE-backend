@@ -82,12 +82,7 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
         try {
             PensionScolaire oldPensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule).get();
 
-
             oldPensionScolaire.setPensionAnnuelle(newPensionScolaire.getPensionAnnuelle());
-
-            log.error("OLd PensionScolaire{}", oldPensionScolaire);
-
-
             PensionScolaire pensionScolaireUpdated = this.pensionScolaireRepo.save(oldPensionScolaire);
 
             return this.pensionMapper.fromPension(pensionScolaireUpdated);

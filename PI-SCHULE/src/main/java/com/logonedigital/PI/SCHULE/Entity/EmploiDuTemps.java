@@ -29,7 +29,7 @@ public class EmploiDuTemps implements Serializable {
     @JoinColumn(name = "annee_academique", referencedColumnName = "annee_academique")
     private AnneeAcademique annee;
 
-    @OneToOne(targetEntity = Classe.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = Classe.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "classe", referencedColumnName = "nom")
     private Classe classe;
 

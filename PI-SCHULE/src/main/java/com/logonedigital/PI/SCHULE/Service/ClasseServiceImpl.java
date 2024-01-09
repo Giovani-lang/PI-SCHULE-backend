@@ -35,6 +35,7 @@ public class ClasseServiceImpl implements IClasseService {
                 .orElseThrow(()->new RessourceNotFoundException("This option doesn't exist"));
         classe.setOption(option);
         classe.setNom(classeRequest.getNom());
+        classe.setNiveau(classeRequest.getNiveau());
         return this.classeMapper.fromClasse(this.classeRepo.save(classe)) ;
     }
 
@@ -51,19 +52,22 @@ public class ClasseServiceImpl implements IClasseService {
     public ClasseResponse updateClasse(String nom, ClasseRequest classeRequest) throws RessourceNotFoundException {
        try {
            Classe newClasse = this.classeRepo.findByNom(nom).get();
-           Classe classe = this.classeMapper.fromClasseRequest(classeRequest);
-           newClasse.setNom(classe.getNom());
-           newClasse.setFiliere(classe.getFiliere());
-           newClasse.setOption(classe.getOption());
+           Filiere filiere = this.filiereRepo.findByNom(classeRequest.getNom_filiere())
+                   .orElseThrow(() -> new RessourceNotFoundException("This filiere doesn't exist"));
+           Option option = this.optionRepo.findByNom(classeRequest.getNom_option())
+                   .orElseThrow(()->new RessourceNotFoundException("This option doesn't exist"));
+           newClasse.setNom(classeRequest.getNom());
+           newClasse.setFiliere(filiere);
+           newClasse.setOption(option);
+           newClasse.setNiveau(classeRequest.getNiveau());
            return this.classeMapper.fromClasse(this.classeRepo.saveAndFlush(newClasse));
        }catch (Exception ex){
-           throw new RessourceNotFoundException("Impossible to update");
+           throw new RessourceNotFoundException("Impossible to update this classe!");
        }
     }
 
     @Override
     public void deleteClasse(Long id) {
-//        Classe classe = this.classeRepo.findByNom(nom).get();
         this.classeRepo.deleteById(id);
     }
 }

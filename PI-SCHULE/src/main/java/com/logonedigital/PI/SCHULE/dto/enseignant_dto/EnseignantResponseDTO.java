@@ -24,7 +24,7 @@ public class EnseignantResponseDTO {
     private String telephone;
     private String genre;
     private String role;
-    private AnneeAcademiqueModel annee;
+    private String grade;
     private Date createdAt;
     private Date updatedAt;
 

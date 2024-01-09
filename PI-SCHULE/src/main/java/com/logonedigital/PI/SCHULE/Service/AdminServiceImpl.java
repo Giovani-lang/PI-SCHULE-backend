@@ -64,9 +64,14 @@ public class AdminServiceImpl implements AdminService {
         try {
             Administration admin1 = this.adminRepo.findByEmail(email).get();
             Administration admin = this.adminMapper.fromAdminRequestDTO(adminRequestDTO);
-            admin1.setImage_url(admin1.getImage_url());
+            admin1.setImage_url(admin.getImage_url());
             admin1.setNom(admin.getNom());
             admin1.setPrenom(admin.getPrenom());
+
+            if (admin.getPassword() == null || admin.getPassword() == " "){
+                admin1.setPassword(admin1.getPassword());
+            } else admin1.setPassword(this.encoder.encode(admin.getPassword()));
+
             admin1.setPassword(admin.getPassword());
             admin1.setTelephone(admin.getTelephone());
             admin1.setGenre(admin.getGenre());

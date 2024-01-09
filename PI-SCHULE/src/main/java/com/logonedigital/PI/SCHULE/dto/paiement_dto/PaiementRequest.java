@@ -17,4 +17,6 @@ public class PaiementRequest {
     private String libelle;
     @NotNull(message = "required field")
     private Double montant;
+    @NotNull(message = "required field")
+    private String annee_academique;
 }

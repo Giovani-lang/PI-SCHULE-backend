@@ -30,9 +30,8 @@ public class EtudiantRequestDTO {
     private String nom;
     @NotEmpty(message = "required field")
     private String prenom;
-    @NotNull(message = "required field")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date dateNaissance;
+    @NotEmpty(message = "required field")
+    private String dateNaissance;
     @NotEmpty(message = "required field")
     private String telephone;
     @NotEmpty(message = "required field")
@@ -40,16 +39,9 @@ public class EtudiantRequestDTO {
     @NotEmpty(message = "required field")
     private String genre;
     @NotEmpty(message = "required field")
-    private String niveau;
-//    @NotEmpty(message = "required field")
-//    private String filiere;
-    @NotEmpty(message = "required field")
     private String nom_classe;
-//    @NotEmpty(message = "required field")
-//    private String option;
-    @NotNull(message = "required field")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date dateInscription;
+    @NotEmpty(message = "required field")
+    private String dateInscription;
     @NotEmpty(message = "required field")
     private String annee_academique;
 

@@ -1,9 +1,11 @@
 package com.logonedigital.PI.SCHULE.Service;
 
+import com.logonedigital.PI.SCHULE.Entity.AnneeAcademique;
 import com.logonedigital.PI.SCHULE.Entity.Etudiant;
 import com.logonedigital.PI.SCHULE.Entity.Paiement;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.PaiementMapper;
+import com.logonedigital.PI.SCHULE.Repository.AnneeAcademiqueRepository;
 import com.logonedigital.PI.SCHULE.Repository.EtudiantRepository;
 import com.logonedigital.PI.SCHULE.Repository.PaiementRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IPaiementService;
@@ -22,12 +24,16 @@ public class PaiementServiceImpl implements IPaiementService {
     private final PaiementRepository paiementRepo;
     private final PaiementMapper paiementMapper;
     private final EtudiantRepository etudiantRepo;
+    private final AnneeAcademiqueRepository anneeAcademiqueRepo;
     @Override
     public PaiementResponse addPaiement(PaiementRequest paiementRequest) {
         Paiement paiement = this.paiementMapper.fromPaiementRequest(paiementRequest);
         Etudiant etd = this.etudiantRepo.findByMatricule(paiementRequest.getMatricule_etd())
                 .orElseThrow(()-> new RessourceNotFoundException("Student with this matricule doesn't exist, try again !"));
         paiement.setEtudiant(etd);
+        AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(paiementRequest.getAnnee_academique())
+                .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
+        paiement.setAnneeAcademique(annee);
         paiement.setDate(new Date());
         return this.paiementMapper.fromPaiement(this.paiementRepo.save(paiement));
     }
@@ -40,18 +46,19 @@ public class PaiementServiceImpl implements IPaiementService {
         return paiementResponses;
     }
 
-//    @Override
-//    public List<PaiementResponse> getAllPaiement() {
-//        List<Paiement> paiements = this.paiementRepo.findAll();
-//        List<PaiementResponse> paiementResponses = new ArrayList<>();
-//        paiements.forEach(paiement -> paiementResponses.add(this.paiementMapper.fromPaiement(paiement)));
-//        return paiementResponses;
-//    }
+    @Override
+    public PaiementResponse getById(Long id) {
+        return this.paiementMapper.fromPaiement(this.paiementRepo.findById(id).get());
+    }
 
     @Override
     public PaiementResponse editPaiement(Long id, PaiementRequest paiementRequest) throws RessourceNotFoundException {
         try {
             Paiement paiement = this.paiementRepo.findById(id).get();
+
+            AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(paiementRequest.getAnnee_academique())
+                    .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
+            paiement.setAnneeAcademique(annee);
 
             paiement.setMontant(paiementRequest.getMontant());
             paiement.setLibelle(paiementRequest.getLibelle());

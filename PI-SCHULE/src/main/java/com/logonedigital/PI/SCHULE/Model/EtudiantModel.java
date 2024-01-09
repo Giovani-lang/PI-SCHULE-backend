@@ -14,4 +14,5 @@ public class EtudiantModel {
     private String matricule;
     private String nom;
     private String prenom;
+    private ClasseModel classe;
 }

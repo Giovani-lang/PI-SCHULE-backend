@@ -67,8 +67,10 @@ public class LemploiServiceImpl implements ILemploiService {
 
     @Override
     public LemploiResponse updateLemploi(Long id, LemploiRequest lemploiRequest) {
+
         Lemploi newlemploi = this.lemploiRepo.findById(id).get();
         Lemploi lemploi = this.lemploiMapper.fromLemploiRequest(lemploiRequest);
+
         newlemploi.setJour(lemploi.getJour());
         newlemploi.setDebut(lemploi.getDebut());
         //formatage de l'heure de debut en type localTime;
@@ -78,9 +80,19 @@ public class LemploiServiceImpl implements ILemploiService {
         //Enregistrement de la date de fin dans sa variable en reconversion vers le type string;
         newlemploi.setFin(resultat.toString());
         newlemploi.setDuree(lemploi.getDuree());
-        newlemploi.setMatiere(lemploi.getMatiere());
-        newlemploi.setEnseignant(lemploi.getEnseignant());
-        newlemploi.setClasse(lemploi.getClasse());
+
+        Enseignant enseignant = this.enseignantRepo.findByEmail(lemploiRequest.getEmail_enseignant())
+                .orElseThrow(()-> new RessourceNotFoundException("No teacher matches this email"+lemploiRequest.getEmail_enseignant()));
+        newlemploi.setEnseignant(enseignant);
+
+        Matiere matiere = this.matiereRepo.findByIntitule(lemploiRequest.getCours())
+                .orElseThrow(()-> new RessourceNotFoundException("This matiere doesn't exist"));
+        newlemploi.setMatiere(matiere);
+
+        Classe classe =this.classeRepo.findByNom(lemploiRequest.getNom_classe())
+                .orElseThrow(()-> new RessourceNotFoundException("This classe doesn't exit, try again !"));
+        newlemploi.setClasse(classe);
+
         return this.lemploiMapper.fromLemploi(this.lemploiRepo.saveAndFlush(newlemploi));
     }
 

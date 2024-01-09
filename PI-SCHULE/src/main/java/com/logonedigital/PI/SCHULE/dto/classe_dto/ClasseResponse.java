@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClasseResponse {
     private String nom;
+    private String niveau;
     private FiliereModel filiere;
     private OptionModel option;
 }

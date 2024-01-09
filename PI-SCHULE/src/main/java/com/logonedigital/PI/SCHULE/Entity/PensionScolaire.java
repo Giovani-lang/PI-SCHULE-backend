@@ -30,7 +30,7 @@ public class PensionScolaire implements Serializable {
     private String statut;
 
     @ManyToOne(targetEntity = Etudiant.class,fetch = FetchType.LAZY)
-    @JoinColumn(name = "matricule_etudiant", referencedColumnName = "matricule")
+    @JoinColumn(name = "matricule_etudiant", referencedColumnName = "matricule", unique = true)
     private Etudiant etudiant;
 
     public String getStatut(){

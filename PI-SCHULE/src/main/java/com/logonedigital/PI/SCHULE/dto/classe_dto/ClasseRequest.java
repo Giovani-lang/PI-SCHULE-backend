@@ -12,6 +12,8 @@ public class ClasseRequest {
     @NotEmpty(message = "required field")
     private String nom;
     @NotEmpty(message = "required field")
+    private String niveau;
+    @NotEmpty(message = "required field")
     private String nom_filiere;
     @NotEmpty(message = "required field")
     private String nom_option;

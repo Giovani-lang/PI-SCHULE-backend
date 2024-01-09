@@ -1,6 +1,8 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
+import com.logonedigital.PI.SCHULE.Service.Interface.IUserService;
 import com.logonedigital.PI.SCHULE.dto.login_dto.LoginDTO;
+import com.logonedigital.PI.SCHULE.dto.user_dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
+    private final IUserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDto) {
+    public ResponseEntity<UserResponse> login(@RequestBody LoginDTO loginDto) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -32,7 +35,7 @@ public class LoginController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new ResponseEntity<>("User signed success! ", HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.getUser(loginDto.getEmail()), HttpStatus.OK);
     }
 
 

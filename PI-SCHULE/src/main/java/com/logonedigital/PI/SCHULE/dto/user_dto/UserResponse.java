@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserResponse {
     private String email;
+    private String image_url;
     private String nom;
     private String prenom;
     private String password;

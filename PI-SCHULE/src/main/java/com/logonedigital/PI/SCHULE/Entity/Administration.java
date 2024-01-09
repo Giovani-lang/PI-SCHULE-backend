@@ -21,9 +21,4 @@ public class Administration extends User{
     private Date createdAt;
     private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<EmploiDuTemps> emploisDuTemps;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<PensionScolaire> pensionScolaires;
-
 }

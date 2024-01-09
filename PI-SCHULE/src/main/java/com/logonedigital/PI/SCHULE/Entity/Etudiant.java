@@ -13,11 +13,11 @@ import java.util.*;
 public class Etudiant extends User {
 
     private String matricule;
-    private Date dateNaissance;
+    private String dateNaissance;
     private String niveau;
     private String filiere;
     private String option;
-    private Date dateInscription;
+    private String dateInscription;
     private Date createdAt;
     private Date updatedAt;
 
@@ -25,7 +25,7 @@ public class Etudiant extends User {
     @JoinColumn(name = "annee_academique", referencedColumnName = "annee_academique")
     private AnneeAcademique anneeAcademique;
 
-    @ManyToOne (targetEntity = Classe.class, fetch = FetchType.EAGER)
+    @ManyToOne (targetEntity = Classe.class, fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
     @JoinColumn(name = "classe", referencedColumnName = "nom")
     private Classe classe;
 

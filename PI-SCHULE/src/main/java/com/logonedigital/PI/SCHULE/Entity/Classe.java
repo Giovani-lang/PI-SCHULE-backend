@@ -21,9 +21,10 @@ public class Classe implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private String niveau;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Filiere filiere;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     private Option option;
 
 }

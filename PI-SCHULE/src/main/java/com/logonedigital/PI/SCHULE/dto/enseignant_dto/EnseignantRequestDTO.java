@@ -35,6 +35,6 @@ public class EnseignantRequestDTO {
     @NotEmpty(message = "required field")
     private String genre;
     @NotEmpty(message = "required field")
-    private String annee_academique;
+    private String grade;
 
 }

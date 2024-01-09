@@ -28,10 +28,10 @@ public class PaiementController {
         return new ResponseEntity<>(this.paiementService.getPaiement(matricule), HttpStatus.OK);
     }
 
-//    @GetMapping("/getAll")
-//    public ResponseEntity<List<PaiementResponse>> findPaiementByMatricule(){
-//        return new ResponseEntity<>(this.paiementService.getAllPaiement(), HttpStatus.OK);
-//    }
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<PaiementResponse>findPaiementById(@PathVariable(name="id")Long id){
+        return new ResponseEntity<>(this.paiementService.getById(id), HttpStatus.OK);
+    }
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<PaiementResponse> updatePaiement(@PathVariable(name = "id")Long id,@RequestBody PaiementRequest paiementRequest){

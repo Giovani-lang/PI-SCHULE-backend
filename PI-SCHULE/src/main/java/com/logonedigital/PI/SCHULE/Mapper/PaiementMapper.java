@@ -14,5 +14,6 @@ public interface PaiementMapper {
     Paiement fromPaiementRequest (PaiementRequest paiementRequest);
 
     @Mapping(source = "etudiant", target = "etudiant")
+    @Mapping(source = "anneeAcademique", target = "anneeAcademique")
     PaiementResponse fromPaiement (Paiement paiement);
 }

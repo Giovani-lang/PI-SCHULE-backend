@@ -43,9 +43,6 @@ public class EnseignantServiceImpl implements IEnseignantService {
         } else if (ens2.isPresent()) {
             throw new RessourceExistException("Teacher with this phone already exist !!!");
         }
-        AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(enseignantRequestDTO.getAnnee_academique())
-                        .orElseThrow(()-> new RessourceNotFoundException("This year"+enseignantRequestDTO.getAnnee_academique()+"doesn't exist, try again !"));
-        ens.setAnnee(annee);
         ens.setCreatedAt(new Date());
         ens.setRole("ENSEIGNANT");
         ens.setPassword(this.encoder.encode(ens.getPassword()));
@@ -79,9 +76,13 @@ public class EnseignantServiceImpl implements IEnseignantService {
             newEnseignant.setNom(enseignant.getNom());
             newEnseignant.setPrenom(enseignant.getPrenom());
             newEnseignant.setTelephone(enseignant.getTelephone());
-            newEnseignant.setPassword(enseignant.getPassword());
+
+            if (enseignant.getPassword() == null || enseignant.getPassword() == " "){
+                newEnseignant.setPassword(newEnseignant.getPassword());
+            } else newEnseignant.setPassword(this.encoder.encode(enseignant.getPassword()));
+
             newEnseignant.setGenre(enseignant.getGenre());
-            newEnseignant.setAnnee(enseignant.getAnnee());
+            newEnseignant.setGrade(enseignant.getGrade());
             newEnseignant.setUpdatedAt(new Date());
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));
         }catch (Exception ex){

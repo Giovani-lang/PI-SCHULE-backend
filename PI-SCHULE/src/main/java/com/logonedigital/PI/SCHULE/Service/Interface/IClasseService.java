@@ -1,7 +1,5 @@
 package com.logonedigital.PI.SCHULE.Service.Interface;
 
-
-import com.logonedigital.PI.SCHULE.Entity.Classe;
 import com.logonedigital.PI.SCHULE.dto.classe_dto.ClasseRequest;
 import com.logonedigital.PI.SCHULE.dto.classe_dto.ClasseResponse;
 

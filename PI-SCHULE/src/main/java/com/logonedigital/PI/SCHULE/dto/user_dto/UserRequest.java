@@ -15,6 +15,7 @@ public class UserRequest {
     @Email(message = "invalid email")
     @NotBlank(message = "required field")
     private String email;
+    private String image_url;
     @NotBlank(message = "required field")
     private String nom;
     @NotBlank(message = "required field")

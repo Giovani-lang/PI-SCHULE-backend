@@ -44,14 +44,15 @@ public class EtudiantServiceImpl implements IEtudiantService {
             throw new RessourceExistException("Student with this phone already exist !!!");
         }
         AnneeAcademique anneeAcademique = this.anneeAcademiqueRepo.findByAnnees(etudiantRequestDTO.getAnnee_academique())
-                .orElseThrow(()-> new RessourceNotFoundException("Impossible year "+etudiantRequestDTO.getAnnee_academique()+" doesn't exist, try again !"));
-        etu.setMatricule(generateMatricule());
+                .orElseThrow(()-> new RessourceNotFoundException("Impossible, year "+etudiantRequestDTO.getAnnee_academique()+" doesn't exist, try again !"));
+        etu.setAnneeAcademique(anneeAcademique);
         Classe classe = this.classeRepo.findByNom(etudiantRequestDTO.getNom_classe())
                 .orElseThrow(()-> new RessourceNotFoundException("Classe"+etudiantRequestDTO.getNom_classe()+"doesn't exsit" ));
         etu.setClasse(classe);
         etu.setFiliere(classe.getFiliere().getNom());
         etu.setOption(classe.getOption().getNom());
-        etu.setAnneeAcademique(anneeAcademique);
+        etu.setNiveau(classe.getNiveau());
+        etu.setMatricule(generateMatricule());
         etu.setCreatedAt(new Date());
         etu.setRole("ETUDIANT");
         etu.setPassword(this.encoder.encode(etu.getPassword()));
@@ -63,7 +64,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
         try {
             return this.etudiantMapper.fromEtudiant(this.etudiantRepo.findByMatricule(matricule).get());
         }catch (Exception ex){
-            throw new RessourceNotFoundException("This email " +matricule+ " doesn't exist in our data base");
+            throw new RessourceNotFoundException("This matricule " +matricule+ " doesn't exist in our data base");
         }
     }
 
@@ -77,26 +78,39 @@ public class EtudiantServiceImpl implements IEtudiantService {
 
     @Override
     public EtudiantResponseDTO updateEtudiant(String matricule, EtudiantRequestDTO etudiantRequestDTO)throws RessourceNotFoundException {
-        try {
-            Etudiant etu = this.etudiantRepo.findByMatricule(matricule).get();
+
+            Etudiant etu = this.etudiantRepo.findByMatricule(matricule)
+                    .orElseThrow(()-> new RessourceNotFoundException("This matricule " +matricule+ " doesn't exist in our data base"));
+
             Etudiant etudiant = this.etudiantMapper.fromEtudiantRequestDTO(etudiantRequestDTO);
+
             etu.setEmail(etudiant.getEmail());
             etu.setImage_url(etudiant.getImage_url());
             etu.setNom(etudiant.getNom());
             etu.setPrenom(etudiant.getPrenom());
             etu.setTelephone(etudiant.getTelephone());
-            etu.setPassword(etudiant.getPassword());
+
+            if (etudiant.getPassword() == null || etudiant.getPassword() == " "){
+                etu.setPassword(etu.getPassword());
+            } else etu.setPassword(this.encoder.encode(etudiant.getPassword()));
+
             etu.setDateNaissance(etudiant.getDateNaissance());
-            etu.setFiliere(etudiant.getFiliere());
             etu.setGenre(etudiant.getGenre());
-            etu.setOption(etudiant.getOption());
-            etu.setNiveau(etudiant.getNiveau());
+
+            AnneeAcademique anneeAcademique = this.anneeAcademiqueRepo.findByAnnees(etudiantRequestDTO.getAnnee_academique())
+                    .orElseThrow(()-> new RessourceNotFoundException("Impossible, year "+etudiantRequestDTO.getAnnee_academique()+" doesn't exist, try again !"));
+            etu.setAnneeAcademique(anneeAcademique);
+
+            Classe classe = this.classeRepo.findByNom(etudiantRequestDTO.getNom_classe())
+                    .orElseThrow(()-> new RessourceNotFoundException("Classe"+etudiantRequestDTO.getNom_classe()+"doesn't exsit" ));
+            etu.setClasse(classe);
+
+            etu.setNiveau(classe.getNiveau());
+            etu.setFiliere(classe.getFiliere().getNom());
+            etu.setOption(classe.getOption().getNom());
             etu.setDateInscription(etudiant.getDateInscription());
             etu.setUpdatedAt(new Date());
             return this.etudiantMapper.fromEtudiant(this.etudiantRepo.save(etu));
-        }catch (Exception ex){
-            throw new RessourceNotFoundException("This email " +matricule+ " doesn't exist in our data base");
-        }
     }
 
     @Override
@@ -104,7 +118,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
         Optional<Etudiant> etu = this.etudiantRepo.findByMatricule(matricule);
         this.etudiantRepo.delete(etu.get());
         if (etu.isEmpty()){
-            throw new RessourceNotFoundException("This email " +matricule+ " doesn't exist in our data base");
+            throw new RessourceNotFoundException("This matricule " +matricule+ " doesn't exist in our data base");
         }
     }
 }
