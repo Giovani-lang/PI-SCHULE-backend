@@ -14,4 +14,6 @@ public class PensionRequest {
     private String matricule_etd;
     @NotNull(message = "required field")
     private Double pensionAnnuelle;
+    @NotEmpty(message = "required field")
+    private String annee_academique;
 }

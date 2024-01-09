@@ -13,5 +13,6 @@ public interface PensionMapper {
     PensionScolaire fromPensionRequest (PensionRequest pensionRequest);
 
     @Mapping(source = "etudiant" , target = "etudiant")
+    @Mapping(source = "anneeAcademique" , target = "anneeAcademique")
     PensionResponse fromPension (PensionScolaire pensionScolaire);
 }

@@ -1,5 +1,6 @@
 package com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto;
 
+import com.logonedigital.PI.SCHULE.Model.AnneeAcademiqueModel;
 import com.logonedigital.PI.SCHULE.Model.EtudiantModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,4 +15,5 @@ public class PensionResponse {
     private Double pensionAnnuelle;
     private Double totalPaye;
     private String statut;
+    private AnneeAcademiqueModel anneeAcademique;
 }

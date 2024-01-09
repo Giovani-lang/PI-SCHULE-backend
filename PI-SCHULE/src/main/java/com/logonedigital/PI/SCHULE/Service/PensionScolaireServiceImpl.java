@@ -1,11 +1,13 @@
 package com.logonedigital.PI.SCHULE.Service;
 
+import com.logonedigital.PI.SCHULE.Entity.AnneeAcademique;
 import com.logonedigital.PI.SCHULE.Entity.Etudiant;
-import com.logonedigital.PI.SCHULE.Entity.Paiement;
 import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.PensionMapper;
+import com.logonedigital.PI.SCHULE.Model.AnneeAcademiqueModel;
+import com.logonedigital.PI.SCHULE.Repository.AnneeAcademiqueRepository;
 import com.logonedigital.PI.SCHULE.Repository.EtudiantRepository;
 import com.logonedigital.PI.SCHULE.Repository.PensionScolaireRepo;
 import com.logonedigital.PI.SCHULE.Service.Interface.PensionScolaireService;
@@ -23,11 +25,13 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
     private final PensionScolaireRepo pensionScolaireRepo;
     private final PensionMapper pensionMapper;
     private final EtudiantRepository etudiantRepo;
+    private final AnneeAcademiqueRepository anneeAcademiqueRepo;
 
-    public PensionScolaireServiceImpl(PensionScolaireRepo pensionScolaireRepo, PensionMapper pensionMapper, EtudiantRepository etudiantRepo) {
+    public PensionScolaireServiceImpl(PensionScolaireRepo pensionScolaireRepo, PensionMapper pensionMapper, EtudiantRepository etudiantRepo, AnneeAcademiqueRepository anneeAcademiqueRepo) {
         this.pensionScolaireRepo = pensionScolaireRepo;
         this.pensionMapper = pensionMapper;
         this.etudiantRepo = etudiantRepo;
+        this.anneeAcademiqueRepo = anneeAcademiqueRepo;
     }
 
 
@@ -39,6 +43,9 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
         Etudiant etd = this.etudiantRepo.findByMatricule(pensionScolaire.getMatricule_etd())
                 .orElseThrow(()-> new RessourceNotFoundException("Student with this matricule doesn't exist, try again !"));
         pension.setEtudiant(etd);
+        AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(pensionScolaire.getAnnee_academique())
+                .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
+        pension.setAnneeAcademique(annee);
         return this.pensionMapper.fromPension(this.pensionScolaireRepo.save(pension));
     }
 
@@ -52,14 +59,14 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
     }
 
     @Override
-    public PensionResponse getPensionScolaire(String matricule) throws RessourceNotFoundException {
+    public PensionResponse getPensionScolaire(String matricule, String anneeAcademique) throws RessourceNotFoundException {
         try {
 
             /**** recherche de la pension avec le matricule de l'étudiant ******/
-            PensionScolaire pensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule).get();
+            PensionScolaire pensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule,anneeAcademique).get();
 
             /**** somme des paiements au cours de l'année académique correspondante ******/
-            Double totalPaye = this.pensionScolaireRepo.getTotalPaymentForStudent(matricule);
+            Double totalPaye = this.pensionScolaireRepo.getTotalPaymentForStudent(matricule,anneeAcademique);
             if (totalPaye == null){
                 pensionScolaire.setTotalPaye(0.0);
             } else if (totalPaye != null) {
@@ -70,7 +77,7 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
             this.pensionMapper.fromPension(this.pensionScolaireRepo.save(pensionScolaire));
 
             /**** affichage de la pension de l'étudiant ******/
-            return this.pensionMapper.fromPension(this.pensionScolaireRepo.findByMatricule(matricule).get());
+            return this.pensionMapper.fromPension(this.pensionScolaireRepo.findByMatricule(matricule,anneeAcademique).get());
         }catch (Exception exception){
             throw new RessourceNotFoundException("utlisateur n'existe pas");
         }
@@ -78,23 +85,26 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
     }
 
     @Override
-    public PensionResponse updatePensionScolaire(PensionRequest newPensionScolaire, String matricule) throws RessourceNotFoundException {
+    public PensionResponse updatePensionScolaire(PensionRequest oldPensionScolaire, String matricule, String anneeAcademique) throws RessourceNotFoundException {
         try {
-            PensionScolaire oldPensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule).get();
+            PensionScolaire newPensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule,anneeAcademique).get();
 
-            oldPensionScolaire.setPensionAnnuelle(newPensionScolaire.getPensionAnnuelle());
-            PensionScolaire pensionScolaireUpdated = this.pensionScolaireRepo.save(oldPensionScolaire);
+            AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(oldPensionScolaire.getAnnee_academique())
+                    .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
+            newPensionScolaire.setAnneeAcademique(annee);
 
-            return this.pensionMapper.fromPension(pensionScolaireUpdated);
+            newPensionScolaire.setPensionAnnuelle(oldPensionScolaire.getPensionAnnuelle());
+
+            return this.pensionMapper.fromPension(this.pensionScolaireRepo.save(newPensionScolaire));
         } catch (Exception exception) {
             throw new RessourceNotFoundException("la mise à jour n'a pas été faite");
         }
     }
-    @Override
-    public void deletePensionScolaire(String matricule) {
-        PensionScolaire pensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule).get();
-        this.pensionScolaireRepo.delete(pensionScolaire);
-    }
+//    @Override
+//    public void deletePensionScolaire(String matricule) {
+//        PensionScolaire pensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule).get();
+//        this.pensionScolaireRepo.delete(pensionScolaire);
+//    }
 
 }
 

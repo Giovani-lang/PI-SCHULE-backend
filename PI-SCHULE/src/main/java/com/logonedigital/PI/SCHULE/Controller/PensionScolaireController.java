@@ -1,7 +1,9 @@
 package com.logonedigital.PI.SCHULE.Controller;
 
 
+import com.logonedigital.PI.SCHULE.Entity.AnneeAcademique;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
+import com.logonedigital.PI.SCHULE.Model.AnneeAcademiqueModel;
 import com.logonedigital.PI.SCHULE.Service.Interface.PensionScolaireService;
 import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionRequest;
 import com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto.PensionResponse;
@@ -27,9 +29,9 @@ public class PensionScolaireController {
     public ResponseEntity<List<PensionResponse>> getPensionsScolaire(){
     return new ResponseEntity<>(this.pensionScolaireService.getPensionsScolaire(),HttpStatus.OK);
     }
-    @GetMapping("/detail/{matricule}")
-    public ResponseEntity<PensionResponse> getPensionScolaire(@PathVariable(name = "matricule")String matricule) {
-        return new ResponseEntity<>(this.pensionScolaireService.getPensionScolaire(matricule), HttpStatus.OK);
+    @GetMapping("/detail/{matricule}/{annee}")
+    public ResponseEntity<PensionResponse> getPensionScolaire(@PathVariable(name = "matricule")String matricule,@PathVariable(name = "annee") String annee) {
+        return new ResponseEntity<>(this.pensionScolaireService.getPensionScolaire(matricule,annee), HttpStatus.OK);
     }
 
 //    @GetMapping("/detail/{id}/{matricule}")
@@ -38,16 +40,16 @@ public class PensionScolaireController {
 //        return new ResponseEntity<>(this.pensionScolaireService.getPensionScolaireWithTotalPayment(id,matricule), HttpStatus.OK);
 //    }
 
-    @DeleteMapping("/delete/{matricule}")
-    public ResponseEntity<String> deletePensionScolaire(@PathVariable(name = "matricule") String matricule){
-        this.pensionScolaireService.deletePensionScolaire(matricule);
-        return new ResponseEntity<>("Deleted successfully", HttpStatus.ACCEPTED);
-    }
-    @PutMapping("/edit/{matricule}")
+//    @DeleteMapping("/delete/{matricule}")
+//    public ResponseEntity<String> deletePensionScolaire(@PathVariable(name = "matricule") String matricule){
+//        this.pensionScolaireService.deletePensionScolaire(matricule);
+//        return new ResponseEntity<>("Deleted successfully", HttpStatus.ACCEPTED);
+//    }
+    @PutMapping("/edit/{matricule}/{annee}")
     public ResponseEntity <PensionResponse> updatePensionScolaire(@PathVariable(name = "matricule") String matricule,
-                                           @RequestBody PensionRequest pensionScolaire)throws RessourceNotFoundException
+                                           @RequestBody PensionRequest pensionScolaire,@PathVariable(name = "annee") String annee)throws RessourceNotFoundException
     {
-        return new ResponseEntity<>(this.pensionScolaireService.updatePensionScolaire(pensionScolaire, matricule), HttpStatus.OK);
+        return new ResponseEntity<>(this.pensionScolaireService.updatePensionScolaire(pensionScolaire, matricule,annee), HttpStatus.OK);
     }
 }
 
