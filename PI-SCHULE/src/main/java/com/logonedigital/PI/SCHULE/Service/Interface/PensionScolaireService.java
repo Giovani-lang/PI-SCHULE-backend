@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface PensionScolaireService {
     PensionResponse addPensionScolaire(PensionRequest pension);
-    List<PensionResponse> getPensionsScolaire();
-    PensionResponse getPensionScolaire(String matricule, String anneeAcademique);
-    PensionResponse updatePensionScolaire(PensionRequest pension, String matricule, String anneeAcademique);
+    List<PensionResponse> getPensionsScolaire(Long annee);
+    PensionResponse getPensionScolaire(String matricule, Long anneeAcademique);
+    PensionResponse updatePensionScolaire(PensionRequest pension, String matricule, Long anneeAcademique);
 //    void deletePensionScolaire(String matricule);
 
 }

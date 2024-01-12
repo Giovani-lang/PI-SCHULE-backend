@@ -43,15 +43,15 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
         Etudiant etd = this.etudiantRepo.findByMatricule(pensionScolaire.getMatricule_etd())
                 .orElseThrow(()-> new RessourceNotFoundException("Student with this matricule doesn't exist, try again !"));
         pension.setEtudiant(etd);
-        AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(pensionScolaire.getAnnee_academique())
+        AnneeAcademique annee = this.anneeAcademiqueRepo.findById(pensionScolaire.getAnnee_academique())
                 .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
         pension.setAnneeAcademique(annee);
         return this.pensionMapper.fromPension(this.pensionScolaireRepo.save(pension));
     }
 
     @Override
-    public List<PensionResponse> getPensionsScolaire() {
-        List<PensionScolaire> pensionScolaire = this.pensionScolaireRepo.findAll();
+    public List<PensionResponse> getPensionsScolaire(Long annee) {
+        List<PensionScolaire> pensionScolaire = this.pensionScolaireRepo.findAllByAnnee(annee);
         List<PensionResponse> pensionResponses = new ArrayList<>();
         pensionScolaire.forEach(pension->pensionResponses.add(this.pensionMapper
                 .fromPension(pension)));
@@ -59,7 +59,7 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
     }
 
     @Override
-    public PensionResponse getPensionScolaire(String matricule, String anneeAcademique) throws RessourceNotFoundException {
+    public PensionResponse getPensionScolaire(String matricule, Long anneeAcademique) throws RessourceNotFoundException {
         try {
 
             /**** recherche de la pension avec le matricule de l'étudiant ******/
@@ -85,11 +85,11 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
     }
 
     @Override
-    public PensionResponse updatePensionScolaire(PensionRequest oldPensionScolaire, String matricule, String anneeAcademique) throws RessourceNotFoundException {
+    public PensionResponse updatePensionScolaire(PensionRequest oldPensionScolaire, String matricule, Long anneeAcademique) throws RessourceNotFoundException {
         try {
             PensionScolaire newPensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule,anneeAcademique).get();
 
-            AnneeAcademique annee = this.anneeAcademiqueRepo.findByAnnees(oldPensionScolaire.getAnnee_academique())
+            AnneeAcademique annee = this.anneeAcademiqueRepo.findById(oldPensionScolaire.getAnnee_academique())
                     .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
             newPensionScolaire.setAnneeAcademique(annee);
 

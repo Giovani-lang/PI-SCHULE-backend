@@ -25,12 +25,12 @@ public class PensionScolaireController {
     public ResponseEntity<PensionResponse> addPensionScolaire(@RequestBody @Valid PensionRequest pensionScolaire) {
     return new ResponseEntity<>(this.pensionScolaireService.addPensionScolaire(pensionScolaire), HttpStatus.CREATED);
 }
-    @GetMapping("/getAll")
-    public ResponseEntity<List<PensionResponse>> getPensionsScolaire(){
-    return new ResponseEntity<>(this.pensionScolaireService.getPensionsScolaire(),HttpStatus.OK);
+    @GetMapping("/getAll/{annee}")
+    public ResponseEntity<List<PensionResponse>> getPensionsScolaire(@PathVariable(name = "annee") Long annee){
+    return new ResponseEntity<>(this.pensionScolaireService.getPensionsScolaire(annee),HttpStatus.OK);
     }
     @GetMapping("/detail/{matricule}/{annee}")
-    public ResponseEntity<PensionResponse> getPensionScolaire(@PathVariable(name = "matricule")String matricule,@PathVariable(name = "annee") String annee) {
+    public ResponseEntity<PensionResponse> getPensionScolaire(@PathVariable(name = "matricule")String matricule,@PathVariable(name = "annee") Long annee) {
         return new ResponseEntity<>(this.pensionScolaireService.getPensionScolaire(matricule,annee), HttpStatus.OK);
     }
 
@@ -47,7 +47,7 @@ public class PensionScolaireController {
 //    }
     @PutMapping("/edit/{matricule}/{annee}")
     public ResponseEntity <PensionResponse> updatePensionScolaire(@PathVariable(name = "matricule") String matricule,
-                                           @RequestBody PensionRequest pensionScolaire,@PathVariable(name = "annee") String annee)throws RessourceNotFoundException
+                                           @RequestBody PensionRequest pensionScolaire,@PathVariable(name = "annee") Long annee)throws RessourceNotFoundException
     {
         return new ResponseEntity<>(this.pensionScolaireService.updatePensionScolaire(pensionScolaire, matricule,annee), HttpStatus.OK);
     }

@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnneeAcademiqueModel {
+    private Long id;
     private String annees;
 }

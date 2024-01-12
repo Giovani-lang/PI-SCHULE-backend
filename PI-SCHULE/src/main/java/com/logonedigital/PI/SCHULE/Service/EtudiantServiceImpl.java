@@ -60,11 +60,20 @@ public class EtudiantServiceImpl implements IEtudiantService {
     }
 
     @Override
-    public EtudiantResponseDTO getEtudiant(String matricule) throws RessourceNotFoundException {
+    public EtudiantResponseDTO getEtudiantByMatricule(String matricule) throws RessourceNotFoundException {
         try {
             return this.etudiantMapper.fromEtudiant(this.etudiantRepo.findByMatricule(matricule).get());
         }catch (Exception ex){
             throw new RessourceNotFoundException("This matricule " +matricule+ " doesn't exist in our data base");
+        }
+    }
+
+    @Override
+    public EtudiantResponseDTO getEtudiantByEmail(String email) throws RessourceNotFoundException {
+        try {
+            return this.etudiantMapper.fromEtudiant(this.etudiantRepo.findByEmail(email).get());
+        }catch (Exception ex){
+            throw new RessourceNotFoundException("This matricule " +email+ " doesn't exist in our data base");
         }
     }
 

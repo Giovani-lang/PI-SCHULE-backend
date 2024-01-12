@@ -23,9 +23,9 @@ public class PaiementController {
         return new ResponseEntity<>(this.paiementService.addPaiement(paiementRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping("/detail/{matricule}")
-    public ResponseEntity<List<PaiementResponse>> findPaiementByMatricule(@PathVariable(name = "matricule")String matricule){
-        return new ResponseEntity<>(this.paiementService.getPaiement(matricule), HttpStatus.OK);
+    @GetMapping("/detail/{matricule}/{annee}")
+    public ResponseEntity<List<PaiementResponse>> findPaiementByMatricule(@PathVariable(name = "matricule")String matricule,@PathVariable(name = "annee")Long annee){
+        return new ResponseEntity<>(this.paiementService.getPaiement(matricule,annee), HttpStatus.OK);
     }
 
     @GetMapping("/getById/{id}")

@@ -1,5 +1,6 @@
 package com.logonedigital.PI.SCHULE.dto.pensionScolaire_dto;
 
+import com.logonedigital.PI.SCHULE.Entity.AnneeAcademique;
 import com.logonedigital.PI.SCHULE.Model.AnneeAcademiqueModel;
 import com.logonedigital.PI.SCHULE.Model.EtudiantModel;
 import lombok.AllArgsConstructor;

@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface IEtudiantService {
     EtudiantResponseDTO addEtudiant(EtudiantRequestDTO etudiantRequestDTO);
-    EtudiantResponseDTO getEtudiant(String email);
+    EtudiantResponseDTO getEtudiantByMatricule(String matricule);
+    EtudiantResponseDTO getEtudiantByEmail(String email);
     List<EtudiantResponseDTO> getEtudiants();
     EtudiantResponseDTO updateEtudiant(String email, EtudiantRequestDTO etudiantRequestDTO);
     void deleteEtudiant(String email);

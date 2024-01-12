@@ -39,8 +39,8 @@ public class PaiementServiceImpl implements IPaiementService {
     }
 
     @Override
-    public List<PaiementResponse> getPaiement(String matricule) throws RessourceNotFoundException{
-        List<Paiement> paiements = (List<Paiement>) this.paiementRepo.findPaiementByMatricule(matricule);
+    public List<PaiementResponse> getPaiement(String matricule, Long annee) throws RessourceNotFoundException{
+        List<Paiement> paiements = (List<Paiement>) this.paiementRepo.findPaiementByMatricule(matricule,annee);
         List<PaiementResponse> paiementResponses = new ArrayList<>();
         paiements.forEach(paiement -> paiementResponses.add(this.paiementMapper.fromPaiement(paiement)));
         return paiementResponses;

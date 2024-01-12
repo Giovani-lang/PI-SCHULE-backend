@@ -25,9 +25,15 @@ public class EtudiantController {
     }
 
     @GetMapping("/detail/{matricule}")
-    public ResponseEntity<EtudiantResponseDTO> getEtudiant(@PathVariable(name = "matricule") String matricule)
+    public ResponseEntity<EtudiantResponseDTO> getEtudiantByMatricule(@PathVariable(name = "matricule") String matricule)
             throws RessourceNotFoundException{
-        return new ResponseEntity<>(this.etudiantService.getEtudiant(matricule),HttpStatus.ACCEPTED );
+        return new ResponseEntity<>(this.etudiantService.getEtudiantByMatricule(matricule),HttpStatus.ACCEPTED );
+    }
+
+    @GetMapping("/detailWithEmail/{email}")
+    public ResponseEntity<EtudiantResponseDTO> getEtudiantByEmail(@PathVariable(name = "email") String email)
+            throws RessourceNotFoundException{
+        return new ResponseEntity<>(this.etudiantService.getEtudiantByEmail(email),HttpStatus.ACCEPTED );
     }
 
     @GetMapping("/getAll")
