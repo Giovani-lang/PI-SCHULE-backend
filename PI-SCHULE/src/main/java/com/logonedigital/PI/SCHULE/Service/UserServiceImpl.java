@@ -9,6 +9,7 @@ import com.logonedigital.PI.SCHULE.Service.Interface.IUserService;
 import com.logonedigital.PI.SCHULE.dto.user_dto.UserRequest;
 import com.logonedigital.PI.SCHULE.dto.user_dto.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.Optional;
 public class UserServiceImpl implements IUserService {
     private final UserMapper userMapper;
     private final UserRepository userRepo;
+    private final PasswordEncoder encoder;
+
 
     @Override
     public UserResponse addUser(UserRequest userRequest) {
@@ -56,7 +59,11 @@ public class UserServiceImpl implements IUserService {
             newUser.setEmail(user1.getEmail());
             newUser.setNom(user1.getNom());
             newUser.setPrenom(user1.getPrenom());
-            newUser.setPassword(user1.getPassword());
+
+            if(user1.getPassword() == " " || user1.getPassword() == null ){
+                newUser.setPassword(newUser.getPassword());
+            }else newUser.setPassword(this.encoder.encode(user1.getPassword()));
+
             newUser.setTelephone(user1.getTelephone());
             newUser.setRole(user1.getRole());
             newUser.setGenre(user1.getGenre());

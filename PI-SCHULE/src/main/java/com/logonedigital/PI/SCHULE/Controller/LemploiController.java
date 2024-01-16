@@ -21,10 +21,6 @@ public class LemploiController {
     public ResponseEntity<LemploiResponse> addLemploi(@RequestBody LemploiRequest lemploi){
         return new ResponseEntity<>(this.lemploiService.addLemploi(lemploi), HttpStatus.CREATED);
     }
-//    @GetMapping("/getAll")
-//    public ResponseEntity<List<LemploiResponse>> getAllLemploi(){
-//        return new ResponseEntity<>(this.lemploiService.getAllLemploi(), HttpStatus.OK);
-//    }
 
     @GetMapping("detail/{classe}")
     public ResponseEntity<List<LemploiResponse>> findAllLemploiByClasse(@PathVariable(name = "classe") String classe){
@@ -35,7 +31,8 @@ public class LemploiController {
         return new ResponseEntity<>(this.lemploiService.updateLemploi(id, lemploi),HttpStatus.ACCEPTED);
     }
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteLemploi(Long id){
-        return new ResponseEntity<>("delete successfully !",HttpStatus.ACCEPTED);
+    public ResponseEntity<Void> deleteLemploi(@PathVariable(name = "id")Long id){
+        this.lemploiService.deleteLemploi(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

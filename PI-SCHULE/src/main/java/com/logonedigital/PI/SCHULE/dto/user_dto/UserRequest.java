@@ -26,5 +26,7 @@ public class UserRequest {
     private String telephone;
     @NotBlank(message = "required field")
     private String genre;
+    @NotBlank(message = "required field")
+    private String role;
 
 }
