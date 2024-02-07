@@ -1,6 +1,8 @@
 package com.logonedigital.PI.SCHULE.Service;
 
+import com.logonedigital.PI.SCHULE.Entity.Administration;
 import com.logonedigital.PI.SCHULE.Entity.AnneeAcademique;
+import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Repository.AnneeAcademiqueRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IAnneeAcademiqueService;
@@ -16,6 +18,10 @@ public class AnneeAcademiqueServiceImpl implements IAnneeAcademiqueService {
     private final AnneeAcademiqueRepository anneeAcademiqueRepo;
     @Override
     public AnneeAcademique addAnnee(AnneeAcademique anneeAcademique) {
+        Optional<AnneeAcademique> annee = this.anneeAcademiqueRepo.findByAnnees(anneeAcademique.getAnnees());
+        if (annee.isPresent()){
+            throw new RessourceExistException("This years already exist !!!");
+        }
         return this.anneeAcademiqueRepo.save(anneeAcademique);
     }
 

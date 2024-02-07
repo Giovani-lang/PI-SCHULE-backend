@@ -22,9 +22,10 @@ public class Classe implements Serializable {
     private Long id;
     private String nom;
     private String niveau;
-    @ManyToOne(fetch = FetchType.EAGER)
+    private double tarif;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     private Filiere filiere;
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     private Option option;
 
 }

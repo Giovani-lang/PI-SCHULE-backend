@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "tb_enseignants")
 @Entity
 public  class Enseignant extends User {
-
+    private String status;
     private String grade;
     private Date createdAt;
     private Date updatedAt;

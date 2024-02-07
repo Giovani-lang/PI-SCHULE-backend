@@ -26,7 +26,8 @@ public class PensionScolaire implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double pensionAnnuelle;
-    private Double totalPaye = 0.0;
+    private Double totalPaye;
+    private Double restePaye;
     private String statut;
 
     @ManyToOne(targetEntity = Etudiant.class,fetch = FetchType.LAZY)
@@ -36,11 +37,6 @@ public class PensionScolaire implements Serializable {
     @OneToOne(targetEntity = AnneeAcademique.class, fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
     private AnneeAcademique anneeAcademique;
 
-    public String getStatut(){
-        if (this.totalPaye >= this.pensionAnnuelle){
-            return this.statut = "Soldée";
-        }return this.statut = "En cours";
-    }
 
 
 

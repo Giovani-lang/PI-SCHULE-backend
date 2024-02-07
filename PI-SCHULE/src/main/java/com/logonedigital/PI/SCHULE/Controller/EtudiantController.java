@@ -24,7 +24,7 @@ public class EtudiantController {
         return new ResponseEntity<>(this.etudiantService.addEtudiant(etudiantRequestDTO),HttpStatus.CREATED );
     }
 
-    @GetMapping("/detail/{matricule}")
+    @GetMapping("/detailWithMatricule/{matricule}")
     public ResponseEntity<EtudiantResponseDTO> getEtudiantByMatricule(@PathVariable(name = "matricule") String matricule)
             throws RessourceNotFoundException{
         return new ResponseEntity<>(this.etudiantService.getEtudiantByMatricule(matricule),HttpStatus.ACCEPTED );
@@ -39,6 +39,11 @@ public class EtudiantController {
     @GetMapping("/getAll")
     public ResponseEntity<List<EtudiantResponseDTO>> getEtudiants() {
         return new ResponseEntity<>(this.etudiantService.getEtudiants(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllByClasse/{classe}")
+    public ResponseEntity<List<EtudiantResponseDTO>> getEtudiants(@PathVariable(name = "classe") String classe) {
+        return new ResponseEntity<>(this.etudiantService.getEtudiantsByClasse(classe), HttpStatus.OK);
     }
 
     @PutMapping("/edit/{matricule}")

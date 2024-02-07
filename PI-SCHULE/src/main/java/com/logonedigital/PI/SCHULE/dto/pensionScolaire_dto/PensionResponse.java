@@ -15,6 +15,7 @@ public class PensionResponse {
     private EtudiantModel etudiant;
     private Double pensionAnnuelle;
     private Double totalPaye;
+    private Double restePaye;
     private String statut;
     private AnneeAcademiqueModel anneeAcademique;
 }

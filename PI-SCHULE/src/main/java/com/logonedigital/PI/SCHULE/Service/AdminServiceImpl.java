@@ -66,11 +66,14 @@ public class AdminServiceImpl implements AdminService {
             Administration admin = this.adminMapper.fromAdminRequestDTO(adminRequestDTO);
             admin1.setImage_url(admin.getImage_url());
             admin1.setNom(admin.getNom());
+            admin1.setEmail(admin.getEmail());
             admin1.setPrenom(admin.getPrenom());
 
-            if (admin.getPassword() == null || admin.getPassword() == " "){
+            if (admin.getPassword() == null || admin.getPassword().isEmpty()){
                 admin1.setPassword(admin1.getPassword());
-            } else admin1.setPassword(this.encoder.encode(admin.getPassword()));
+            } else {
+                admin1.setPassword(this.encoder.encode(admin.getPassword()));
+            }
 
             admin1.setPassword(admin.getPassword());
             admin1.setTelephone(admin.getTelephone());

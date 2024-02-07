@@ -17,4 +17,5 @@ public class UserResponse {
     private String telephone;
     private String genre;
     private String role;
+    private boolean firstLogin;
 }

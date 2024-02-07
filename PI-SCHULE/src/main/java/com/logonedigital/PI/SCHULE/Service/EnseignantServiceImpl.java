@@ -1,14 +1,10 @@
 package com.logonedigital.PI.SCHULE.Service;
 
-import com.logonedigital.PI.SCHULE.Entity.AnneeAcademique;
 import com.logonedigital.PI.SCHULE.Entity.Enseignant;
-import com.logonedigital.PI.SCHULE.Entity.Matiere;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.EnseignantMapper;
-import com.logonedigital.PI.SCHULE.Repository.AnneeAcademiqueRepository;
 import com.logonedigital.PI.SCHULE.Repository.EnseignantRepository;
-import com.logonedigital.PI.SCHULE.Repository.MatiereRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IEnseignantService;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantRequestDTO;
 import com.logonedigital.PI.SCHULE.dto.enseignant_dto.EnseignantResponseDTO;
@@ -30,7 +26,6 @@ public class EnseignantServiceImpl implements IEnseignantService {
     private final EnseignantRepository enseignantRepo;
     private final EnseignantMapper enseignantMapper;
     private final PasswordEncoder encoder;
-    private final AnneeAcademiqueRepository anneeAcademiqueRepo;
 
 
     @Override
@@ -44,6 +39,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
             throw new RessourceExistException("Teacher with this phone already exist !!!");
         }
         ens.setCreatedAt(new Date());
+        ens.setStatus("Actif");
         ens.setRole("ENSEIGNANT");
         ens.setPassword(this.encoder.encode(ens.getPassword()));
         return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(ens));
@@ -83,6 +79,7 @@ public class EnseignantServiceImpl implements IEnseignantService {
 
             newEnseignant.setGenre(enseignant.getGenre());
             newEnseignant.setGrade(enseignant.getGrade());
+            newEnseignant.setStatus(enseignant.getStatus());
             newEnseignant.setUpdatedAt(new Date());
             return this.enseignantMapper.fromEnseignant(this.enseignantRepo.save(newEnseignant));
         }catch (Exception ex){

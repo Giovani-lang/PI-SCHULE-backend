@@ -86,6 +86,14 @@ public class EtudiantServiceImpl implements IEtudiantService {
     }
 
     @Override
+    public List<EtudiantResponseDTO> getEtudiantsByClasse(String classe) {
+        List<Etudiant> etudiants = this.etudiantRepo.findAllByClasse(classe);
+        List<EtudiantResponseDTO> etudiantResponses = new ArrayList<>();
+        etudiants.forEach(etudiant -> etudiantResponses.add(this.etudiantMapper.fromEtudiant(etudiant)));
+        return etudiantResponses;
+    }
+
+    @Override
     public EtudiantResponseDTO updateEtudiant(String matricule, EtudiantRequestDTO etudiantRequestDTO)throws RessourceNotFoundException {
 
             Etudiant etu = this.etudiantRepo.findByMatricule(matricule)

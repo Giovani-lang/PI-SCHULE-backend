@@ -33,11 +33,5 @@ public class Etudiant extends User {
     private List<FicheDePresence> ficheDePresence = new ArrayList<>();
     @OneToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Note> notes = new ArrayList<>();
-    @OneToMany(targetEntity = EmploiDuTemps.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<EmploiDuTemps> emploiDuTemps = new ArrayList<>();
-    @OneToMany(targetEntity = PensionScolaire.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<PensionScolaire> pensionScolaires = new ArrayList<>();
-    @OneToMany(targetEntity = Paiement.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<Paiement> paiements = new ArrayList<>();
 
 }

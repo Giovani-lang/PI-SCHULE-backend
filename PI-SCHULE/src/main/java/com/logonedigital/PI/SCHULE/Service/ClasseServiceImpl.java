@@ -8,6 +8,7 @@ import com.logonedigital.PI.SCHULE.Mapper.ClasseMapper;
 import com.logonedigital.PI.SCHULE.Repository.ClasseRepository;
 import com.logonedigital.PI.SCHULE.Repository.FiliereRepository;
 import com.logonedigital.PI.SCHULE.Repository.OptionRepository;
+import com.logonedigital.PI.SCHULE.Repository.TarifRepository;
 import com.logonedigital.PI.SCHULE.Service.Interface.IClasseService;
 import com.logonedigital.PI.SCHULE.dto.classe_dto.ClasseRequest;
 import com.logonedigital.PI.SCHULE.dto.classe_dto.ClasseResponse;
@@ -25,6 +26,8 @@ public class ClasseServiceImpl implements IClasseService {
     private final ClasseMapper classeMapper;
     private final FiliereRepository filiereRepo;
     private final OptionRepository optionRepo;
+    private final TarifRepository tarifRepo;
+
     @Override
     public ClasseResponse addClasse(ClasseRequest classeRequest) {
         Classe classe = this.classeMapper.fromClasseRequest(classeRequest);
@@ -36,6 +39,8 @@ public class ClasseServiceImpl implements IClasseService {
         classe.setOption(option);
         classe.setNom(classeRequest.getNom());
         classe.setNiveau(classeRequest.getNiveau());
+        double tarif = this.tarifRepo.findTarifByNiveauAndOptions(classe.getNiveau(), classe.getOption().getId());
+        classe.setTarif(tarif);
         return this.classeMapper.fromClasse(this.classeRepo.save(classe)) ;
     }
 

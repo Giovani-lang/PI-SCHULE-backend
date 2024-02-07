@@ -28,5 +28,7 @@ public class UserRequest {
     private String genre;
     @NotBlank(message = "required field")
     private String role;
+    @NotBlank(message = "required field")
+    private boolean firstLogin;
 
 }

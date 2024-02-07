@@ -25,6 +25,7 @@ public class EnseignantResponseDTO {
     private String genre;
     private String role;
     private String grade;
+    private String status;
     private Date createdAt;
     private Date updatedAt;
 

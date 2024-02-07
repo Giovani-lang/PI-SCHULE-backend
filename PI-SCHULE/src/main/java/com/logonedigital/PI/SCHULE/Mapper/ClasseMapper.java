@@ -15,5 +15,6 @@ public interface ClasseMapper {
 
     @Mapping(source = "filiere", target = "filiere")
     @Mapping(source = "option", target = "option")
+    @Mapping(source = "tarif", target = "tarif")
     ClasseResponse fromClasse (Classe classe);
 }

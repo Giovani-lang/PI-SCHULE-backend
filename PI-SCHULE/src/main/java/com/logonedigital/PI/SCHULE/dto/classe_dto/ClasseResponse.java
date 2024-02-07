@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ClasseResponse {
     private String nom;
     private String niveau;
+    private double tarif;
     private FiliereModel filiere;
     private OptionModel option;
 }

@@ -55,18 +55,19 @@ public class UserServiceImpl implements IUserService {
     public UserResponse editUser(String email, UserRequest user)throws RessourceNotFoundException {
         try {
             User newUser = this.userRepo.findUserByEmail(email).get();
-            User user1 = this.userMapper.fromUserRequest(user);
-            newUser.setEmail(user1.getEmail());
-            newUser.setNom(user1.getNom());
-            newUser.setPrenom(user1.getPrenom());
+            User oldUser = this.userMapper.fromUserRequest(user);
+            newUser.setEmail(oldUser.getEmail());
+            newUser.setNom(oldUser.getNom());
+            newUser.setPrenom(oldUser.getPrenom());
 
-            if(user1.getPassword() == " " || user1.getPassword() == null ){
+            if(oldUser.getPassword().isEmpty() || oldUser.getPassword() == null ){
                 newUser.setPassword(newUser.getPassword());
-            }else newUser.setPassword(this.encoder.encode(user1.getPassword()));
+            }else newUser.setPassword(this.encoder.encode(oldUser.getPassword()));
 
-            newUser.setTelephone(user1.getTelephone());
-            newUser.setRole(user1.getRole());
-            newUser.setGenre(user1.getGenre());
+            newUser.setTelephone(oldUser.getTelephone());
+            newUser.setRole(oldUser.getRole());
+            newUser.setGenre(oldUser.getGenre());
+            newUser.setFirstLogin(oldUser.isFirstLogin());
 
             return this.userMapper.fromUser(this.userRepo.saveAndFlush(newUser));
         }catch (Exception ex){

@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
+//@Table(name = "tb_users")
 public class User implements Serializable {
     @Serial
     private static final Long serialVersionUID =1L;
@@ -29,4 +30,5 @@ public class User implements Serializable {
     protected String telephone;
     protected String genre;
     protected String role;
+    protected boolean firstLogin = true;
 }

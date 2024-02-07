@@ -28,13 +28,11 @@ public class EnseignantRequestDTO {
     @NotEmpty(message = "required field")
     private String telephone;
     @NotEmpty(message = "required field")
-    /*@Pattern(regexp = "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-])(?=\\S+$).{8,}",
-            message = "your password must contain at least 8 characters including a caps,a lowercase ,a number and {#,?,!,@,$,%,^,&,*,-}" +
-                    " and must not contain spaces")*/
     private String password;
     @NotEmpty(message = "required field")
     private String genre;
     @NotEmpty(message = "required field")
     private String grade;
+    private String status;
 
 }

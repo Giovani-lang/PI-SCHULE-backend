@@ -6,7 +6,6 @@ import com.logonedigital.PI.SCHULE.Entity.PensionScolaire;
 import com.logonedigital.PI.SCHULE.Exception.RessourceExistException;
 import com.logonedigital.PI.SCHULE.Exception.RessourceNotFoundException;
 import com.logonedigital.PI.SCHULE.Mapper.PensionMapper;
-import com.logonedigital.PI.SCHULE.Model.AnneeAcademiqueModel;
 import com.logonedigital.PI.SCHULE.Repository.AnneeAcademiqueRepository;
 import com.logonedigital.PI.SCHULE.Repository.EtudiantRepository;
 import com.logonedigital.PI.SCHULE.Repository.PensionScolaireRepo;
@@ -46,6 +45,7 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
         AnneeAcademique annee = this.anneeAcademiqueRepo.findById(pensionScolaire.getAnnee_academique())
                 .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
         pension.setAnneeAcademique(annee);
+        pension.setPensionAnnuelle(etd.getClasse().getTarif());
         return this.pensionMapper.fromPension(this.pensionScolaireRepo.save(pension));
     }
 
@@ -72,6 +72,13 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
             } else if (totalPaye != null) {
                 pensionScolaire.setTotalPaye(totalPaye);
             }
+            pensionScolaire.setPensionAnnuelle(pensionScolaire.getEtudiant().getClasse().getTarif());
+            pensionScolaire.setRestePaye(pensionScolaire.getPensionAnnuelle() - pensionScolaire.getTotalPaye());
+            if (pensionScolaire.getRestePaye() == 0.0){
+                pensionScolaire.setStatut("Soldée");
+            }else {
+                pensionScolaire.setStatut("En cours");
+            }
 
             /**** mise à jour du total payé au cours de l'année  ******/
             this.pensionMapper.fromPension(this.pensionScolaireRepo.save(pensionScolaire));
@@ -93,18 +100,11 @@ public class PensionScolaireServiceImpl implements PensionScolaireService {
                     .orElseThrow(()-> new RessourceNotFoundException("This annee academique doesn't exist, try again !"));
             newPensionScolaire.setAnneeAcademique(annee);
 
-            newPensionScolaire.setPensionAnnuelle(oldPensionScolaire.getPensionAnnuelle());
-
             return this.pensionMapper.fromPension(this.pensionScolaireRepo.save(newPensionScolaire));
         } catch (Exception exception) {
             throw new RessourceNotFoundException("la mise à jour n'a pas été faite");
         }
     }
-//    @Override
-//    public void deletePensionScolaire(String matricule) {
-//        PensionScolaire pensionScolaire = this.pensionScolaireRepo.findByMatricule(matricule).get();
-//        this.pensionScolaireRepo.delete(pensionScolaire);
-//    }
 
 }
 
